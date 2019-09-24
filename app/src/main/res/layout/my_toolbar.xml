@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_alignParentLeft="true"/>
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/image_parent"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/back_arrow"
+                android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/default_placeholder"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/online_sign"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/online_small_circle_drawble"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+                    app:layout_constraintRight_toRightOf="@+id/profile_image"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+                android:id="@+id/title"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:text="Dr. jane Doe"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/image_parent"
+                android:visibility="invisible"
+                android:fontFamily="@font/ubuntu_m"
+                android:textColor="@color/screen_title_color"
+                android:textSize="16sp"/>
+
+        <ImageView
+                android:id="@+id/menu_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:visibility="invisible"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/more_icon"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
