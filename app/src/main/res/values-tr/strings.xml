@@ -15,7 +15,7 @@
 
     <string name="skip">ATLA</string>
     <string name="save">Kaydet </string>
-    <string name="OK">OK</string>
+    <string name="OK">Ok</string>
     <string name="CANCEL">İPTAL </string>
     <string name="next">Sonraski </string>
     <string name="let_begin">Başlayalım </string>
@@ -47,7 +47,7 @@
     <string name="country_message">Bu bilgileri sizi en uygun danışman ile eşleştirmek için alıyoruz. </string>
     <string name="dob">DOB</string>
     <string name="sign_up_message">Kaydolarak Nibou\'nun şart ve koşullarını kabul etmiş oluyorsunuz. </string>
-    <string name="sign_up_success_message">Nibou’ya başarı ile kaydoldunuz. Daha mutlu bir hayata bir adım daha yaklaştınız.  </string>
+    <string name="sign_up_success_message">You are now a member of SuperCars Majlis.</string>
     <string name="success">Başarı</string>
     <string name="continu">Devam et </string>
     <string name="email">E-Posta</string>
@@ -219,7 +219,7 @@
     <string name="server_faliure">Sunucu cevap vermiyor! </string>
     <string name="wrong_with_backend">Bir şeyler yanlış gitti. Lütfen tekrar deneyin! </string>
     <string name="internet_error">İnternet bağlantısı koptu!</string>
-    <string name="error">HATA</string>
+    <string name="error">Hata</string>
     <string name="alert">UYARI</string>
     <string name="error_message">Yanlış kullanıcı adı ya da parola </string>
     <string name="already_registered_message">E-posta başka bir hesaba kayıtlı. </string>
@@ -257,5 +257,13 @@
     <string name="phone_empty_alert">Please enter phone number.</string>
     <string name="brand_empty_alert">Please select brand.</string>
     <string name="model_empty_alert">Please select model.</string>
+    <string name="membership"><![CDATA[Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our  privacy policy and terms &amp; conditions to know more about our selection process]]></string>
+    <string name="start_register">Start registration</string>
+    <string name="past_event">SCM Past Events</string>
+    <string name="thank_you_desc">We have received your application.You will be contacted shortly.</string>
+    <string name="rsvp_error">There was an error in RSVP’ing for the event, please connect with the SCM admin.</string>
+    <string name="area_error">You need to be with 1 KM of the check in area</string>
+    <string name="checkpoint_success">You successfully checked in into checkpoint 1!</string>
+    <string name="event_success">You have been registered for the Drag Race event!</string>
 
 </resources>

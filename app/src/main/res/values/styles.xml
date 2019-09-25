@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="WhiteAppTheme" parent="AppTheme">
@@ -26,11 +26,12 @@
     </style>
 
     <style name="MyEditTextTheme">
-        <item name="colorControlNormal">#88b0d0</item>
+        <!--<item name="colorControlNormal">#88b0d0</item>-->
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="MyEditTextBlackTheme">
-        <item name="colorControlNormal">@color/app_black_color_code</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">

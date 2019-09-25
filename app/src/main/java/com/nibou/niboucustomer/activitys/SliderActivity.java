@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.nibou.niboucustomer.R;
@@ -19,10 +17,10 @@ public class SliderActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private int page = 0;
-    private Button mFinishBtn;
+    //    private Button mFinishBtn;
     private ImageView zero, one, two, three, four, five, mNextBtn;
     private ImageView[] indicators;
-    private View back_button;
+//    private View back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +28,15 @@ public class SliderActivity extends BaseActivity {
         setContentView(R.layout.activity_pager);
 
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        back_button = findViewById(R.id.back_arrow);
+       /* back_button = findViewById(R.id.back_arrow);
         back_button.setVisibility(View.GONE);
         back_button.setOnClickListener(v -> {
             page -= 1;
             mViewPager.setCurrentItem(page, true);
-        });
+        });*/
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mFinishBtn = findViewById(R.id.intro_btn_finish);
+//        mFinishBtn = findViewById(R.id.intro_btn_finish);
         mNextBtn = findViewById(R.id.intro_btn_next);
         zero = findViewById(R.id.intro_indicator_0);
         one = findViewById(R.id.intro_indicator_1);
@@ -47,7 +45,7 @@ public class SliderActivity extends BaseActivity {
         four = findViewById(R.id.intro_indicator_4);
         five = findViewById(R.id.intro_indicator_5);
 
-        indicators = new ImageView[]{zero, one, two, three, four, five};
+        indicators = new ImageView[]{zero, one, two /*,three, four, five*/};
 
         mViewPager = (ViewPager) findViewById(R.id.container);
 
@@ -61,9 +59,9 @@ public class SliderActivity extends BaseActivity {
                 page = position;
                 updateIndicators(page);
 
-                mNextBtn.setVisibility(position == 3 ? View.GONE : View.VISIBLE);
-                mFinishBtn.setVisibility(position == 3 ? View.VISIBLE : View.GONE);
-                back_button.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+//                mNextBtn.setVisibility(position == 2 ? View.VISIBLE : View.VISIBLE);
+//                mFinishBtn.setVisibility(position == 2 ? View.GONE : View.GONE);register
+//                back_button.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
 
             }
 
@@ -76,13 +74,20 @@ public class SliderActivity extends BaseActivity {
         mNextBtn.setOnClickListener(view -> {
             page += 1;
             mViewPager.setCurrentItem(page, true);
+
+            if (page == 3) {
+                LocalPrefences.getInstance().putBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
+                Intent intent = new Intent(SliderActivity.this, UserCheckActivity.class);
+                startActivity(intent);
+                finishAffinity();
+            }
         });
-        mFinishBtn.setOnClickListener(view -> {
+        /*mFinishBtn.setOnClickListener(view -> {
             LocalPrefences.getInstance().putBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
             Intent intent = new Intent(SliderActivity.this, UserCheckActivity.class);
             startActivity(intent);
             finishAffinity();
-        });
+        });*/
     }
 
     @Override
@@ -108,7 +113,7 @@ public class SliderActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 

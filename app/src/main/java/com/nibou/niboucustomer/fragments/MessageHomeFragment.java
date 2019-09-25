@@ -51,7 +51,7 @@ public class MessageHomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppUtil.changeStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.pdf_bg));
+        AppUtil.changeStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.black));
         try {
             getActivity().registerReceiver(broadcastRefreshReceiver, new IntentFilter(AppConstant.NEW_MESSAGE_RECIEVER));
         } catch (Exception e) {

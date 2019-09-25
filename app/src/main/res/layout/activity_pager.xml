@@ -5,12 +5,11 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:paddingBottom="30dp">
+    android:background="@drawable/bg">
 
-    <include
+    <!--<include
         android:id="@+id/toolbar"
-        layout="@layout/my_toolbar" />
+        layout="@layout/my_toolbar" />-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
@@ -19,16 +18,17 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp" />
 
     <FrameLayout
         android:id="@+id/bottomView"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="10dp"
         android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/intro_btn_next"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
@@ -64,7 +64,8 @@
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/indicator_unselected" />
+                android:background="@drawable/indicator_unselected"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/intro_indicator_4"
@@ -83,29 +84,31 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/intro_btn_finish"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:layout_marginRight="15dp"
-            android:fontFamily="@font/ubuntu_b"
-            android:text="@string/let_begin"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/intro_btn_next"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center|right"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/right_arrow" />
+        <!-- <Button
+             android:id="@+id/intro_btn_finish"
+             style="@style/Widget.AppCompat.Button.Borderless"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center|right"
+             android:layout_marginEnd="15dp"
+             android:fontFamily="@font/ubuntu_b"
+             android:text="@string/let_begin"
+             android:textAllCaps="true"
+             android:textColor="@android:color/white"
+             android:textSize="16sp"
+             android:visibility="gone" />-->
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/intro_btn_next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>
 

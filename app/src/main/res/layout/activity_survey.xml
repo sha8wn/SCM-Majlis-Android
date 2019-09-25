@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:background="@drawable/bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
 
         <include
-                android:id="@+id/toolbar"
-                layout="@layout/my_toolbar"/>
+            android:id="@+id/toolbar"
+            layout="@layout/my_toolbar" />
 
         <TextView
-                android:id="@+id/title"
-                android:gravity="center|left"
-                android:layout_width="match_parent"
-                android:text="@string/survey_title"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/ubuntu_b"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:layout_below="@+id/toolbar"/>
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/ubuntu_b"
+            android:gravity="center|left"
+            android:text="@string/survey_title"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
-                android:id="@+id/sub_title"
-                android:gravity="center|left"
-                android:layout_width="match_parent"
-                android:text="@string/survey_sub_title"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0.6"
-                android:fontFamily="@font/opensans_r"
-                android:textColor="@color/app_white_color_code"
-                android:textSize="14sp"
-                android:layout_below="@+id/title"/>
+            android:id="@+id/sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.6"
+            android:fontFamily="@font/opensans_r"
+            android:gravity="center|left"
+            android:text="@string/survey_sub_title"
+            android:textColor="@color/app_white_color_code"
+            android:textSize="14sp" />
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/sub_title"
-                android:layout_above="@+id/btn_continue"></android.support.v7.widget.RecyclerView>
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_continue"
+            android:layout_below="@+id/sub_title"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"></android.support.v7.widget.RecyclerView>
 
 
         <TextView
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:id="@+id/btn_continue"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:text="@string/continu"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/ubuntu_b"
-                android:layout_marginRight="20dp"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:layout_alignParentBottom="true"/>
+            android:id="@+id/btn_continue"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/ubuntu_b"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/continu"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </layout>

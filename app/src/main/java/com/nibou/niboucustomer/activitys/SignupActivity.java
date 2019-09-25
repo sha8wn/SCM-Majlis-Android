@@ -83,7 +83,7 @@ public class SignupActivity extends BaseActivity {
             CountryPicker picker = CountryPicker.newInstance("Select Country");// dialog title
             picker.setListener((name, code, dialCode, flagDrawableResID) -> {
                 ((Activity) context).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                binding.etCountry.setText(name);
+                binding.etCountry.setText(dialCode);
                 picker.dismiss();
             });
             picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
@@ -116,7 +116,7 @@ public class SignupActivity extends BaseActivity {
             }
         });
 
-        Typeface boldFont = ResourcesCompat.getFont(this, R.font.opensans_r);
+        /*Typeface boldFont = ResourcesCompat.getFont(this, R.font.opensans_r);
         SpannableStringBuilder ss = new SpannableStringBuilder(getString(R.string.term_privacy));
         ss.setSpan(privacyclick, 102, 116, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new CustomTypefaceSpan("", boldFont), 40, 45, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -124,7 +124,7 @@ public class SignupActivity extends BaseActivity {
         ss.setSpan(termiclick, 120, getString(R.string.term_privacy).length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ss.setSpan(new CustomTypefaceSpan("", boldFont), 120, getString(R.string.term_privacy).length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(Color.WHITE), 120, getString(R.string.term_privacy).length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        binding.privacy.setText(ss);
+        binding.privacy.setText(ss);*/
         binding.privacy.setMovementMethod(LinkMovementMethod.getInstance());
     }
 

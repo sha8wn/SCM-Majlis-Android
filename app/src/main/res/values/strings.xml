@@ -13,21 +13,19 @@
     <!--slide screen-->
     <string name="skip">SKIP</string>
     <string name="save">Save</string>
-    <string name="OK">OK</string>
-    <string name="CANCEL">CANCEL</string>
+    <string name="OK">Ok</string>
+    <string name="CANCEL">Cancel</string>
     <string name="next">Next</string>
     <string name="let_begin">Let\'s Begin</string>
     <string name="welcome_to_nibou">Welcome to SuperCars Majlis</string>
     <string name="step_survey">Events</string>
     <string name="step_secure">Promotions</string>
-    <string name="step_value">Welcome to SCS,\nlets begin!</string>
-    <string name="survey_description">Answer a few simple questions to specify your needs and preferences.</string>
-    <string name="secure_description">Your privacy is extremely important to us and all data exchanged over Nibou is
-        encrypted.
-    </string>
+    <string name="step_value">Welcome to SCM,\nlets begin!</string>
+    <string name="survey_description">Get notified about the latest events and RSVP to them using the app</string>
+    <string name="secure_description">Get connected to our partners and get exclusive offers available only to SCM members.</string>
     <string name="value_description">You are only charged for the time taken by our therapists to interact with you.
     </string>
-    <string name="welcome_description">Get access to qualified therapists round the clock.</string>
+    <string name="welcome_description">Many brands, one passion.</string>
 
 
     <!--user selection screen-->
@@ -52,12 +50,12 @@
     <string name="country_message">We take this information to match you with the best available experts.</string>
     <string name="dob">DOB</string>
     <string name="sign_up_message">By signing up, you are agreeing to Nibou\'s terms &amp; conditions.</string>
-    <string name="sign_up_success_message">You have successfully signed us with Nibou.\nYou need to activate your account in order to use the app. We have sent you instructions via email.</string>
+    <string name="sign_up_success_message">You are now a member of SuperCars Majlis.</string>
     <string name="success">Success</string>
     <string name="continu">Continue</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
     <string name="name_empty_alert">Please enter full name.</string>
     <string name="alias_empty_alert">Please enter alias name.</string>
     <string name="email_empty_alert">Please enter email address.</string>
@@ -200,7 +198,7 @@
     <string name="reset_password">Reset Password</string>
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
-    <string name="repeat_new">Repeat New</string>
+    <string name="repeat_new">Repeat Password</string>
     <string name="currentpwd_empty_alert">Please enter current password.</string>
     <string name="newpwd_empty_alert">Please enter new password.</string>
     <string name="repeatpwd_empty_alert">Please enter repeated password</string>
@@ -224,7 +222,7 @@
     <string name="server_faliure">Server no responding!</string>
     <string name="wrong_with_backend">Something went wrong. Please try again!</string>
     <string name="internet_error">Internet connection lost!</string>
-    <string name="error">ERROR</string>
+    <string name="error">Error</string>
     <string name="alert">ALERT</string>
     <string name="error_message">Incorrect username or password</string>
     <string name="already_registered_message">Emaild Id is already registered with another account.</string>
@@ -272,5 +270,13 @@
     <string name="phone_empty_alert">Please enter phone number.</string>
     <string name="brand_empty_alert">Please select brand.</string>
     <string name="model_empty_alert">Please select model.</string>
+    <string name="membership"><![CDATA[Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our  privacy policy and terms &amp; conditions to know more about our selection process]]></string>
+    <string name="start_register">Start registration</string>
+    <string name="past_event">SCM Past Events</string>
+    <string name="thank_you_desc">We have received your application.You will be contacted shortly.</string>
+    <string name="rsvp_error">There was an error in RSVP’ing for the event, please connect with the SCM admin.</string>
+    <string name="area_error">You need to be with 1 KM of the check in area</string>
+    <string name="checkpoint_success">You successfully checked in into checkpoint 1!</string>
+    <string name="event_success">You have been registered for the Drag Race event!</string>
 
 </resources>

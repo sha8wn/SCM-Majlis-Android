@@ -55,7 +55,7 @@ public class SettingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppUtil.changeStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.white));
+        AppUtil.changeStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.black));
         initView();
         checkDeviceLanguage();
     }
