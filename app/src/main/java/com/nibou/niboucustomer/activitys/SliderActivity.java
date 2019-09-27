@@ -2,6 +2,7 @@ package com.nibou.niboucustomer.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -76,10 +77,8 @@ public class SliderActivity extends BaseActivity {
             mViewPager.setCurrentItem(page, true);
 
             if (page == 3) {
-                LocalPrefences.getInstance().putBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
-                Intent intent = new Intent(SliderActivity.this, UserCheckActivity.class);
+                Intent intent = new Intent(SliderActivity.this, WelcomeActivity.class);
                 startActivity(intent);
-                finishAffinity();
             }
         });
         /*mFinishBtn.setOnClickListener(view -> {
