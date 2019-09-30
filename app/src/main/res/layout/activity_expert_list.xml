@@ -47,8 +47,7 @@
                 android:gravity="center"
                 android:text="@string/choose_previous_expert"
                 android:textColor="@color/app_white_color_code"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
 
             <android.support.v7.widget.RecyclerView

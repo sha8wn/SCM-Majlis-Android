@@ -14,9 +14,7 @@ public class MyImageViewPagerActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     List<String> mImageList = new ArrayList<>();
-    boolean isMyPhotos;
     int currentPos = 0;
-    String fname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +24,10 @@ public class MyImageViewPagerActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ImageView imgBack = findViewById(R.id.pager);
+        ImageView imgBack = findViewById(R.id.imgCross);
         imgBack.setOnClickListener(view -> onBackPressed());
         if (getIntent().getExtras() != null) {
             mImageList = (List<String>) getIntent().getExtras().getSerializable("LIST");
-        }
-
-        if (getIntent().getExtras() != null) {
-            isMyPhotos = getIntent().getExtras().getBoolean("MY_PHOTOS");
-        }
-
-        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("FNAME")) {
-            fname = getIntent().getExtras().getString("FNAME");
         }
 
         if (getIntent().getExtras() != null) {

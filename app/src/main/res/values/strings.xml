@@ -270,7 +270,8 @@
     <string name="phone_empty_alert">Please enter phone number.</string>
     <string name="brand_empty_alert">Please select brand.</string>
     <string name="model_empty_alert">Please select model.</string>
-    <string name="membership"><![CDATA[Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our  privacy policy and terms &amp; conditions to know more about our selection process]]></string>
+    <string name="membership">"Completing this form not guarantee an SCM membersip. You will be notified if your application
+        is successful. Please read our privacy policy and terms &amp; conditions to know more about our selection process></string>
     <string name="start_register">Start registration</string>
     <string name="past_event">SCM Past Events</string>
     <string name="thank_you_desc">We have received your application.You will be contacted shortly.</string>

@@ -58,8 +58,7 @@
             android:fontFamily="@font/opensans_r"
             android:text="@string/paid"
             android:textColor="@color/paid_color"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/time_label"

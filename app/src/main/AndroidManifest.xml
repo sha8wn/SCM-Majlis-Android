@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activitys.WelcomeActivity"></activity>
+        <activity android:name=".activitys.PastEventActivity"></activity>
+        <activity android:name=".activitys.WelcomeActivity" />
         <activity android:name=".activitys.ShowDialogActivity" />
 
         <meta-data
