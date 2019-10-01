@@ -1,44 +1,43 @@
 package com.nibou.niboucustomer.activitys;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.actioncable.ActionSessionHandler;
+import com.nibou.niboucustomer.adapters.ListAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.databinding.ActivitySignupBinding;
 import com.nibou.niboucustomer.models.AccessTokenModel;
+import com.nibou.niboucustomer.models.BrandModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.CustomTypefaceSpan;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
-import com.ybs.countrypicker.CountryPicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -56,6 +55,8 @@ public class SignupActivity extends BaseActivity {
             onBackPressed();
         });
         context = this;
+
+
 
         /*binding.aliasInfo.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
@@ -78,7 +79,7 @@ public class SignupActivity extends BaseActivity {
             AppDialogs.getInstance().showInfoCustomDialog(context, getString(R.string.country), getString(R.string.country_message), getString(R.string.OK), null);
         });*/
 
-        binding.etCountry.setOnClickListener(v -> {
+       /* binding.etCountry.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             CountryPicker picker = CountryPicker.newInstance("Select Country");// dialog title
             picker.setListener((name, code, dialCode, flagDrawableResID) -> {
@@ -87,6 +88,16 @@ public class SignupActivity extends BaseActivity {
                 picker.dismiss();
             });
             picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
+        });
+*/
+        binding.etBrand.setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
+            openBrandListDialog("Brand");
+        });
+
+        binding.etModel.setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
+            openBrandListDialog("Model");
         });
 
         /*binding.etDob.setOnClickListener(v -> {
@@ -98,7 +109,15 @@ public class SignupActivity extends BaseActivity {
             AppUtil.hideKeyBoard(SignupActivity.this);
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
-                    AppDialogs.getInstance().showConfirmCustomDialog(context, null, getString(R.string.sign_up_message), getString(R.string.CANCEL), getString(R.string.sign_up).toUpperCase(), new AppDialogs.DialogCallback() {
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
+                            getString(R.string.thank_you_desc), getString(R.string.continu),
+                            getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
+                                @Override
+                                public void response(boolean status) {
+
+                                }
+                            });
+                    /*AppDialogs.getInstance().showConfirmCustomDialog(context, getString(R.string.sign_up), getString(R.string.sign_up_message), getString(R.string.CANCEL), getString(R.string.sign_up).toUpperCase(), new AppDialogs.DialogCallback() {
                         @Override
                         public void response(boolean status) {
                             if (status) {
@@ -109,7 +128,7 @@ public class SignupActivity extends BaseActivity {
                                 }
                             }
                         }
-                    });
+                    });*/
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
@@ -128,6 +147,57 @@ public class SignupActivity extends BaseActivity {
         binding.privacy.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    private void openBrandListDialog(String type) {
+        Dialog dialog = new Dialog(this, R.style.FullScreenDialogStyle);
+        dialog.setContentView(R.layout.brand_list);
+
+        ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
+        SearchView ivSearch = dialog.findViewById(R.id.ivSearch);
+        RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
+
+        back_arrow.setOnClickListener(view -> dialog.dismiss());
+
+        ivSearch.setVisibility(View.VISIBLE);
+
+        ivSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+//                listAadpter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+//                mAdapter.getFilter().filter(query);
+                return false;
+            }
+        });
+
+//        BrandModel mBrandModel = new BrandModel();
+        ArrayList<BrandModel> mList = new ArrayList();
+
+        mList.add(new BrandModel("Toyota"));
+        mList.add(new BrandModel("BMW"));
+        mList.add(new BrandModel("Nissan"));
+        mList.add(new BrandModel("Audi"));
+        mList.add(new BrandModel("Porsche"));
+
+        rvBrandList.setLayoutManager(new LinearLayoutManager(this));
+        ListAdapter listAadpter = new ListAdapter(context, mList, new AppCallBack() {
+            @Override
+            public void onSelect(String item) {
+                dialog.dismiss();
+                if (type.equalsIgnoreCase("Brand"))
+                    binding.etBrand.setText(item);
+                else if (type.equalsIgnoreCase("Model"))
+                    binding.etModel.setText(item);
+            }
+        });
+        rvBrandList.setAdapter(listAadpter);
+        dialog.show();
+    }
 
     private void signupNetworkCall() {
         HashMap<String, Object> mainParameters = new HashMap<>();
@@ -167,7 +237,7 @@ public class SignupActivity extends BaseActivity {
 
     private void accessTokenNetworkCall() {
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getAccessToken(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.CLIENT_ID, AppConstant.CLIENT_SECRET, AppConstant.PASSWORD, binding.etEmail.getText().toString()
-                ,""/*binding.etPassword.getText().toString()*/, "1"), new ApiHandler.CallBack() {
+                , ""/*binding.etPassword.getText().toString()*/, "1"), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 if (isSuccess) {

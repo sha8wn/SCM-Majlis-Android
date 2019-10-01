@@ -36,5 +36,6 @@
     <color name="disable_grey">#aeaeae</color>
     <color name="bg_color">#282830</color>
     <color name="dialog_color">#33333E</color>
+    <color name="black_2e">#2e2e33</color>
 
 </resources>

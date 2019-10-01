@@ -41,12 +41,17 @@ public class UserCheckActivity extends BaseActivity {
         binding.newUser.setOnClickListener(v -> {
             openRegisterDialog();
         });
+
+        binding.tvFan.setOnClickListener(v -> {
+            Intent intent = new Intent(UserCheckActivity.this, PastEventActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void openRegisterDialog() {
         final Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.dialog_start_register);
-        TextView reset_pwd = dialog.findViewById(R.id.reset_pwd);
+        TextView startRegister = dialog.findViewById(R.id.startRegister);
         ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
         TextView des = dialog.findViewById(R.id.tvDesc);
 
@@ -70,7 +75,8 @@ public class UserCheckActivity extends BaseActivity {
         back_arrow.setOnClickListener(view -> {
             dialog.dismiss();
         });
-        reset_pwd.setOnClickListener(view -> {
+
+        startRegister.setOnClickListener(view -> {
             try {
                 Intent intent = new Intent(UserCheckActivity.this, SignupActivity.class);
                 startActivity(intent);

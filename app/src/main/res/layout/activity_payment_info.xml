@@ -22,7 +22,6 @@
             android:text="@string/payment"
             android:textColor="@color/screen_title_color"
             android:textSize="24sp"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />

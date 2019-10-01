@@ -265,5 +265,8 @@
     <string name="area_error">You need to be with 1 KM of the check in area</string>
     <string name="checkpoint_success">You successfully checked in into checkpoint 1!</string>
     <string name="event_success">You have been registered for the Drag Race event!</string>
-
+    <string name="general_1">1.General > 2.SuperCars</string>
+    <string name="scm_event">SCM Events</string>
+    <string name="check_in">Check In</string>
+    <string name="going">Going</string>
 </resources>

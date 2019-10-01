@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="200dp"
-    android:layout_height="300dp"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="15dp"
     app:cardCornerRadius="20dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_color"
-        android:paddingStart="15dp">
+        android:background="@color/cursor_color">
+
+        <ImageView
+            android:id="@+id/ivEvent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvCost"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_gradient_blue"
+            android:fontFamily="@font/segoeuib"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:minWidth="50dp"
+            android:text="@string/free"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivLive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/live"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCost" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="end|center_vertical"
             android:includeFontPadding="false"
             android:text="21 July 19"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,24 +65,23 @@
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="end|center_vertical"
             android:includeFontPadding="false"
             android:text="09:00 AM"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
         <View
-            android:id="@+id/ivTick"
+            android:id="@+id/v1"
             android:layout_width="40dp"
             android:layout_height="4dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTime" />
@@ -58,14 +91,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="end|center_vertical"
             android:includeFontPadding="false"
+            android:paddingStart="10dp"
             android:text="Drag Race"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/tvLoc"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,17 +107,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:alpha="0.5"
             android:drawableStart="@drawable/map_locator"
             android:drawablePadding="5dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:gravity="end|center_vertical"
             android:includeFontPadding="false"
+            android:paddingStart="10dp"
             android:text="Plam Jumeria Strip"
             android:textColor="@android:color/white"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:textSize="10sp"
             app:layout_constraintBottom_toTopOf="@+id/tvPerson"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -100,12 +133,34 @@
             android:fontFamily="@font/poppins_semi_bold"
             android:gravity="end|center_vertical"
             android:includeFontPadding="false"
+            android:paddingStart="10dp"
             android:text="30 people participated"
             android:textColor="@android:color/white"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/tvGoing"
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/going_drawable"
+            android:fontFamily="@font/segoeuib"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/going"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivEventImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </android.support.v7.widget.CardView>
