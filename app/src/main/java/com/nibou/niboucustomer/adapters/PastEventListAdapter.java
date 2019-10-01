@@ -30,7 +30,7 @@ public class PastEventListAdapter extends RecyclerView.Adapter<PastEventListAdap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View rootView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_item, viewGroup, false);
+        View rootView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.past_event_item, viewGroup, false);
         return new MyViewHolder(rootView);
     }
 
