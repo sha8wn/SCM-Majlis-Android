@@ -11,7 +11,7 @@ apply plugin: 'realm-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.nibouapp.nibou_customer"
+        applicationId "com.scm.scm_member"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

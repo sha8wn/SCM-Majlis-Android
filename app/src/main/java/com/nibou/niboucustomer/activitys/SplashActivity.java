@@ -59,90 +59,7 @@ public class SplashActivity extends BaseActivity {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
 
-        if (getIntent() != null && getIntent().hasExtra(AppConstant.ROOM_ID)) {
-            if (AppUtil.isInternetAvailable(this)) {
-                sendMessageNetworkCall(this, getIntent().getStringExtra(AppConstant.ROOM_ID), RequestBody.create(MediaType.parse("text/plain"), "END_SESSION"), null);
-            } else {
-                AppUtil.showToast(this, getString(R.string.internet_error));
-            }
-        }
-
-        if (AppUtil.isInternetAvailable(this) && LocalPrefences.getInstance().isUserLogin(this) && isTimeZoneChanged()) {
-            updateProfileNetworkCall();
-        }
-
-        if (LocalPrefences.getInstance().isUserLogin(this)) {
-            checkUserData();
-        } else {
-            init();
-        }
-    }
-
-    private void checkUserData() {
-
-        new Thread(() -> {
-            if (AppUtil.isInternetAvailable(SplashActivity.this)) {
-                getCardListNetworkCall();
-            } else {
-                AppUtil.showToast(SplashActivity.this, getString(R.string.internet_error));
-            }
-        }).start();
-
-    }
-
-    private void showErrorAlert() {
-        AppDialogs.getInstance().showInfoCustomDialog(SplashActivity.this, getString(R.string.system_error).toUpperCase(), getString(R.string.system_error_message), getString(R.string.try_again).toUpperCase(), status -> checkUserData());
-    }
-
-    private void getCardListNetworkCall() {
-        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).getMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + LocalPrefences.getInstance().getLocalAccessTokenModel(this).getAccessToken(), "user_credit_cards"), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    boolean isCard = false;
-                    ProfileModel profileModel = (ProfileModel) data;
-                    if (profileModel.getIncluded() != null && profileModel.getIncluded().size() > 0) {
-                        for (int i = 0; i < profileModel.getIncluded().size(); i++) {
-                            if (profileModel.getIncluded().get(i).getAttributes().isIs_active()) {
-                                isCard = true;
-                                break;
-                            }
-                        }
-                    }
-                    getChatSessionNetworkCall(isCard);
-                } else {
-                    showErrorAlert();
-                }
-            }
-
-            @Override
-            public void failed() {
-                showErrorAlert();
-            }
-        });
-    }
-
-    private void getChatSessionNetworkCall(boolean isCard) {
-        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).getActiveChatSession(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + LocalPrefences.getInstance().getLocalAccessTokenModel(this).getAccessToken()), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    ActiveChatSessionModel activeChatSessionModel = (ActiveChatSessionModel) data;
-                    if (activeChatSessionModel.getData().size() > 0) {
-                        checkDeviceLanguage(true, isCard);
-                    } else {
-                        checkDeviceLanguage(false, isCard);
-                    }
-                } else {
-                    showErrorAlert();
-                }
-            }
-
-            @Override
-            public void failed() {
-                showErrorAlert();
-            }
-        });
+        init();
     }
 
     @Override
@@ -163,120 +80,17 @@ public class SplashActivity extends BaseActivity {
         handler.postDelayed(runnable, 1000);
     }
 
-    private Runnable runnable = () -> checkDeviceLanguage(false, false);
+    private Runnable runnable = () -> moveToNextScreen();
 
-
-    private void checkDeviceLanguage(boolean isSessionActive, boolean isCard) {
-        if (LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE) == null) {
-            if (Locale.getDefault().getLanguage().equals(AppConstant.ENGLISH)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.ENGLISH));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.ENGLISH);
-                moveToNextScreen(isSessionActive, isCard);
-            } else if (Locale.getDefault().getLanguage().equals(AppConstant.TURKISH)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.TURKISH));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.TURKISH);
-                moveToNextScreen(isSessionActive, isCard);
-            } else if (Locale.getDefault().getLanguage().equals(AppConstant.ARABIC)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.ARABIC));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.ARABIC);
-                moveToNextScreen(isSessionActive, isCard);
-            } else {
-                Intent intent = new Intent(SplashActivity.this, LanguageActivity.class);
-                intent.putExtra("isSessionActive", isSessionActive);
-                intent.putExtra("isCard", isCard);
-                startActivity(intent);
-                finish();
-            }
-        } else if (LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE).equals(Locale.getDefault().getLanguage())) {
-            //no need to show language screen
-            Configuration conf = getResources().getConfiguration();
-            conf.setLocale(new Locale(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE)));
-            getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-            moveToNextScreen(isSessionActive, isCard);
+    private void moveToNextScreen() {
+        if (LocalPrefences.getInstance().getBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS)) {
+            Intent intent = new Intent(SplashActivity.this, UserCheckActivity.class);
+            startActivity(intent);
         } else {
-            if (Locale.getDefault().getLanguage().equals(AppConstant.ENGLISH)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.ENGLISH));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.ENGLISH);
-            } else if (Locale.getDefault().getLanguage().equals(AppConstant.TURKISH)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.TURKISH));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.TURKISH);
-            } else if (Locale.getDefault().getLanguage().equals(AppConstant.ARABIC)) {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(AppConstant.ARABIC));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-                LocalPrefences.getInstance().putString(this, AppConstant.APP_LANGUAGE, AppConstant.ARABIC);
-            } else {
-                Configuration conf = getResources().getConfiguration();
-                conf.setLocale(new Locale(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE)));
-                getResources().updateConfiguration(conf, getResources().getDisplayMetrics());
-            }
-            moveToNextScreen(isSessionActive, isCard);
-        }
-    }
-
-
-    private void moveToNextScreen(boolean isSessionActive, boolean isCard) {
-        if (LocalPrefences.getInstance().isUserLogin(this)) {
-            if (isCard) {
-                if (isSessionActive) {
-                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(SplashActivity.this, SurveyActivity.class);
-                    intent.putExtra("login", true);
-                    startActivity(intent);
-                }
-            } else {
-                Intent intent = new Intent(SplashActivity.this, PaymentInfoActivity.class);
-                intent.putExtra("login", true);
-                intent.putExtra("isSessionActive", isSessionActive);
-                startActivity(intent);
-            }
-        } else {
-            if (LocalPrefences.getInstance().getBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS)) {
-                Intent intent = new Intent(SplashActivity.this, UserCheckActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(SplashActivity.this, SliderActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(SplashActivity.this, SliderActivity.class);
+            startActivity(intent);
         }
         finish();
-    }
-
-    private boolean isTimeZoneChanged() {
-        if (LocalPrefences.getInstance().getString(this, AppConstant.TIMEZONE) != null && TimeZone.getDefault().getID().equals(LocalPrefences.getInstance().getString(this, AppConstant.TIMEZONE))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void updateProfileNetworkCall() {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("timezone", TimeZone.getDefault().getID());
-        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).updateMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + LocalPrefences.getInstance().getLocalAccessTokenModel(this).getAccessToken(), parameters), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    LocalPrefences.getInstance().putString(SplashActivity.this, AppConstant.TIMEZONE, TimeZone.getDefault().getID());
-                }
-            }
-
-            @Override
-            public void failed() {
-            }
-        });
     }
 }
 

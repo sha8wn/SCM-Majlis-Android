@@ -33,17 +33,10 @@ public class PrivacyPolicyActivity extends BaseActivity {
             AppUtil.hideKeyBoard(context);
             onBackPressed();
         });
-
         if (getIntent().getStringExtra("type").equals("privacy")) {
             binding.titleHeader.setText(context.getString(R.string.privacy_policy));
         } else if (getIntent().getStringExtra("type").equals("terms")) {
             binding.titleHeader.setText(context.getString(R.string.term_condition));
-        }
-
-        if (AppUtil.isInternetAvailable(context)) {
-            getTextNetworkCall();
-        } else {
-            AppUtil.showToast(context, getString(R.string.internet_error));
         }
     }
 
