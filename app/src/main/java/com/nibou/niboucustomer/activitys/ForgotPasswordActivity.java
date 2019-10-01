@@ -36,8 +36,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         binding.resetPwd.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
-                if (screenValidate())
-                    forgotPasswordNetworkCall();
+                if (screenValidate()){
+
+                }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }

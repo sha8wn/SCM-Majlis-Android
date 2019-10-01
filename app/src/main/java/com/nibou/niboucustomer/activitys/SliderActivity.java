@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.nibou.niboucustomer.R;
@@ -18,23 +19,21 @@ public class SliderActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private int page = 0;
-    //    private Button mFinishBtn;
     private ImageView zero, one, two, three, four, five, mNextBtn;
     private ImageView[] indicators;
-//    private View back_button;
+    private View back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
-
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-       /* back_button = findViewById(R.id.back_arrow);
-        back_button.setVisibility(View.GONE);
-        back_button.setOnClickListener(v -> {
-            page -= 1;
-            mViewPager.setCurrentItem(page, true);
-        });*/
+//        back_button = findViewById(R.id.back_arrow);
+//        back_button.setVisibility(View.GONE);
+//        back_button.setOnClickListener(v -> {
+//            page -= 1;
+//            mViewPager.setCurrentItem(page, true);
+//        });
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 //        mFinishBtn = findViewById(R.id.intro_btn_finish);
@@ -75,18 +74,12 @@ public class SliderActivity extends BaseActivity {
         mNextBtn.setOnClickListener(view -> {
             page += 1;
             mViewPager.setCurrentItem(page, true);
-
             if (page == 3) {
                 Intent intent = new Intent(SliderActivity.this, WelcomeActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-        /*mFinishBtn.setOnClickListener(view -> {
-            LocalPrefences.getInstance().putBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
-            Intent intent = new Intent(SliderActivity.this, UserCheckActivity.class);
-            startActivity(intent);
-            finishAffinity();
-        });*/
     }
 
     @Override

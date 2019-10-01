@@ -7,7 +7,7 @@
     <color name="cursor_color">#ffffff</color>
     <color name="app_theme_color">#282830</color>
     <color name="app_disable_color">#525358</color>
-
+    <color name="dialog_border">#505056</color>
 
 
     <!--dialog color-->

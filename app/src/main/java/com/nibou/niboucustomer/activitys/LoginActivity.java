@@ -51,7 +51,6 @@ public class LoginActivity extends BaseActivity {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
-                    accessTokenNetworkCall();
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));

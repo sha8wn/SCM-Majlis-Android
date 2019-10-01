@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.databinding.ActivityUserCheckBinding;
+import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.CustomTypefaceSpan;
 
@@ -43,7 +44,8 @@ public class UserCheckActivity extends BaseActivity {
         });
 
         binding.tvFan.setOnClickListener(v -> {
-            Intent intent = new Intent(UserCheckActivity.this, PastEventActivity.class);
+            Intent intent = new Intent(context, SignupActivity.class);
+            intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
             startActivity(intent);
         });
     }
@@ -55,19 +57,16 @@ public class UserCheckActivity extends BaseActivity {
         ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
         TextView des = dialog.findViewById(R.id.tvDesc);
 
-
         Typeface boldFont = ResourcesCompat.getFont(context, R.font.poppins_regular);
         SpannableStringBuilder ss = new SpannableStringBuilder(getString(R.string.membership));
         ss.setSpan(privacyclick, 125, 140, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 125, 140, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new CustomTypefaceSpan("", boldFont), 125, 140, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(Color.WHITE), 125, 140, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
         ss.setSpan(termiclick, 144, 163, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 144, 163, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new CustomTypefaceSpan("", boldFont), 144, 163, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(Color.WHITE), 144, 163, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
         des.setText(ss, TextView.BufferType.SPANNABLE);
         des.setMovementMethod(LinkMovementMethod.getInstance());
         des.setHighlightColor(Color.TRANSPARENT);
@@ -75,7 +74,6 @@ public class UserCheckActivity extends BaseActivity {
         back_arrow.setOnClickListener(view -> {
             dialog.dismiss();
         });
-
         startRegister.setOnClickListener(view -> {
             try {
                 Intent intent = new Intent(UserCheckActivity.this, SignupActivity.class);

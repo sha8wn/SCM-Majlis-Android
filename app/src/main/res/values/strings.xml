@@ -283,6 +283,16 @@
     <string name="check_in">Check In</string>
     <string name="going">Going</string>
     <string name="free">Free</string>
+    <string name="color">Color</string>
+    <string name="car_register">Car Registration</string>
+    <string name="upload_License_front">Upload License Front</string>
+    <string name="upload_License_back">Upload License Back</string>
+    <string name="add_supercar">Add another Supercar</string>
+    <string name="upload_Emirates_front">Upliad Emirates Id Front</string>
+    <string name="upload_Emirates_back">Upload Emirates Id Back</string>
+    <string name="upload_Registration_front">Upload Car Registration Front</string>
+    <string name="upload_Registration_back">Upload Car Registration Back</string>
+
 
 
 </resources>

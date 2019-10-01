@@ -7,6 +7,8 @@ public class AppConstant {
     public static final String BASE_URL = "http://api.staging.nibouapp.com/";
     public static final String CLIENT_ID = "KtqwLc20z1Elb1E2GWPfQSpxQTHg0Cc7H_xM_eYtDMo";
     public static final String CLIENT_SECRET = "z0fp2Ng0dssdmkM18Dk8JL9PvTY-EczdrVeHjhk7eYk";
+    public static final String ADMIN_SIGNUP = "admin_signup";
+
     public static final String REFRESH_TOKEN = "refresh_token";
     public static final String BEARER = "Bearer ";
     public static final String EMAIL = "email";

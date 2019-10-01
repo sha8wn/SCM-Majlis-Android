@@ -1,37 +1,33 @@
 package com.nibou.niboucustomer.Dialogs;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.api.ApiClient;
-import com.nibou.niboucustomer.api.ApiEndPoint;
-import com.nibou.niboucustomer.api.ApiHandler;
-import com.nibou.niboucustomer.utils.AppConstant;
-import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.LocalPrefences;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import com.nibou.niboucustomer.adapters.ListAdapter;
+import com.nibou.niboucustomer.callbacks.AppCallBack;
+import com.nibou.niboucustomer.models.BrandModel;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.logging.Handler;
+import java.util.ArrayList;
 
 public class AppDialogs implements Serializable {
 
@@ -75,7 +71,7 @@ public class AppDialogs implements Serializable {
             if (context != null && !((AppCompatActivity) context).isFinishing()) {
                 if (isShow) {
                     progressBar = new Dialog(context, android.R.style.Theme_Material_Dialog);
-                    progressBar.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    progressBar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     progressBar.setContentView(R.layout.progress_bar_view);
                     progressBar.setCanceledOnTouchOutside(false);
                     progressBar.setCancelable(false);
@@ -241,7 +237,7 @@ public class AppDialogs implements Serializable {
     }
 
     public void showCustomDialog(final Context context, String title, String message, String buttonText,
-                                 int color,final DialogCallback dialogCallback) {
+                                 int color, final DialogCallback dialogCallback) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_custom);
@@ -354,6 +350,46 @@ public class AppDialogs implements Serializable {
                 .placeholder(R.drawable.default_placeholder)
                 .error(R.drawable.default_placeholder)
                 .fitCenter().into(fullImageView);
+        dialog.show();
+    }
+
+    public void openBrandListDialog(String type, Context context,AppCallBack appCallBack) {
+        Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
+        dialog.setContentView(R.layout.brand_list);
+
+        ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
+        SearchView ivSearch = dialog.findViewById(R.id.ivSearch);
+        RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
+
+        back_arrow.setOnClickListener(view -> dialog.dismiss());
+        ivSearch.setVisibility(View.VISIBLE);
+
+        ivSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                return false;
+            }
+        });
+        ArrayList<BrandModel> mList = new ArrayList();
+
+        mList.add(new BrandModel("Toyota"));
+        mList.add(new BrandModel("BMW"));
+        mList.add(new BrandModel("Nissan"));
+        mList.add(new BrandModel("Audi"));
+        mList.add(new BrandModel("Porsche"));
+
+        rvBrandList.setLayoutManager(new LinearLayoutManager(context));
+        ListAdapter listAadpter = new ListAdapter(context, mList, (AppCallBack) item -> {
+            dialog.dismiss();
+            if(appCallBack!=null)
+                appCallBack.onSelect(item);
+        });
+        rvBrandList.setAdapter(listAadpter);
         dialog.show();
     }
 }
