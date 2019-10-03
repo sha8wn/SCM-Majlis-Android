@@ -8,7 +8,7 @@
     <color name="app_theme_color">#282830</color>
     <color name="app_disable_color">#525358</color>
     <color name="dialog_border">#505056</color>
-
+    <color name="hint_color">#D1D1D1</color>
 
     <!--dialog color-->
     <color name="app_black_color_code">#314763</color>
@@ -23,7 +23,6 @@
     <color name="dialog_message_color">#314763</color>
     <color name="dialog_title_color">#314763</color>
     <color name="star_color">#2D4A61</color>
-    <color name="hint_color">@color/webview_bg_color</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="dialog_edittext_color">#f2f2f2</color>

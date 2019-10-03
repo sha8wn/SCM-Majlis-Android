@@ -263,6 +263,9 @@
 
     <string name="become_member">Become a member</string>
     <string name="general">1.General</string>
+    <string name="prevoius_general">eral</string>
+    <string name="supercars">2.Supercars</string>
+    <string name="documents">3.Documents</string>
     <string name="phone_num">Phone Number</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>

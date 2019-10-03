@@ -50,8 +50,11 @@ public class LoginActivity extends BaseActivity {
         binding.login.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
-                if (screenValidate()) {
-                }
+                Intent intent = new Intent(context, PastEventActivity.class);
+                startActivity(intent);
+                finishAffinity();
+//                if (screenValidate()) {
+//                }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
@@ -124,7 +127,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void getCardListNetworkCall(ProfileModel model, AccessTokenModel accessTokenModel) {
-        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).getMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER +accessTokenModel.getAccessToken(), "user_credit_cards"), new ApiHandler.CallBack() {
+        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).getMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessTokenModel.getAccessToken(), "user_credit_cards"), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 if (isSuccess) {

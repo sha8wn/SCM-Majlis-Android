@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:background="@color/bg_color"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="20dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_color"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:paddingBottom="30dp">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_next"
+            android:layout_alignParentTop="true">
 
             <include
                 android:id="@+id/toolbar"
@@ -23,8 +24,9 @@
                 android:id="@+id/signup_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.7"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center|start"
                 android:includeFontPadding="false"
@@ -36,60 +38,89 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+
             <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/prevoius_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/right_arrow2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center|start"
+                android:includeFontPadding="false"
+                android:text="@string/prevoius_general"
+                android:textColor="@color/app_disable_color"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signup_title" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center|start"
                 android:includeFontPadding="false"
-                android:text="@string/general"
+                android:text="@string/supercars"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/prevoius_title"
+                app:layout_constraintTop_toBottomOf="@+id/signup_title" />
+
+            <TextView
+                android:id="@+id/next_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:drawableLeft="@drawable/right_arrow2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center|start"
+                android:includeFontPadding="false"
+                android:text="@string/documents"
+                android:textColor="@color/app_disable_color"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toRightOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/signup_title" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvCars"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <TextView
                 android:id="@+id/tv_add_car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:drawableStart="@drawable/plus_icon"
                 android:fontFamily="@font/seguisb"
                 android:gravity="center"
                 android:text="@string/add_supercar"
                 android:textColor="@color/white"
                 android:textSize="12sp"
+                android:layout_marginBottom="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvCars" />
-
-            <ImageView
-                android:id="@+id/intro_btn_next"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center|end"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/right_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
         </android.support.constraint.ConstraintLayout>
 
-    </ScrollView>
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
 </layout>
+

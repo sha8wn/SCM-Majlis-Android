@@ -34,19 +34,42 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class SignupActivity extends BaseActivity {
+
     private ActivitySignupBinding binding;
     private Context context;
-    private String selctedDOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
+        context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             onBackPressed();
         });
-        context = this;
+
+        if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+            binding.tvPassword.setVisibility(View.VISIBLE);
+            binding.etPassword.setVisibility(View.VISIBLE);
+            binding.tvBrand.setVisibility(View.GONE);
+            binding.tvModel.setVisibility(View.GONE);
+            binding.etBrand.setVisibility(View.GONE);
+            binding.etModel.setVisibility(View.GONE);
+            binding.btnSignup.setVisibility(View.GONE);
+            binding.btnNext.setVisibility(View.VISIBLE);
+            binding.nextTitle.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvPassword.setVisibility(View.GONE);
+            binding.etPassword.setVisibility(View.GONE);
+            binding.tvBrand.setVisibility(View.VISIBLE);
+            binding.tvModel.setVisibility(View.VISIBLE);
+            binding.etBrand.setVisibility(View.VISIBLE);
+            binding.etModel.setVisibility(View.VISIBLE);
+            binding.btnSignup.setVisibility(View.VISIBLE);
+            binding.btnNext.setVisibility(View.GONE);
+            binding.nextTitle.setVisibility(View.GONE);
+        }
+
 
         binding.etBrand.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
@@ -71,20 +94,26 @@ public class SignupActivity extends BaseActivity {
         binding.btnSignup.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(SignupActivity.this);
             if (AppUtil.isInternetAvailable(context)) {
-                if (screenValidate()) {
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
-                            getString(R.string.thank_you_desc), getString(R.string.continu),
-                            getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
-                                @Override
-                                public void response(boolean status) {
-
-                                }
-                            });
-                }
+                AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
+                        getString(R.string.thank_you_desc), getString(R.string.continu),
+                        getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
+                            @Override
+                            public void response(boolean status) {
+                                Intent intent = new Intent(context, PastEventActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+                            }
+                        });
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
         });
+        binding.btnNext.setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
+            Intent intent = new Intent(context, AddSuperCarActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void signupNetworkCall() {
@@ -195,25 +224,6 @@ public class SignupActivity extends BaseActivity {
             public void failed() {
             }
         });
-    }
-
-
-    private void showDatePicker(final EditText editText) {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(this, R.style.CustomDialogTheme, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                editText.setText(DateFormatUtil.getRequiredDOBFormat(calendar.getTime()));
-                selctedDOB = DateFormatUtil.getRequiredFormatDate(calendar.getTime());
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-        dialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
-        dialog.show();
     }
 
     private boolean screenValidate() {

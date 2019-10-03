@@ -97,7 +97,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 1;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

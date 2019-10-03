@@ -353,10 +353,12 @@ public class AppDialogs implements Serializable {
         dialog.show();
     }
 
-    public void openBrandListDialog(String type, Context context,AppCallBack appCallBack) {
+    public void openBrandListDialog(String type, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.brand_list);
 
+        TextView title = dialog.findViewById(R.id.tvTitle);
+        title.setText(type);
         ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
         SearchView ivSearch = dialog.findViewById(R.id.ivSearch);
         RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
@@ -375,18 +377,17 @@ public class AppDialogs implements Serializable {
                 return false;
             }
         });
-        ArrayList<BrandModel> mList = new ArrayList();
 
+        ArrayList<BrandModel> mList = new ArrayList();
         mList.add(new BrandModel("Toyota"));
         mList.add(new BrandModel("BMW"));
         mList.add(new BrandModel("Nissan"));
         mList.add(new BrandModel("Audi"));
         mList.add(new BrandModel("Porsche"));
-
         rvBrandList.setLayoutManager(new LinearLayoutManager(context));
         ListAdapter listAadpter = new ListAdapter(context, mList, (AppCallBack) item -> {
             dialog.dismiss();
-            if(appCallBack!=null)
+            if (appCallBack != null)
                 appCallBack.onSelect(item);
         });
         rvBrandList.setAdapter(listAadpter);
