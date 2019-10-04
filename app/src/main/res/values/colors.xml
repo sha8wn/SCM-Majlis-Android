@@ -9,6 +9,8 @@
     <color name="app_disable_color">#525358</color>
     <color name="dialog_border">#505056</color>
     <color name="hint_color">#D1D1D1</color>
+    <color name="green">#008000</color>
+    <color name="dialog_border_color">#f2f2f2</color>
 
     <!--dialog color-->
     <color name="app_black_color_code">#314763</color>

@@ -24,8 +24,10 @@ public class PastEventActivity extends AppCompatActivity {
     private void init() {
         binding = DataBindingUtil.setContentView(this, R.layout.layout_past_events);
 
-        binding.tvLogin.setOnClickListener(view -> startActivity(new Intent(PastEventActivity.this, LoginActivity.class)));
-
+        binding.tvLogin.setOnClickListener(view -> {
+            startActivity(new Intent(PastEventActivity.this, UserCheckActivity.class));
+            finishAffinity();
+        });
         binding.rvEvents.setLayoutManager(new LinearLayoutManager(this));
         mListAdapter = new HorizontalListAdapter(this, new PreviousExpertModel());
         binding.rvEvents.setAdapter(mListAdapter);

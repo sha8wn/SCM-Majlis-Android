@@ -18,16 +18,17 @@ import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 import com.nibou.niboucustomer.utils.AppUtil;
 
+import java.util.ArrayList;
+
 
 public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.MyViewHolder> {
 
     private Context context;
-    private PreviousExpertModel previousExpertModel;
-    private PastEventListAdapter mListAdapter;
+    private ArrayList<String> arrayList = new ArrayList<>();
 
-    public AddSuperCarAdapter(Context context, PreviousExpertModel previousExpertModel) {
+    public AddSuperCarAdapter(Context context) {
         this.context = context;
-        this.previousExpertModel = previousExpertModel;
+        arrayList.add("");
     }
 
     @NonNull
@@ -39,6 +40,13 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+
+        if (position == getItemCount() - 1) {
+            myViewHolder.tv_add_car.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.tv_add_car.setVisibility(View.GONE);
+        }
+
         myViewHolder.etBrand.setOnClickListener(view -> {
             AppUtil.hideKeyBoard(context);
             AppDialogs.getInstance().openBrandListDialog("Brand", context, new AppCallBack() {
@@ -66,24 +74,6 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                 }
             });
         });
-
-        showImage(myViewHolder.ivCar, "");
-
-        if (true) {
-            myViewHolder.tvFront.setVisibility(View.VISIBLE);
-            showImage(myViewHolder.ivFrontDoc, "");
-        } else {
-            myViewHolder.tvFront.setVisibility(View.GONE);
-            showImage(myViewHolder.ivFrontDoc, "");
-        }
-
-        if (true) {
-            myViewHolder.tvBack.setVisibility(View.VISIBLE);
-            showImage(myViewHolder.ivBackDoc, "");
-        } else {
-            myViewHolder.tvBack.setVisibility(View.GONE);
-            showImage(myViewHolder.ivBackDoc, "");
-        }
     }
 
     private void showImage(ImageView imageView, String url) {
@@ -97,14 +87,14 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
     @Override
     public int getItemCount() {
-        return 1;
+        return arrayList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvFront, tvBack;
+        private TextView tvFront, tvBack, tv_add_car;
         private EditText etBrand, etModel, etColor;
-        private ImageView ivBackDoc, ivFrontDoc, ivCar,imgCross;
+        private ImageView ivBackDoc, ivFrontDoc, ivCar, imgCross;
         private RecyclerView rvEvents;
         private ConstraintLayout item;
 
@@ -113,14 +103,16 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
             etBrand = itemView.findViewById(R.id.et_brand);
             etModel = itemView.findViewById(R.id.et_model);
             etColor = itemView.findViewById(R.id.et_color);
-
-            tvFront = itemView.findViewById(R.id.tv_front);
-            tvBack = itemView.findViewById(R.id.tv_back);
-
-            ivFrontDoc = itemView.findViewById(R.id.ivFrontDoc);
-            ivBackDoc = itemView.findViewById(R.id.ivBackDoc);
             ivCar = itemView.findViewById(R.id.ivCar);
             imgCross = itemView.findViewById(R.id.imgCross);
+            tv_add_car = itemView.findViewById(R.id.tv_add_car);
+            tv_add_car.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    arrayList.add("");
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 }

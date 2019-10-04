@@ -51,20 +51,18 @@ public class SplashActivity extends BaseActivity {
 
     private Handler handler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-
-        init();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        init();
     }
 
     @Override

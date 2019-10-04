@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_theme_color">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_theme_color">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/my_toolbar" />
+
+            <TextView
+                android:id="@+id/signup_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.7"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center|start"
+                android:includeFontPadding="false"
+                android:text="@string/become_member"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+            <TextView
+                android:id="@+id/prevoius_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/right_arrow2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center|start"
+                android:includeFontPadding="false"
+                android:text="@string/prevoius_supercars"
+                android:textColor="@color/app_disable_color"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signup_title" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center|start"
+                android:includeFontPadding="false"
+                android:text="@string/documents"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toRightOf="@+id/prevoius_title"
+                app:layout_constraintTop_toBottomOf="@+id/signup_title" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_view">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/tv_emirates_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center|start"
+                    android:text="@string/emirates_id"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/emirates_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_emirates_id">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image_emirates_front"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:src="@drawable/dashed_bg"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_emirates_front"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableTop="@drawable/camera"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/upload_Emirates_front"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_emirates_front"
+                            app:layout_constraintLeft_toLeftOf="@+id/image_emirates_front"
+                            app:layout_constraintRight_toRightOf="@+id/image_emirates_front"
+                            app:layout_constraintTop_toTopOf="@+id/image_emirates_front" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image_emirates_back"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:src="@drawable/dashed_bg"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_emirates_back"
+                            android:layout_width="115dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@drawable/camera"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/upload_Emirates_back"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_emirates_back"
+                            app:layout_constraintLeft_toLeftOf="@+id/image_emirates_back"
+                            app:layout_constraintRight_toRightOf="@+id/image_emirates_back"
+                            app:layout_constraintTop_toTopOf="@+id/image_emirates_back" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_driver_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center|start"
+                    android:text="@string/drivers_license"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emirates_view" />
+
+
+                <LinearLayout
+                    android:id="@+id/driver_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_driver_id">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image_driver_front"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:src="@drawable/dashed_bg"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_driver_front"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableTop="@drawable/camera"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/upload_License_front"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_driver_front"
+                            app:layout_constraintLeft_toLeftOf="@+id/image_driver_front"
+                            app:layout_constraintRight_toRightOf="@+id/image_driver_front"
+                            app:layout_constraintTop_toTopOf="@+id/image_driver_front" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image_driver_back"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:src="@drawable/dashed_bg"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_driver_back"
+                            android:layout_width="115dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@drawable/camera"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/upload_License_back"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            app:layout_constraintBottom_toBottomOf="@id/image_driver_back"
+                            app:layout_constraintLeft_toLeftOf="@+id/image_driver_back"
+                            app:layout_constraintRight_toRightOf="@+id/image_driver_back"
+                            app:layout_constraintTop_toTopOf="@+id/image_driver_back" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/btn_finish"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_gradient"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/finish"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/driver_view" />
+
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</layout>
+
