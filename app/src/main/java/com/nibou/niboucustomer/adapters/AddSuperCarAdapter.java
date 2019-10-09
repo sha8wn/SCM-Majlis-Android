@@ -1,6 +1,7 @@
 package com.nibou.niboucustomer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.activitys.HomeActivity;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 import com.nibou.niboucustomer.utils.AppUtil;
@@ -24,10 +26,13 @@ import java.util.ArrayList;
 public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.MyViewHolder> {
 
     private Context context;
+    private boolean isSettingMenuScreen;
+
     private ArrayList<String> arrayList = new ArrayList<>();
 
-    public AddSuperCarAdapter(Context context) {
+    public AddSuperCarAdapter(Context context, boolean isSettingMenuScreen) {
         this.context = context;
+        this.isSettingMenuScreen = isSettingMenuScreen;
         arrayList.add("");
     }
 
@@ -92,7 +97,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvFront, tvBack, tv_add_car;
+        private TextView tvFront, tvBack, tv_add_car, delete_car;
         private EditText etBrand, etModel, etColor;
         private ImageView ivBackDoc, ivFrontDoc, ivCar, imgCross;
         private RecyclerView rvEvents;
@@ -112,6 +117,25 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                     arrayList.add("");
                     notifyDataSetChanged();
                 }
+            });
+            delete_car = itemView.findViewById(R.id.delete_car);
+            if (isSettingMenuScreen) {
+                delete_car.setVisibility(View.VISIBLE);
+            } else {
+                delete_car.setVisibility(View.GONE);
+            }
+            delete_car.setOnClickListener(v -> {
+                AppDialogs.getInstance().showConfirmCustomDialog(context, context.getString(R.string.alert), context.getString(R.string.car_delete_alert), context.getString(R.string.CANCEL), context.getString(R.string.OK).toUpperCase(), context.getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
+                    @Override
+                    public void response(boolean status) {
+                        if (status) {
+                            if (arrayList.size() > 0) {
+                                arrayList.remove(getAdapterPosition());
+                                notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
             });
         }
     }

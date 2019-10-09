@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity {
         binding.login.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
-                Intent intent = new Intent(context, PastEventActivity.class);
+                Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
                 finishAffinity();
 //                if (screenValidate()) {

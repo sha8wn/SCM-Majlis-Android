@@ -55,18 +55,16 @@ public class SettingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppUtil.changeStatusBarColor(getActivity(), ContextCompat.getColor(getActivity(), R.color.black));
         initView();
-        checkDeviceLanguage();
     }
 
     private void initView() {
         binding.logout.setOnClickListener(v -> {
-            AppDialogs.getInstance().showConfirmCustomDialog(getActivity(), getActivity().getString(R.string.logout), getActivity().getString(R.string.logout_message), getActivity().getString(R.string.CANCEL), getActivity().getString(R.string.OK).toUpperCase(), new AppDialogs.DialogCallback() {
+            AppDialogs.getInstance().showConfirmCustomDialog(getActivity(), getActivity().getString(R.string.logout), getActivity().getString(R.string.logout_message), getActivity().getString(R.string.CANCEL), getActivity().getString(R.string.OK).toUpperCase(),getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
                 @Override
                 public void response(boolean status) {
                     if (status) {
-                        logoutNetworkCall();
+                        clearLocalData();
                     }
                 }
             });
@@ -82,57 +80,24 @@ public class SettingFragment extends Fragment {
             startActivity(intent);
         });
 
-        binding.chooseLangauge.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LanguageActivity.class);
-            intent.putExtra(AppConstant.VIEW, "true");
-            getActivity().startActivityForResult(intent, AppConstant.LANGUAGE_SCREEN_CODE);
-        });
-
-        binding.manageCards.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PaymentCardListActivity.class);
+        binding.maneSupercars.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddSuperCarActivity.class);
+            intent.putExtra("type", "setting");
             startActivity(intent);
         });
-        binding.pricingTerms.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PricingAndTermsActivity.class);
+
+        binding.manageDocuments.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), DocumentActivity.class);
+            intent.putExtra("type", "setting");
             startActivity(intent);
         });
-        binding.transactionHistory.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EarningActivity.class);
+
+        binding.tnc.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), PrivacyPolicyActivity.class);
+            intent.putExtra("type", "terms");
             startActivity(intent);
         });
-        binding.feedback.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FeedbackActivity.class);
-            startActivity(intent);
-        });
-    }
 
-    private void checkDeviceLanguage() {
-        if (Locale.getDefault().getLanguage().equals(AppConstant.ENGLISH) || Locale.getDefault().getLanguage().equals(AppConstant.TURKISH) || Locale.getDefault().getLanguage().equals(AppConstant.ARABIC)) {
-            //hide language option
-            binding.langOption.setVisibility(View.GONE);
-        } else {
-            //show language option
-            binding.langOption.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void logoutNetworkCall() {
-        HashMap<Object, Object> parameters = new HashMap<>();
-        parameters.put("available", false);
-        AppDialogs.getInstance().showProgressBar(getActivity(), null, true);
-        ApiHandler.requestService(getActivity(), ApiClient.getClient().create(ApiEndPoint.class).logoutRequest(LocalPrefences.getInstance().getString(getActivity(), AppConstant.APP_LANGUAGE), AppConstant.BEARER + LocalPrefences.getInstance().getLocalAccessTokenModel(getActivity()).getAccessToken(), parameters), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                AppDialogs.getInstance().showProgressBar(getActivity(), null, false);
-                clearLocalData();
-            }
-
-            @Override
-            public void failed() {
-                AppDialogs.getInstance().showProgressBar(getActivity(), null, false);
-                clearLocalData();
-            }
-        });
     }
 
     private void clearLocalData() {

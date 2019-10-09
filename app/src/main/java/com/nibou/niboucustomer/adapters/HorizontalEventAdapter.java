@@ -17,12 +17,12 @@ import com.nibou.niboucustomer.customviews.MyImageViewPagerActivity;
 import java.util.ArrayList;
 
 
-public class PastEventListAdapter extends RecyclerView.Adapter<PastEventListAdapter.MyViewHolder> {
+public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEventAdapter.MyViewHolder> {
 
     private Context context;
     private ArrayList<String> mImageList;
 
-    public PastEventListAdapter(Context context, ArrayList<String> mImageList) {
+    public HorizontalEventAdapter(Context context, ArrayList<String> mImageList) {
         this.context = context;
         this.mImageList = mImageList;
     }

@@ -15,16 +15,15 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAdapter.MyViewHolder> {
+public class PastEventAdapter extends RecyclerView.Adapter<PastEventAdapter.MyViewHolder> {
 
     private Context context;
     private PreviousExpertModel previousExpertModel;
-    private PastEventListAdapter mListAdapter;
+    private HorizontalEventAdapter mListAdapter;
 
-    public HorizontalListAdapter(Context context, PreviousExpertModel previousExpertModel) {
+    public PastEventAdapter(Context context, PreviousExpertModel previousExpertModel) {
         this.context = context;
         this.previousExpertModel = previousExpertModel;
     }
@@ -47,18 +46,9 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/pool.png");
 
         myViewHolder.rvEvents.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        mListAdapter = new PastEventListAdapter(context, mImageList);
+        mListAdapter = new HorizontalEventAdapter(context, mImageList);
         myViewHolder.rvEvents.setAdapter(mListAdapter);
 
-    }
-
-    private void showImage(ImageView imageView, String url) {
-        Glide.with(context)
-                .load(url)
-                .dontAnimate()
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
-                .into(imageView);
     }
 
     @Override

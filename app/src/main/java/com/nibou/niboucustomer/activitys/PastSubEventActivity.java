@@ -6,13 +6,13 @@
 //import android.support.v7.widget.LinearLayoutManager;
 //
 //import com.nibou.niboucustomer.R;
-//import com.nibou.niboucustomer.adapters.PastEventListAdapter;
+//import com.nibou.niboucustomer.adapters.HorizontalEventAdapter;
 //import com.nibou.niboucustomer.databinding.LayoutPastEventsBinding;
 //import com.nibou.niboucustomer.models.PreviousExpertModel;
 //
 //public class PastSubEventActivity extends AppCompatActivity {
 //    private LayoutPastEventsBinding binding;
-//    private PastEventListAdapter mListAdapter;
+//    private HorizontalEventAdapter mListAdapter;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@
 //        binding = DataBindingUtil.setContentView(this, R.layout.layout_recyclerview);
 //
 //        binding.rvEvents.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        mListAdapter = new PastEventListAdapter(this, new PreviousExpertModel());
+//        mListAdapter = new HorizontalEventAdapter(this, new PreviousExpertModel());
 //        binding.rvEvents.setAdapter(mListAdapter);
 //
 //    }

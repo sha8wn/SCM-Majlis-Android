@@ -96,13 +96,10 @@ public class SignupActivity extends BaseActivity {
             if (AppUtil.isInternetAvailable(context)) {
                 AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
                         getString(R.string.thank_you_desc), getString(R.string.continu),
-                        getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
-                            @Override
-                            public void response(boolean status) {
-                                Intent intent = new Intent(context, PastEventActivity.class);
-                                startActivity(intent);
-                                finishAffinity();
-                            }
+                        getResources().getColor(R.color.white), status -> {
+                            Intent intent = new Intent(context, PastEventActivity.class);
+                            startActivity(intent);
+                            finishAffinity();
                         });
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));

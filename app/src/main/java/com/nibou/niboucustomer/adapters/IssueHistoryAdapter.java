@@ -1,6 +1,5 @@
 package com.nibou.niboucustomer.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.*;
-import com.nibou.niboucustomer.fragments.MessageHomeFragment;
+import com.nibou.niboucustomer.fragments.EventFragment;
 import com.nibou.niboucustomer.models.ActiveChatSessionModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.models.SurveyModel;
@@ -26,11 +25,11 @@ public class IssueHistoryAdapter extends RecyclerView.Adapter<IssueHistoryAdapte
 
     private Context context;
     private ActiveChatSessionModel activeChatSessionModel;
-    private MessageHomeFragment messageHomeFragment;
+    private EventFragment eventFragment;
 
-    public IssueHistoryAdapter(Context context, MessageHomeFragment messageHomeFragment, ActiveChatSessionModel activeChatSessionModel) {
+    public IssueHistoryAdapter(Context context, EventFragment eventFragment, ActiveChatSessionModel activeChatSessionModel) {
         this.context = context;
-        this.messageHomeFragment = messageHomeFragment;
+        this.eventFragment = eventFragment;
         this.activeChatSessionModel = activeChatSessionModel;
     }
 
@@ -56,13 +55,13 @@ public class IssueHistoryAdapter extends RecyclerView.Adapter<IssueHistoryAdapte
                 intent.putExtra(AppConstant.SURVEY_MODEL, getSurveyModel(Integer.parseInt(v.getTag().toString())));
                 intent.putExtra(AppConstant.EXPERT_DETAILS_MODEL, activeChatSessionModel.getData().get(Integer.parseInt(v.getTag().toString())));
                 intent.putExtra(ChatConstants.ROOM_ID, activeChatSessionModel.getData().get(Integer.parseInt(v.getTag().toString())).getId());
-                messageHomeFragment.startActivityForResult(intent, 100);
+                eventFragment.startActivityForResult(intent, 100);
             } else {
                 Intent intent = new Intent(context, PaymentInfoActivity.class);
                 intent.putExtra(AppConstant.SURVEY_MODEL, getSurveyModel(Integer.parseInt(v.getTag().toString())));
                 intent.putExtra(AppConstant.EXPERT_DETAILS_MODEL, activeChatSessionModel.getData().get(Integer.parseInt(v.getTag().toString())));
                 intent.putExtra(ChatConstants.ROOM_ID, activeChatSessionModel.getData().get(Integer.parseInt(v.getTag().toString())).getId());
-                messageHomeFragment.startActivityForResult(intent, 100);
+                eventFragment.startActivityForResult(intent, 100);
             }
         });
 

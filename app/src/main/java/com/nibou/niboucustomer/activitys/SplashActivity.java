@@ -82,8 +82,13 @@ public class SplashActivity extends BaseActivity {
 
     private void moveToNextScreen() {
         if (LocalPrefences.getInstance().getBoolean(this, AppConstant.IS_FIRST_LAUNCH_SUCCESS)) {
-            Intent intent = new Intent(SplashActivity.this, UserCheckActivity.class);
-            startActivity(intent);
+            if (LocalPrefences.getInstance().isUserLogin(this)) {
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(SplashActivity.this, UserCheckActivity.class);
+                startActivity(intent);
+            }
         } else {
             Intent intent = new Intent(SplashActivity.this, SliderActivity.class);
             startActivity(intent);

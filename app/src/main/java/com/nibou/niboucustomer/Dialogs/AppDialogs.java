@@ -22,6 +22,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.adapters.GoingToAdapter;
 import com.nibou.niboucustomer.adapters.ListAdapter;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.BrandModel;
@@ -192,6 +193,81 @@ public class AppDialogs implements Serializable {
             fullScreenDialog.dismiss();
     }
 
+    public void showConfirmCustomDialog(final Context context, String title, String message, String b1, String b2, int color, final DialogCallback dialogCallback) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_custom);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
+        dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
+        dialog.findViewById(R.id.button).setVisibility(View.GONE);
+        dialog.findViewById(R.id.button1).setVisibility(View.VISIBLE);
+        dialog.findViewById(R.id.button2).setVisibility(View.VISIBLE);
+
+        dialog.findViewById(R.id.v1).setBackgroundColor(color);
+
+        TextView titletext = dialog.findViewById(R.id.title);
+        titletext.setText(title);
+        if (title == null)
+            titletext.setVisibility(View.INVISIBLE);
+
+        TextView messagetext = dialog.findViewById(R.id.message);
+        messagetext.setText(message);
+
+        TextView button1 = dialog.findViewById(R.id.button1);
+        button1.setText(b1);
+        button1.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (dialogCallback != null) {
+                dialogCallback.response(false);
+            }
+        });
+
+        TextView button2 = dialog.findViewById(R.id.button2);
+        button2.setText(b2);
+        button2.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (dialogCallback != null) {
+                dialogCallback.response(true);
+            }
+        });
+        dialog.show();
+    }
+
+    public void showCustomDialog(final Context context, String title, String message, String buttonText, int color, final DialogCallback dialogCallback) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_custom);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.findViewById(R.id.v1).setBackgroundColor(color);
+        dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
+        dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
+        dialog.findViewById(R.id.button1).setVisibility(View.GONE);
+        dialog.findViewById(R.id.button2).setVisibility(View.GONE);
+        dialog.findViewById(R.id.button).setVisibility(View.VISIBLE);
+
+        TextView titletext = dialog.findViewById(R.id.title);
+        titletext.setText(title);
+        TextView messagetext = dialog.findViewById(R.id.message);
+        messagetext.setText(message);
+        TextView button = dialog.findViewById(R.id.button);
+        button.setText(buttonText);
+        button.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (dialogCallback != null) {
+                dialogCallback.response(true);
+            }
+        });
+        dialog.show();
+    }
 
     public void showConfirmCustomDialog(final Context context, String title, String message, String b1, String b2, final DialogCallback dialogCallback) {
         final Dialog dialog = new Dialog(context);
@@ -228,38 +304,6 @@ public class AppDialogs implements Serializable {
         TextView button2 = dialog.findViewById(R.id.button2);
         button2.setText(b2);
         button2.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (dialogCallback != null) {
-                dialogCallback.response(true);
-            }
-        });
-        dialog.show();
-    }
-
-    public void showCustomDialog(final Context context, String title, String message, String buttonText,
-                                 int color, final DialogCallback dialogCallback) {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_custom);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.findViewById(R.id.v1).setBackgroundColor(color);
-        dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
-        dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button1).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button2).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button).setVisibility(View.VISIBLE);
-
-        TextView titletext = dialog.findViewById(R.id.title);
-        titletext.setText(title);
-        TextView messagetext = dialog.findViewById(R.id.message);
-        messagetext.setText(message);
-        TextView button = dialog.findViewById(R.id.button);
-        button.setText(buttonText);
-        button.setOnClickListener(v -> {
             dialog.dismiss();
             if (dialogCallback != null) {
                 dialogCallback.response(true);
@@ -393,4 +437,34 @@ public class AppDialogs implements Serializable {
         rvBrandList.setAdapter(listAadpter);
         dialog.show();
     }
+
+
+    public void openGoingToListScreen(String type, Context context, AppCallBack appCallBack) {
+        Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
+        dialog.setContentView(R.layout.dialog_going_to_view);
+
+        TextView title = dialog.findViewById(R.id.tvTitle);
+        title.setText(type);
+
+        ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
+        back_arrow.setOnClickListener(view -> dialog.dismiss());
+
+        RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
+
+
+        ArrayList<BrandModel> mList = new ArrayList();
+        mList.add(new BrandModel("Toyota"));
+        mList.add(new BrandModel("BMW"));
+        mList.add(new BrandModel("Nissan"));
+        mList.add(new BrandModel("Audi"));
+        mList.add(new BrandModel("Porsche"));
+        rvBrandList.setLayoutManager(new LinearLayoutManager(context));
+        rvBrandList.setAdapter(new GoingToAdapter(context, mList, item -> {
+            dialog.dismiss();
+            if (appCallBack != null)
+                appCallBack.onSelect(item);
+        }));
+        dialog.show();
+    }
+
 }

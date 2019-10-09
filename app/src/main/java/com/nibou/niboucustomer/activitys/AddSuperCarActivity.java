@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.adapters.AddSuperCarAdapter;
@@ -19,6 +20,8 @@ public class AddSuperCarActivity extends BaseActivity {
     private ActivitySupercarsBinding binding;
     private AddSuperCarAdapter mListAdapter;
     private Context context;
+
+    private boolean isSettingMenuScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +39,30 @@ public class AddSuperCarActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        if (getIntent().hasExtra("type")) {
+            isSettingMenuScreen = true;
+            binding.signupTitle.setVisibility(View.GONE);
+            binding.prevoiusTitle.setVisibility(View.GONE);
+            binding.nextTitle.setVisibility(View.GONE);
+            binding.screenTitle.setText(getString(R.string.mane_supercar));
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnNext.setVisibility(View.GONE);
+        } else {
+            binding.btnSave.setVisibility(View.GONE);
+            binding.btnNext.setVisibility(View.VISIBLE);
+            binding.signupTitle.setVisibility(View.VISIBLE);
+            binding.prevoiusTitle.setVisibility(View.VISIBLE);
+            binding.nextTitle.setVisibility(View.VISIBLE);
+            binding.screenTitle.setText(getString(R.string.supercars));
+        }
+
         init();
     }
 
     private void init() {
 
         binding.rvCars.setLayoutManager(new LinearLayoutManager(context));
-        mListAdapter = new AddSuperCarAdapter(context);
+        mListAdapter = new AddSuperCarAdapter(context, isSettingMenuScreen);
         binding.rvCars.setAdapter(mListAdapter);
     }
 }

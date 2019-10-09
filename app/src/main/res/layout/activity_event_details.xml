@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eff1f5"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <View
+            android:id="@+id/header_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/app_theme_color"></View>
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/my_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header_view"
+            android:layout_marginTop="-30dp"
+            android:background="@drawable/white_bg_drawable">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ivProfile"
+                android:fillViewport="true">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="20dp">
+
+                </android.support.constraint.ConstraintLayout>
+            </ScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

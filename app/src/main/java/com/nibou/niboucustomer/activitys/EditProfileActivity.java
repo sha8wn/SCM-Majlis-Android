@@ -21,6 +21,7 @@ import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityEditProfileBinding;
 import com.nibou.niboucustomer.databinding.ActivityPaymentCardBinding;
+import com.nibou.niboucustomer.databinding.FragmentProfileBinding;
 import com.nibou.niboucustomer.models.AccessTokenModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -32,16 +33,14 @@ import com.ybs.countrypicker.CountryPickerListener;
 import java.util.HashMap;
 
 public class EditProfileActivity extends BaseActivity {
-    private ActivityEditProfileBinding binding;
+    private FragmentProfileBinding binding;
     private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.fragment_profile);
         context = this;
-        ((ImageView) binding.toolbar.findViewById(R.id.back_arrow)).setColorFilter(ContextCompat.getColor(this, R.color.screen_title_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             onBackPressed();
@@ -50,37 +49,15 @@ public class EditProfileActivity extends BaseActivity {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
-                    updateProfileNetworkCall();
+
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
         });
-
-        binding.etCountry.setOnClickListener(v -> {
-            AppUtil.hideKeyBoard(context);
-            CountryPicker picker = CountryPicker.newInstance("Select Country");  // dialog title
-            picker.setListener((name, code, dialCode, flagDrawableResID) -> {
-                ((Activity) context).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                binding.etCountry.setText(name);
-                picker.dismiss();
-            });
-            picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
-        });
-
-        showProfileData();
     }
 
-    private void showProfileData() {
-        ProfileModel profileModel = LocalPrefences.getInstance().getLocalProfileModel(context);
-        if (profileModel != null) {
-            binding.etName.setText(profileModel.getData().getAttributes().getName());
-            binding.etAlias.setText(profileModel.getData().getAttributes().getUsername());
-            binding.etEmail.setText(profileModel.getData().getAttributes().getEmail());
-            binding.etCountry.setText(profileModel.getData().getAttributes().getCountry());
-            binding.etDob.setText(profileModel.getData().getAttributes().getDob());
-        }
-    }
+
 
     private void updateProfileNetworkCall() {
         HashMap<String, String> parameters = new HashMap<>();

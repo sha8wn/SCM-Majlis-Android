@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,22 +28,58 @@ public class ChangePasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
-        ((ImageView) binding.toolbar.findViewById(R.id.back_arrow)).setColorFilter(ContextCompat.getColor(this, R.color.screen_title_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-        binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> finish());
         context = this;
+        binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
+            onBackPressed();
+        });
 
         binding.btnSave.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
-                    changePasswordNetworkCall();
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
         });
+
+        binding.eyeCurrentPassword.setOnClickListener(v -> {
+            if (binding.etCurrentPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etCurrentPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binding.eyeCurrentPassword.setImageResource(R.drawable.eye_icon);
+            } else {
+                binding.eyeCurrentPassword.setImageResource(R.drawable.invisible_eye);
+                binding.etCurrentPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            }
+            binding.etCurrentPassword.setSelection(binding.etCurrentPassword.getText().length());
+        });
+
+
+        binding.eyeNewPassword.setOnClickListener(v -> {
+            if (binding.etNewPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etNewPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binding.eyeNewPassword.setImageResource(R.drawable.eye_icon);
+            } else {
+                binding.eyeNewPassword.setImageResource(R.drawable.invisible_eye);
+                binding.etNewPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            }
+            binding.etNewPassword.setSelection(binding.etNewPassword.getText().length());
+        });
+
+        binding.eyeRepeatPassword.setOnClickListener(v -> {
+            if (binding.etRepeatPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etRepeatPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binding.eyeRepeatPassword.setImageResource(R.drawable.eye_icon);
+            } else {
+                binding.eyeRepeatPassword.setImageResource(R.drawable.invisible_eye);
+                binding.etRepeatPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            }
+            binding.etRepeatPassword.setSelection(binding.etRepeatPassword.getText().length());
+        });
+
+
     }
 
     private void changePasswordNetworkCall() {

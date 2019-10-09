@@ -17,7 +17,7 @@
             android:text="@string/scm_event"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,15 +26,15 @@
             android:id="@+id/tvCheckIn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:drawableEnd="@drawable/checkin"
+            android:layout_marginTop="17dp"
+            android:drawableEnd="@drawable/event_bottom"
             android:drawablePadding="5dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="end|center_vertical"
-            android:text="@string/check_in"
+            android:text="@string/past_event"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -44,9 +44,11 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvEvents"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
