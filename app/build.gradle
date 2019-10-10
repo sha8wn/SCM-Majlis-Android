@@ -67,6 +67,12 @@ dependencies {
     implementation 'com.stripe:stripe-android:8.0.0'
     implementation 'com.stripe:stripe-java:5.36.0'
 
+    // required for all Android apps
+    implementation 'io.branch.sdk.android:library:3.+'
+    implementation 'com.google.android.gms:play-services-appindexing:9.+'
+    implementation 'com.google.android.gms:play-services-ads:9+'
+
+
 
     implementation 'com.android.support:multidex:1.0.0'
     implementation 'com.kevalpatel2106:emoticongifkeyboard:1.1'

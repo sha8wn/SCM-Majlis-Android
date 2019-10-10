@@ -10,10 +10,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:src="@drawable/default_placeholder" />
 
     <LinearLayout
@@ -33,7 +33,6 @@
             android:fontFamily="@font/poppins_bold"
             android:gravity="start|center_vertical"
             android:text="@string/brand"
-            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
@@ -46,7 +45,7 @@
             android:includeFontPadding="false"
             android:text="19 members going"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

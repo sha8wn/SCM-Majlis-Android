@@ -36,42 +36,19 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        if (position == 0) {
-            myViewHolder.ivEventImage.setVisibility(View.GONE);
-            myViewHolder.ivEvent.setVisibility(View.VISIBLE);
-            showImage(myViewHolder.ivEvent, mImageList.get(position));
-        } else {
-            myViewHolder.ivEventImage.setVisibility(View.VISIBLE);
-            myViewHolder.ivEvent.setVisibility(View.GONE);
-            showImage(myViewHolder.ivEventImage, mImageList.get(position));
-        }
 
-        myViewHolder.ivEventImage.setOnClickListener(view -> {
-            Intent mIntent = new Intent(context, MyImageViewPagerActivity.class);
-            mIntent.putExtra("LIST", mImageList);
-            mIntent.putExtra("INDEX", position);
-            context.startActivity(mIntent);
-        });
-        myViewHolder.ivEvent.setOnClickListener(view -> {
-            Intent mIntent = new Intent(context, MyImageViewPagerActivity.class);
-            mIntent.putExtra("LIST", mImageList);
-            mIntent.putExtra("INDEX", position);
-            context.startActivity(mIntent);
-        });
-//        myViewHolder.item.setTag(position);
-//        myViewHolder.item.setOnClickListener(v -> {
-//            if (context instanceof ExpertListActivity) {
-//                ((ExpertListActivity) context).onAdapterClick(Integer.parseInt(v.getTag().toString()));
-//            }
-//        });
-//        myViewHolder.expert_name.setText(previousExpertModel.getData().get(position).getAttributes().getName());
-//        showImage(myViewHolder.circleImageView, AppConstant.FILE_BASE_URL + previousExpertModel.getData().get(position).getAttributes().getAvatar().getUrl());
+        showImage(myViewHolder.image, mImageList.get(position));
+
+        if (position == 0) {
+            myViewHolder.ivEvent.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.ivEvent.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void showImage(ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
-                .dontAnimate()
                 .placeholder(R.drawable.default_placeholder)
                 .error(R.drawable.default_placeholder)
                 .into(imageView);
@@ -85,17 +62,26 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvDate, tvTime, tvName, tvLoc, tvPerson;
-        private ImageView ivEvent, ivEventImage;
+        private ImageView image;
+        private View ivEvent, card;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            card = itemView.findViewById(R.id.card);
             ivEvent = itemView.findViewById(R.id.ivEvent);
-            ivEventImage = itemView.findViewById(R.id.ivEventImage);
+            image = itemView.findViewById(R.id.image);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvName = itemView.findViewById(R.id.tvName);
             tvLoc = itemView.findViewById(R.id.tvLoc);
             tvPerson = itemView.findViewById(R.id.tvPerson);
+
+            card.setOnClickListener(view -> {
+                Intent mIntent = new Intent(context, MyImageViewPagerActivity.class);
+                mIntent.putExtra("LIST", mImageList);
+                mIntent.putExtra("INDEX", getAdapterPosition());
+                context.startActivity(mIntent);
+            });
         }
     }
 }

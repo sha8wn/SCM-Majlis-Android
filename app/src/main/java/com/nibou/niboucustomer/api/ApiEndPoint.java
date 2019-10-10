@@ -18,6 +18,15 @@ import java.util.List;
 public interface ApiEndPoint {
 
     @Headers("Content-Type: application/json")
+    @GET("_api/past_events?")
+    Call<ProfileModel> getPastEventsNetworkCall(@Query("limit") String limit, @Query("n") String pageNumber);
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/pages?")
+    Call<ProfileModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
+
+
+    @Headers("Content-Type: application/json")
     @POST("oauth/token?")
     Call<AccessTokenModel> getAccessToken(@Header("X-App-Lang") String language, @Query("client_id") String client_id, @Query("client_secret") String client_secret, @Query("grant_type") String grant_type, @Query("username") String username, @Query("password") String password, @Query("account_type") String account_type);
 

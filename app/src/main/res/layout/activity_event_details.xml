@@ -1,44 +1,394 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eff1f5"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <View
-            android:id="@+id/header_view"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/card"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/app_theme_color"></View>
+            android:layout_height="250dp"
+            android:background="@color/app_theme_color">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/my_toolbar" />
+            <ImageView
+                android:id="@+id/ivEventImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/cardChild"
+                app:layout_constraintLeft_toLeftOf="@+id/cardChild"
+                app:layout_constraintRight_toRightOf="@+id/cardChild"
+                app:layout_constraintTop_toTopOf="@+id/cardChild" />
+
+            <View
+                android:id="@+id/overlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.2"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/ivEventImage"
+                app:layout_constraintLeft_toLeftOf="@+id/ivEventImage"
+                app:layout_constraintRight_toRightOf="@+id/ivEventImage"
+                app:layout_constraintTop_toTopOf="@+id/ivEventImage" />
+
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/my_toolbar" />
+
+            <TextView
+                android:id="@+id/tvCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/btn_gradient_blue"
+                android:fontFamily="@font/segoeuib"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="8dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                android:text="@string/free"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <ImageView
+                android:id="@+id/ivLive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/live"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCost" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="21 July 19"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="09:00 AM"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+            <View
+                android:id="@+id/v1"
+                android:layout_width="20dp"
+                android:layout_height="4dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="Drag Race"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvLoc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLive" />
+
+            <TextView
+                android:id="@+id/tvLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
+                android:alpha="0.5"
+                android:drawableStart="@drawable/map_locator"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="Plam Jumeria Strip"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPerson"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="40dp"
+                android:alpha="0.5"
+                android:drawableStart="@drawable/man_user"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="30 people participated"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+
+            <RelativeLayout
+                android:id="@+id/goingView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/tvPerson"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon1"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:src="@color/green" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@color/colorPrimary" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/icon1"
+                    android:src="@color/menu_selected" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon4"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/icon2"
+                    android:src="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvGoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/icon3"
+                    android:background="@drawable/going_drawable"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/going"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/header_view"
+            android:layout_below="@+id/card"
             android:layout_marginTop="-30dp"
             android:background="@drawable/white_bg_drawable">
 
-            <ScrollView
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/ivProfile"
+                android:layout_marginTop="10dp"
                 android:fillViewport="true">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="20dp">
+                    android:paddingLeft="15dp"
+                    android:paddingBottom="10dp">
+
+
+                    <TextView
+                        android:id="@+id/t1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/about_event"
+                        android:textColor="@color/app_theme_color"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/about_event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.5"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="Drag Race"
+                        android:textColor="@color/app_theme_color"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/t1" />
+
+
+                    <View
+                        android:id="@+id/about_event_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="15dp"
+                        android:alpha="0.2"
+                        android:background="@color/app_theme_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/about_event" />
+
+
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="Checkpoint"
+                        android:textColor="@color/app_theme_color"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/about_event_line" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_checkpoints"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-15dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/t2" />
+
+                    <TextView
+                        android:id="@+id/t3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/brand_in_the_event"
+                        android:textColor="@color/app_theme_color"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_checkpoints" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_brands"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="-15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/t3" />
+
+
+                    <TextView
+                        android:id="@+id/t4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/partners"
+                        android:textColor="@color/app_theme_color"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_brands" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_partners"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="-15dp"
+                        android:paddingRight="15dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/t4" />
+
+
+                    <TextView
+                        android:id="@+id/btn_reserve_spot"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:text="@string/reserve_my_spot"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_partners" />
+
 
                 </android.support.constraint.ConstraintLayout>
-            </ScrollView>
+            </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
+
     </RelativeLayout>
 </layout>

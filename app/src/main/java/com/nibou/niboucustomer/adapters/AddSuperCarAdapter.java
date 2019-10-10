@@ -125,7 +125,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                 delete_car.setVisibility(View.GONE);
             }
             delete_car.setOnClickListener(v -> {
-                AppDialogs.getInstance().showConfirmCustomDialog(context, context.getString(R.string.alert), context.getString(R.string.car_delete_alert), context.getString(R.string.CANCEL), context.getString(R.string.OK).toUpperCase(), context.getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
+                AppDialogs.getInstance().showConfirmCustomDialog(context, context.getString(R.string.alert), context.getString(R.string.car_delete_alert), context.getString(R.string.CANCEL).toUpperCase(), context.getString(R.string.OK).toUpperCase(), context.getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
                     @Override
                     public void response(boolean status) {
                         if (status) {

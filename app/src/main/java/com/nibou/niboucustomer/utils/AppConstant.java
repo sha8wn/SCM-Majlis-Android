@@ -4,7 +4,7 @@ public class AppConstant {
     public static final String STRIPE_PUBLISH_KEY = "pk_test_yOBkGpiAkWajiy6qMVbcX1pf00dtA7sx1n";
     public static final String STRIPE_SECRET_KEY = "sk_test_FfjUYGHC7Eh374hmXTrIijkn00BL17Y2QN";
     public static final String FILE_BASE_URL = "http://api.staging.nibouapp.com";
-    public static final String BASE_URL = "http://api.staging.nibouapp.com/";
+    public static final String BASE_URL = "https://scmajlis.ae/";
     public static final String CLIENT_ID = "KtqwLc20z1Elb1E2GWPfQSpxQTHg0Cc7H_xM_eYtDMo";
     public static final String CLIENT_SECRET = "z0fp2Ng0dssdmkM18Dk8JL9PvTY-EczdrVeHjhk7eYk";
     public static final String ADMIN_SIGNUP = "admin_signup";

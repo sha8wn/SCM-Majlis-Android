@@ -48,7 +48,6 @@ public class PastEventAdapter extends RecyclerView.Adapter<PastEventAdapter.MyVi
         myViewHolder.rvEvents.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         mListAdapter = new HorizontalEventAdapter(context, mImageList);
         myViewHolder.rvEvents.setAdapter(mListAdapter);
-
     }
 
     @Override

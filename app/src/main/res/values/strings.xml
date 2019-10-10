@@ -307,5 +307,13 @@
     <string name="manage_documents">Manage Documents</string>
     <string name="delete_car">Delete the car</string>
     <string name="car_delete_alert">Are you sure, Do you want to delete this car?</string>
+    <string name="about_event">About Event</string>
+    <string name="brand_in_the_event">Brands in the events</string>
+    <string name="partners">Partners</string>
+    <string name="reserve_my_spot">Reserve my spot</string>
+    <string name="directions"><u>Directions</u></string>
+    <string name="which_car_event_text">Which car will you bring to the event?</string>
+    <string name="rsvp_member">RSVP Member only</string>
+    <string name="rsvp_member_guest">RSVP Member + Guest</string>
 
 </resources>

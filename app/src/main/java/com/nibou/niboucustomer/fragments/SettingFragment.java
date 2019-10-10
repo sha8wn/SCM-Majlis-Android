@@ -60,7 +60,7 @@ public class SettingFragment extends Fragment {
 
     private void initView() {
         binding.logout.setOnClickListener(v -> {
-            AppDialogs.getInstance().showConfirmCustomDialog(getActivity(), getActivity().getString(R.string.logout), getActivity().getString(R.string.logout_message), getActivity().getString(R.string.CANCEL), getActivity().getString(R.string.OK).toUpperCase(),getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
+            AppDialogs.getInstance().showConfirmCustomDialog(getActivity(), getActivity().getString(R.string.logout), getActivity().getString(R.string.logout_message), getActivity().getString(R.string.CANCEL).toUpperCase(), getActivity().getString(R.string.OK).toUpperCase(), getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
                 @Override
                 public void response(boolean status) {
                     if (status) {

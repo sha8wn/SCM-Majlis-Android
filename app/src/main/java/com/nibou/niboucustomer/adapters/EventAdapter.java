@@ -39,7 +39,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        showImage(myViewHolder.ivEvent, "http://homepages.cae.wisc.edu/~ece533/images/pool.png");
+        showImage(myViewHolder.ivEventImage, "https://scmajlis.ae/files/past_events/4/imgs/1/dr1.jpeg");
     }
 
     private void showImage(ImageView imageView, String url) {
@@ -60,21 +60,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvDate, tvTime, tvName, tvLoc, tvPerson;
-        private ImageView ivEvent, ivEventImage;
+        private ImageView ivEventImage;
         private View goingView, card;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivEvent = itemView.findViewById(R.id.ivEvent);
             ivEventImage = itemView.findViewById(R.id.ivEventImage);
+
             tvDate = itemView.findViewById(R.id.tvDate);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvName = itemView.findViewById(R.id.tvName);
             tvLoc = itemView.findViewById(R.id.tvLoc);
             tvPerson = itemView.findViewById(R.id.tvPerson);
+
             goingView = itemView.findViewById(R.id.goingView);
             goingView.setOnClickListener(v -> AppDialogs.getInstance().openGoingToListScreen("Drag Race", context, item -> {
             }));
+
             card = itemView.findViewById(R.id.card);
             card.setOnClickListener(v -> {
                 Intent intent = new Intent(context, EventDetailActivity.class);
