@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.activitys.PastEventActivity;
+import com.nibou.niboucustomer.models.EventResponseModel;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 
 import java.util.ArrayList;
@@ -20,12 +22,11 @@ import java.util.ArrayList;
 public class PastEventAdapter extends RecyclerView.Adapter<PastEventAdapter.MyViewHolder> {
 
     private Context context;
-    private PreviousExpertModel previousExpertModel;
-    private HorizontalEventAdapter mListAdapter;
+    private EventResponseModel eventResponseModel;
 
-    public PastEventAdapter(Context context, PreviousExpertModel previousExpertModel) {
+    public PastEventAdapter(Context context, EventResponseModel eventResponseModel) {
         this.context = context;
-        this.previousExpertModel = previousExpertModel;
+        this.eventResponseModel = eventResponseModel;
     }
 
     @NonNull
@@ -37,33 +38,33 @@ public class PastEventAdapter extends RecyclerView.Adapter<PastEventAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-
-        ArrayList<String> mImageList = new ArrayList<>();
-        mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/airplane.png");
-        mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/arctichare.png");
-        mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/boat.png");
-        mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/fruits.png");
-        mImageList.add("http://homepages.cae.wisc.edu/~ece533/images/pool.png");
-
-        myViewHolder.rvEvents.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        mListAdapter = new HorizontalEventAdapter(context, mImageList);
-        myViewHolder.rvEvents.setAdapter(mListAdapter);
+        if (position == getItemCount() - 1) {
+            if (eventResponseModel.getPast_events().getN() < Integer.parseInt(eventResponseModel.getPast_events().getNumRows())) {
+                //call pagination api
+//                if (context instanceof PastEventActivity) {
+//                    ((PastEventActivity) context).getPastEventsNetworkCall((eventResponseModel.getPast_events().getN() + 1));
+//                }
+            }
+        }
+        myViewHolder.rvEvents.setAdapter(new HorizontalEventAdapter(context, eventResponseModel.getPast_events().getList().get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        if (eventResponseModel != null && eventResponseModel.getPast_events() != null)
+            return eventResponseModel.getPast_events().getList().size();
+        else
+            return 0;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView rvEvents;
-        private ConstraintLayout item;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            item = itemView.findViewById(R.id.item);
             rvEvents = itemView.findViewById(R.id.rvEvents);
+            rvEvents.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }
     }
 }

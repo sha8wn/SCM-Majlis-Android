@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.LoginActivity;
 import com.nibou.niboucustomer.models.AccessTokenModel;
+import com.nibou.niboucustomer.models.ErrorResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +22,9 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public class ApiHandler {
+
+    public static boolean SUCCESS = true;
+    public static boolean FAILED = false;
 
     public interface CallBack {
         void success(boolean isSucess, Object data);
@@ -30,39 +36,33 @@ public class ApiHandler {
         requestCall.clone().enqueue(new Callback<T>() {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                if (response != null && (response.code() == 200 || response.code() == 201)) { //success
-                    if (callBack != null) {
-                        callBack.success(true, response.body());
-                    }
-                } else if (response != null && response.code() == 401) { // unauthorize or access token expire
-                    if (LocalPrefences.getInstance().getLocalAccessTokenModel(context) != null && LocalPrefences.getInstance().getLocalAccessTokenModel(context).getRefreshToken() != null)
-                        requestRefreshTokenService(context, callBack, requestCall, ApiClient.getClient().create(ApiEndPoint.class).getRefreshAccessToken(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE), AppConstant.CLIENT_ID, AppConstant.CLIENT_SECRET, AppConstant.REFRESH_TOKEN, LocalPrefences.getInstance().getLocalAccessTokenModel(context).getRefreshToken()));
-                    else {
+                try {
+                    ErrorResponseModel errorResponseModel = (ErrorResponseModel) response.body();
+                    if (errorResponseModel.getError() == 0) {
                         if (callBack != null) {
-                            AppUtil.showToast(context, context.getResources().getString(R.string.wrong_with_backend));
-                            callBack.failed();
+                            callBack.success(SUCCESS, response.body());
+                        }
+                    } else {
+                        if (callBack != null) {
+                            callBack.success(FAILED, errorResponseModel.getError_text());
                         }
                     }
-                } else {
+                } catch (Exception e) {
+                    AppUtil.showToast(context, context.getResources().getString(R.string.wrong_with_backend));
                     if (callBack != null) {
-                        try {
-                            callBack.success(false, response.errorBody().string());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            callBack.success(false, null);
-                        }
+                        callBack.failed();
                     }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
+                if (t instanceof TimeoutException) {
+                    AppUtil.showToast(context, context.getResources().getString(R.string.timeout));
+                } else {
+                    AppUtil.showToast(context, context.getResources().getString(R.string.server_faliure));
+                }
                 if (callBack != null) {
-                    if (t instanceof TimeoutException) {
-                        AppUtil.showToast(context, context.getResources().getString(R.string.timeout));
-                    } else {
-                        AppUtil.showToast(context, context.getResources().getString(R.string.server_faliure));
-                    }
                     callBack.failed();
                 }
             }

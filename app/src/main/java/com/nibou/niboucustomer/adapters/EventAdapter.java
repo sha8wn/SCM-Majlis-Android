@@ -39,7 +39,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        showImage(myViewHolder.ivEventImage, "https://scmajlis.ae/files/past_events/4/imgs/1/dr1.jpeg");
+        showImage(myViewHolder.ivEventImage, "https://scmajlis.ae/files/past_events/1/imgs/2/past_2.jpeg");
     }
 
     private void showImage(ImageView imageView, String url) {
@@ -47,8 +47,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 .load(url)
                 .dontAnimate()
                 .centerCrop()
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
+                .placeholder(R.drawable.empty_image_drawable)
+                .error(R.drawable.empty_image_drawable)
                 .into(imageView);
     }
 

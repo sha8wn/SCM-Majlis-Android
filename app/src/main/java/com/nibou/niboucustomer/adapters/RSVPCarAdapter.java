@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.activitys.RSVPSpotActivity;
 import com.nibou.niboucustomer.models.BrandModel;
+import com.nibou.niboucustomer.utils.AppUtil;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,8 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
 
     private Context context;
     private ArrayList<BrandModel> mList;
+
+    private int selectedPosition = -1;
 
     public RSVPCarAdapter(Context context, ArrayList<BrandModel> mList) {
         this.context = context;
@@ -36,21 +41,34 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        if (position == 0) {
-            myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_unselected_drawable));
+
+        if (selectedPosition == position) {
+            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) myViewHolder.brand_card.getLayoutParams();
+            layoutParams.height = (int) AppUtil.convertDpToPixel(270, context);
+            myViewHolder.brand_card.setLayoutParams(layoutParams);
+            myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_selected_drawable));
+            RelativeLayout.LayoutParams iconLayoutParams = (RelativeLayout.LayoutParams) myViewHolder.icon.getLayoutParams();
+            iconLayoutParams.height = (int) AppUtil.convertDpToPixel(180, context);
+            iconLayoutParams.width = (int) AppUtil.convertDpToPixel(120, context);
+            myViewHolder.icon.setLayoutParams(iconLayoutParams);
         } else {
+            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) myViewHolder.brand_card.getLayoutParams();
+            layoutParams.height = (int) AppUtil.convertDpToPixel(250, context);
+            myViewHolder.brand_card.setLayoutParams(layoutParams);
             myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_unselected_drawable));
+            RelativeLayout.LayoutParams iconLayoutParams = (RelativeLayout.LayoutParams) myViewHolder.icon.getLayoutParams();
+            iconLayoutParams.height = (int) AppUtil.convertDpToPixel(150, context);
+            iconLayoutParams.width = (int) AppUtil.convertDpToPixel(100, context);
+            myViewHolder.icon.setLayoutParams(iconLayoutParams);
         }
-        showImage(myViewHolder.icon, "https://scmajlis.ae/files/past_events/4/imgs/1/dr1.jpeg");
+        showImage(myViewHolder.icon, "https://images.financialexpress.com/2018/06/Brezza-1.png?w=420&h=280&imflag=true");
+
     }
 
     private void showImage(ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
-                .dontAnimate()
-                .centerCrop()
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
+                .fitCenter()
                 .into(imageView);
     }
 
@@ -63,7 +81,7 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
 
         private TextView name, model;
         private ImageView icon;
-        private View card;
+        private View card, brand_card;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +89,24 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
             model = itemView.findViewById(R.id.model);
             icon = itemView.findViewById(R.id.icon);
             card = itemView.findViewById(R.id.card);
+            brand_card = itemView.findViewById(R.id.brand_card);
+            brand_card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (selectedPosition == getAdapterPosition()) {
+                        selectedPosition = -1;
+                        if (context instanceof RSVPSpotActivity) {
+                            ((RSVPSpotActivity) context).carSelectedCallBack(false, selectedPosition);
+                        }
+                    } else {
+                        selectedPosition = getAdapterPosition();
+                        if (context instanceof RSVPSpotActivity) {
+                            ((RSVPSpotActivity) context).carSelectedCallBack(true, selectedPosition);
+                        }
+                    }
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 }

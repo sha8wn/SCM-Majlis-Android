@@ -19,11 +19,15 @@ public interface ApiEndPoint {
 
     @Headers("Content-Type: application/json")
     @GET("_api/past_events?")
-    Call<ProfileModel> getPastEventsNetworkCall(@Query("limit") String limit, @Query("n") String pageNumber);
+    Call<EventResponseModel> getPastEventsNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
 
     @Headers("Content-Type: application/json")
     @GET("_api/pages?")
-    Call<ProfileModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
+    Call<TermAndPrivacyResponseModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/user_registration")
+    Call<TermAndPrivacyResponseModel> registerUserNetworkCall(@Body HashMap<String, Object> map);
 
 
     @Headers("Content-Type: application/json")

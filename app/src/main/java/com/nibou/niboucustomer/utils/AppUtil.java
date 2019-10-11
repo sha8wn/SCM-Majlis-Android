@@ -39,6 +39,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.nibou.niboucustomer.R;
 
 import java.io.File;
@@ -49,6 +50,14 @@ import java.util.*;
 
 
 public class AppUtil {
+
+    public static float convertDpToPixel(float dp, Context context) {
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static float convertPixelsToDp(float px, Context context) {
+        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
 
     public static String getAmountSign(Context context) {
         if (LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE) != null) {

@@ -15,6 +15,25 @@ public class DateFormatUtil {
 
     private static String SERVER_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
+    public static String getMilliesFromServerDate(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            return String.valueOf(simpleDateFormat.parse(dateString).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getRequiredDateFormat(String milliSeconds, String dateFormat) {
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Long.parseLong(milliSeconds));
+        return formatter.format(calendar.getTime());
+    }
+
+
     public static String getFirstDateOfMonth() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
@@ -86,12 +105,7 @@ public class DateFormatUtil {
         return String.valueOf(System.currentTimeMillis());
     }
 
-    public static String getRequiredDateFormat(String milliSeconds, String dateFormat) {
-        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(milliSeconds));
-        return formatter.format(calendar.getTime());
-    }
+
 
     public static Date getRequiredDate(String milliSeconds) {
         Calendar calendar = Calendar.getInstance();

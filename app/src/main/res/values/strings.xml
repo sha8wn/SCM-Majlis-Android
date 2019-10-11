@@ -313,7 +313,7 @@
     <string name="reserve_my_spot">Reserve my spot</string>
     <string name="directions"><u>Directions</u></string>
     <string name="which_car_event_text">Which car will you bring to the event?</string>
-    <string name="rsvp_member">RSVP Member only</string>
-    <string name="rsvp_member_guest">RSVP Member + Guest</string>
+    <string name="rsvp_member">RSVP\nMember only</string>
+    <string name="rsvp_member_guest">RSVP\nMember + Guest</string>
 
 </resources>

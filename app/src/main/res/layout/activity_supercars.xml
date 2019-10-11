@@ -115,7 +115,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/button"
+                android:background="@drawable/btn_gradient"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
                 android:text="@string/save"

@@ -32,17 +32,29 @@ public class RSVPSpotActivity extends BaseActivity {
         });
 
         binding.revpMember.setOnClickListener(v -> {
+            binding.revpMember.setAlpha(1);
+            binding.revpGuest.setAlpha(0.5f);
             binding.revpMember.setBackground(ContextCompat.getDrawable(context, R.drawable.rsvp_red_corner_drawable));
             binding.revpGuest.setBackground(null);
 
         });
 
         binding.revpGuest.setOnClickListener(v -> {
+            binding.revpMember.setAlpha(0.5f);
+            binding.revpGuest.setAlpha(1);
             binding.revpGuest.setBackground(ContextCompat.getDrawable(context, R.drawable.rsvp_red_guest_corner_drawable));
             binding.revpMember.setBackground(null);
         });
 
         binding.rvList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         binding.rvList.setAdapter(new RSVPCarAdapter(context, null));
+    }
+
+    public void carSelectedCallBack(boolean isSelected, int position) {
+        if (isSelected) {
+            binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_gradient));
+        } else {
+            binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.grey_btn_gradient));
+        }
     }
 }

@@ -9,25 +9,43 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
+import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.adapters.PastEventAdapter;
+import com.nibou.niboucustomer.api.ApiClient;
+import com.nibou.niboucustomer.api.ApiEndPoint;
+import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityScmPastEventsBinding;
+import com.nibou.niboucustomer.models.EventResponseModel;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
+import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
 
 public class PastEventActivity extends AppCompatActivity {
     private long backPressedClickTime;
+
     private ActivityScmPastEventsBinding binding;
     private Context context;
-
     private PastEventAdapter mListAdapter;
+    private EventResponseModel eventResponseModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scm_past_events);
         context = this;
+
+        binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
+            finish();
+        });
+
+        binding.tvLogin.setOnClickListener(view -> {
+            startActivity(new Intent(PastEventActivity.this, UserCheckActivity.class));
+            finishAffinity();
+        });
+
         init();
     }
 
@@ -40,19 +58,34 @@ public class PastEventActivity extends AppCompatActivity {
             binding.toolbar.setVisibility(View.GONE);
         }
 
-        binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
-            AppUtil.hideKeyBoard(context);
-            finish();
-        });
+        if (AppUtil.isInternetAvailable(context)) {
+            getPastEventsNetworkCall(1);
+        } else {
+            AppUtil.showToast(context, getString(R.string.internet_error));
+        }
+    }
 
-        binding.tvLogin.setOnClickListener(view -> {
-            startActivity(new Intent(PastEventActivity.this, UserCheckActivity.class));
-            finishAffinity();
-        });
+    public void getPastEventsNetworkCall(int pageNumber) {
+        AppDialogs.getInstance().showProgressBar(context, null, true);
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getPastEventsNetworkCall(20, pageNumber), new ApiHandler.CallBack() {
+            @Override
+            public void success(boolean isSuccess, Object data) {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+                if (isSuccess) {
+                    eventResponseModel = (EventResponseModel) data;
+                    binding.rvEvents.setLayoutManager(new LinearLayoutManager(context));
+                    mListAdapter = new PastEventAdapter(context, eventResponseModel);
+                    binding.rvEvents.setAdapter(mListAdapter);
+                } else {
+                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                }
+            }
 
-        binding.rvEvents.setLayoutManager(new LinearLayoutManager(this));
-        mListAdapter = new PastEventAdapter(this, new PreviousExpertModel());
-        binding.rvEvents.setAdapter(mListAdapter);
+            @Override
+            public void failed() {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+            }
+        });
     }
 
     @Override

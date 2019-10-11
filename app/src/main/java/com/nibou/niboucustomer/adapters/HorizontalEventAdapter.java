@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.customviews.MyImageViewPagerActivity;
+import com.nibou.niboucustomer.models.EventResponseModel;
+import com.nibou.niboucustomer.utils.DateFormatUtil;
 
 import java.util.ArrayList;
 
@@ -20,11 +22,11 @@ import java.util.ArrayList;
 public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEventAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<String> mImageList;
+    private EventResponseModel.EventList eventList;
 
-    public HorizontalEventAdapter(Context context, ArrayList<String> mImageList) {
+    public HorizontalEventAdapter(Context context, EventResponseModel.EventList eventList) {
         this.context = context;
-        this.mImageList = mImageList;
+        this.eventList = eventList;
     }
 
     @NonNull
@@ -37,10 +39,15 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
 
-        showImage(myViewHolder.image, mImageList.get(position));
-
+        if (position < eventList.getImgs().size())
+            showImage(myViewHolder.image, eventList.getImgs().get(position).getImg());
         if (position == 0) {
             myViewHolder.ivEvent.setVisibility(View.VISIBLE);
+            myViewHolder.tvName.setText(eventList.getName());
+            myViewHolder.tvLoc.setText(eventList.getLocation());
+            myViewHolder.tvPerson.setText(eventList.getParticipants() + " peoples");
+            myViewHolder.tvDate.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(eventList.getDate()), "dd MMMM yy"));
+            myViewHolder.tvTime.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(eventList.getDate()), "hh:mm a").replace(".", ""));
         } else {
             myViewHolder.ivEvent.setVisibility(View.INVISIBLE);
         }
@@ -49,14 +56,17 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
     private void showImage(ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
+                .placeholder(R.drawable.empty_image_drawable)
+                .error(R.drawable.empty_image_drawable)
                 .into(imageView);
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        if (eventList.getImgs() != null && eventList.getImgs().size() > 0)
+            return eventList.getImgs().size();
+        else
+            return 1;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +88,7 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
 
             card.setOnClickListener(view -> {
                 Intent mIntent = new Intent(context, MyImageViewPagerActivity.class);
-                mIntent.putExtra("LIST", mImageList);
+                mIntent.putExtra("LIST", eventList.getImgs());
                 mIntent.putExtra("INDEX", getAdapterPosition());
                 context.startActivity(mIntent);
             });

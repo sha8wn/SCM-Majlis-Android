@@ -1,9 +1,15 @@
 package com.nibou.niboucustomer.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build.VERSION;
@@ -19,8 +25,17 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.OverScroller;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.nibou.niboucustomer.R;
+
+@SuppressLint("AppCompatCustomView")
 public class TouchImageView extends ImageView {
 
     private static final String DEBUG = "DEBUG";
@@ -1272,5 +1287,43 @@ public class TouchImageView extends ImageView {
         float[] n = new float[9];
         matrix.getValues(n);
         Log.d(DEBUG, "Scale: " + n[Matrix.MSCALE_X] + " TransX: " + n[Matrix.MTRANS_X] + " TransY: " + n[Matrix.MTRANS_Y]);
+    }
+
+    public static void showImage(Context context, String path) {
+        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+        RelativeLayout relativeLayout = new RelativeLayout(context);
+        relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+
+        TouchImageView fullImageView = new TouchImageView(context);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        fullImageView.setLayoutParams(params);
+
+        final ProgressBar progress_bar = new ProgressBar(context);
+        RelativeLayout.LayoutParams progress_bar_params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        progress_bar_params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        progress_bar.setLayoutParams(progress_bar_params);
+
+
+        relativeLayout.addView(fullImageView);
+        relativeLayout.addView(progress_bar);
+
+        dialog.setContentView(relativeLayout);
+
+        Glide.with(context).load(path).error(R.drawable.empty_image_drawable).placeholder(R.drawable.empty_image_drawable).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                progress_bar.setVisibility(View.VISIBLE);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                progress_bar.setVisibility(View.GONE);
+                return false;
+            }
+        }).into(fullImageView);
+        dialog.show();
     }
 }

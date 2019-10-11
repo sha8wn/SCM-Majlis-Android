@@ -6,36 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.models.EventResponseModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyImageViewPagerActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    List<String> mImageList = new ArrayList<>();
-    int currentPos = 0;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_image_view_pager);
-        init();
-    }
-
-    private void init() {
-        ImageView imgBack = findViewById(R.id.imgCross);
-        imgBack.setOnClickListener(view -> onBackPressed());
-        if (getIntent().getExtras() != null) {
-            mImageList = (List<String>) getIntent().getExtras().getSerializable("LIST");
-        }
-
-        if (getIntent().getExtras() != null) {
-            currentPos = getIntent().getExtras().getInt("INDEX");
-        }
+        findViewById(R.id.imgCross).setOnClickListener(view -> onBackPressed());
 
         viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new MySlidingImageAdapter(MyImageViewPagerActivity.this, mImageList));
-        viewPager.setCurrentItem(currentPos);
+        viewPager.setAdapter(new MySlidingImageAdapter(MyImageViewPagerActivity.this, ((ArrayList<EventResponseModel.Img>) getIntent().getSerializableExtra("LIST"))));
+        viewPager.setCurrentItem(getIntent().getIntExtra("INDEX", 0));
     }
 }

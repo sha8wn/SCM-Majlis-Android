@@ -51,7 +51,7 @@ public class EventDetailActivity extends BaseActivity {
     }
 
     private void showEventData() {
-        showImage(binding.ivEventImage, "https://scmajlis.ae/files/past_events/4/imgs/1/dr1.jpeg");
+        showImage(binding.ivEventImage, "https://scmajlis.ae/files/past_events/1/imgs/2/past_2.jpeg");
 
         binding.rvCheckpoints.setLayoutManager(new LinearLayoutManager(context));
         binding.rvBrands.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));

@@ -77,7 +77,7 @@ public class AppDialogs implements Serializable {
                     progressBar.setCanceledOnTouchOutside(false);
                     progressBar.setCancelable(false);
                     ProgressBar progress = (ProgressBar) progressBar.findViewById(R.id.progressBar);
-                    progress.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    progress.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
                 }
                 if (progressBar != null) {
                     progressBar.setOnDismissListener(dialog -> {
