@@ -24,11 +24,20 @@ import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.adapters.GoingToAdapter;
 import com.nibou.niboucustomer.adapters.ListAdapter;
+import com.nibou.niboucustomer.adapters.PastEventAdapter;
+import com.nibou.niboucustomer.api.ApiClient;
+import com.nibou.niboucustomer.api.ApiEndPoint;
+import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.BrandModel;
+import com.nibou.niboucustomer.models.EventResponseModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
+import com.nibou.niboucustomer.utils.AppUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 public class AppDialogs implements Serializable {
 
@@ -397,47 +406,62 @@ public class AppDialogs implements Serializable {
         dialog.show();
     }
 
-    public void openBrandListDialog(String type, Context context, AppCallBack appCallBack) {
+    public void openListDialog(String title, Object selectedId, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.brand_list);
-
-        TextView title = dialog.findViewById(R.id.tvTitle);
-        title.setText(type);
-        ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
-        SearchView ivSearch = dialog.findViewById(R.id.ivSearch);
-        RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
-
-        back_arrow.setOnClickListener(view -> dialog.dismiss());
-        ivSearch.setVisibility(View.VISIBLE);
-
-        ivSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                return false;
-            }
-        });
-
-        ArrayList<BrandModel> mList = new ArrayList();
-        mList.add(new BrandModel("Toyota"));
-        mList.add(new BrandModel("BMW"));
-        mList.add(new BrandModel("Nissan"));
-        mList.add(new BrandModel("Audi"));
-        mList.add(new BrandModel("Porsche"));
-        rvBrandList.setLayoutManager(new LinearLayoutManager(context));
-        ListAdapter listAadpter = new ListAdapter(context, mList, (AppCallBack) item -> {
+        ((TextView) dialog.findViewById(R.id.tvTitle)).setText(title);
+        dialog.findViewById(R.id.back_arrow).findViewById(R.id.back_arrow).setOnClickListener(v -> {
+            AppUtil.hideKeyBoard(context);
             dialog.dismiss();
-            if (appCallBack != null)
-                appCallBack.onSelect(item);
         });
-        rvBrandList.setAdapter(listAadpter);
+        RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
+        rvBrandList.setLayoutManager(new LinearLayoutManager(context));
+        SearchView ivSearch = dialog.findViewById(R.id.ivSearch);
+        ivSearch.setVisibility(View.VISIBLE);
         dialog.show();
-    }
 
+        if (AppUtil.isInternetAvailable(context)) {
+            Call requestCall = null;
+            if (title.equals(context.getString(R.string.brand))) {
+                requestCall = ApiClient.getClient().create(ApiEndPoint.class).getBrandNetworkCall(1000, 1);
+            } else if (title.equals(context.getString(R.string.model))) {
+                requestCall = ApiClient.getClient().create(ApiEndPoint.class).getModelNetworkCall(1000, 1);
+            }
+            if (requestCall != null) {
+                AppDialogs.getInstance().showProgressBar(context, null, true);
+                ApiHandler.requestService(context, requestCall, new ApiHandler.CallBack() {
+                    @Override
+                    public void success(boolean isSuccess, Object data) {
+                        AppDialogs.getInstance().showProgressBar(context, null, false);
+                        if (isSuccess) {
+                            ListResponseModel.Model model = null;
+                            ListResponseModel listResponseModel = (ListResponseModel) data;
+                            if (title.equals(context.getString(R.string.brand))) {
+                                model = listResponseModel.getBrands();
+                            } else if (title.equals(context.getString(R.string.model))) {
+                                model = listResponseModel.getModels();
+                            }
+                            rvBrandList.setAdapter(new ListAdapter(context, model, (ListResponseModel.ModelList) selectedId, modelList -> {
+                                dialog.dismiss();
+                                if (appCallBack != null)
+                                    appCallBack.onSelect(modelList);
+                            }));
+
+                        } else {
+                            AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                        }
+                    }
+
+                    @Override
+                    public void failed() {
+                        AppDialogs.getInstance().showProgressBar(context, null, false);
+                    }
+                });
+            }
+        } else {
+            AppUtil.showToast(context, context.getString(R.string.internet_error));
+        }
+    }
 
     public void openGoingToListScreen(String type, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);

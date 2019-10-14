@@ -33,12 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:alpha="0.5"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/segoeui"
                 android:gravity="start|center_vertical"
                 android:text="@string/brand"
-                android:textColor="@color/app_theme_color"
-                android:textSize="12sp" />
+                android:textColor="#3c3c3c"
+                android:textSize="14sp" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -49,9 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
         android:background="@drawable/brand_bg_drawable"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/checkpoint_name"
@@ -60,12 +59,12 @@
             android:layout_alignParentLeft="true"
             android:drawableLeft="@drawable/map_locator"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/app_theme_color"
-            android:fontFamily="@font/poppins_medium"
+            android:drawableTint="#242424"
+            android:fontFamily="@font/seguisb"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Drag Race"
-            android:textColor="@color/app_theme_color"
+            android:textColor="#242424"
             android:textSize="14sp" />
 
 
@@ -78,12 +77,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:alpha="0.5"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/seguisb"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Drag Race"
-            android:textColor="@color/app_theme_color"
-            android:textSize="12sp" />
+            android:text="04:00PM"
+            android:textColor="#242424"
+            android:textSize="14sp" />
 
 
         <TextView
@@ -94,12 +93,12 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/seguisb"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/directions"
-            android:textColor="@color/app_theme_color"
-            android:textSize="14sp" />
+            android:textColor="#242424"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

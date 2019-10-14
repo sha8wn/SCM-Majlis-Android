@@ -1,14 +1,18 @@
 package com.nibou.niboucustomer.utils;
 
 public class AppConstant {
+    public static final String BASE_URL = "https://scmajlis.ae/";
+    public static final String ADMIN_SIGNUP = "admin_signup";
+    public static final String SCREEN_FLOW_FLAG = "screen_flow_flag";
+    public static final String TEXT_PRIVACY = "privacy";
+    public static final String TEXT_TERMS = "terms";
+
+
     public static final String STRIPE_PUBLISH_KEY = "pk_test_yOBkGpiAkWajiy6qMVbcX1pf00dtA7sx1n";
     public static final String STRIPE_SECRET_KEY = "sk_test_FfjUYGHC7Eh374hmXTrIijkn00BL17Y2QN";
-    public static final String FILE_BASE_URL = "http://api.staging.nibouapp.com";
-    public static final String BASE_URL = "https://scmajlis.ae/";
     public static final String CLIENT_ID = "KtqwLc20z1Elb1E2GWPfQSpxQTHg0Cc7H_xM_eYtDMo";
     public static final String CLIENT_SECRET = "z0fp2Ng0dssdmkM18Dk8JL9PvTY-EczdrVeHjhk7eYk";
-    public static final String ADMIN_SIGNUP = "admin_signup";
-
+    public static final String FILE_BASE_URL = "http://api.staging.nibouapp.com";
     public static final String REFRESH_TOKEN = "refresh_token";
     public static final String BEARER = "Bearer ";
     public static final String EMAIL = "email";

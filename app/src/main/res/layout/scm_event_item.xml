@@ -67,7 +67,7 @@
             android:includeFontPadding="false"
             android:text="21 July 19"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +82,7 @@
             android:text="09:00 AM"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
@@ -117,7 +117,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.8"
             android:drawableStart="@drawable/map_locator"
             android:drawablePadding="5dp"
             android:fontFamily="@font/segoeuib"
@@ -141,7 +140,7 @@
             android:fontFamily="@font/segoeuib"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="30 people"
+            android:text="30 participants"
             android:textColor="@android:color/white"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -199,7 +198,7 @@
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/icon3"
                 android:background="@drawable/going_drawable"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/segoeuib"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"

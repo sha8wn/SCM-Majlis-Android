@@ -26,9 +26,20 @@ public interface ApiEndPoint {
     Call<TermAndPrivacyResponseModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
 
     @Headers("Content-Type: application/json")
+    @GET("_api/brands")
+    Call<ListResponseModel> getBrandNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/models")
+    Call<ListResponseModel> getModelNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/models")
+    Call<ListResponseModel> getColorNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+
+    @Headers("Content-Type: application/json")
     @POST("_api/user_registration")
     Call<TermAndPrivacyResponseModel> registerUserNetworkCall(@Body HashMap<String, Object> map);
-
 
     @Headers("Content-Type: application/json")
     @POST("oauth/token?")

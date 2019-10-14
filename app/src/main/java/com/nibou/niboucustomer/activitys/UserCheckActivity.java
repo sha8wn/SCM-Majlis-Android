@@ -90,7 +90,7 @@ public class UserCheckActivity extends BaseActivity {
         public void onClick(View textView) {
             AppUtil.hideKeyBoard(context);
             Intent intent = new Intent(context, PrivacyPolicyActivity.class);
-            intent.putExtra("type", "privacy");
+            intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, AppConstant.TEXT_PRIVACY);
             startActivity(intent);
         }
 
@@ -106,7 +106,7 @@ public class UserCheckActivity extends BaseActivity {
         public void onClick(View textView) {
             AppUtil.hideKeyBoard(context);
             Intent intent = new Intent(context, PrivacyPolicyActivity.class);
-            intent.putExtra("type", "terms");
+            intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, AppConstant.TEXT_TERMS);
             startActivity(intent);
         }
 

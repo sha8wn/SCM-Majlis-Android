@@ -17,6 +17,7 @@ import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.HomeActivity;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 import com.nibou.niboucustomer.utils.AppUtil;
 
@@ -54,28 +55,35 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
         myViewHolder.etBrand.setOnClickListener(view -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openBrandListDialog("Brand", context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog(context.getString(R.string.brand), null, context, new AppCallBack() {
                 @Override
-                public void onSelect(String item) {
-                    myViewHolder.etBrand.setText(item);
+                public void onSelect(ListResponseModel.ModelList modelList) {
+                    if (modelList != null) {
+                        myViewHolder.etBrand.setText(modelList.getName());
+                    }
                 }
             });
         });
         myViewHolder.etModel.setOnClickListener(view -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openBrandListDialog("Model", context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog(context.getString(R.string.model), null, context, new AppCallBack() {
                 @Override
-                public void onSelect(String item) {
-                    myViewHolder.etModel.setText(item);
+                public void onSelect(ListResponseModel.ModelList modelList) {
+                    if (modelList != null) {
+                        myViewHolder.etModel.setText(modelList.getName());
+                    }
                 }
             });
         });
         myViewHolder.etColor.setOnClickListener(view -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openBrandListDialog("Color", context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog("Color", null, context, new AppCallBack() {
                 @Override
-                public void onSelect(String item) {
-                    myViewHolder.etColor.setText(item);
+                public void onSelect(ListResponseModel.ModelList modelList) {
+                    if (modelList != null) {
+                        myViewHolder.etColor.setText(modelList.getName());
+                    }
+
                 }
             });
         });

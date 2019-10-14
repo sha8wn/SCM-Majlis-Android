@@ -126,12 +126,12 @@
 
                         <TextView
                             android:id="@+id/text_emirates_front"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:drawableTop="@drawable/camera"
+                            android:drawablePadding="5dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:padding="10dp"
                             android:text="@string/upload_Emirates_front"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
@@ -145,7 +145,6 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_weight="1">
 
                         <ImageView
@@ -159,12 +158,12 @@
 
                         <TextView
                             android:id="@+id/text_emirates_back"
-                            android:layout_width="115dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:drawableTop="@drawable/camera"
+                            android:drawablePadding="5dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:padding="10dp"
                             android:text="@string/upload_Emirates_back"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
@@ -210,7 +209,6 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
                         android:layout_weight="1">
 
                         <ImageView
@@ -224,12 +222,12 @@
 
                         <TextView
                             android:id="@+id/text_driver_front"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:drawableTop="@drawable/camera"
+                            android:drawablePadding="5dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:padding="10dp"
                             android:text="@string/upload_License_front"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
@@ -257,12 +255,12 @@
 
                         <TextView
                             android:id="@+id/text_driver_back"
-                            android:layout_width="115dp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:drawableTop="@drawable/camera"
+                            android:drawablePadding="5dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:padding="10dp"
                             android:text="@string/upload_License_back"
                             android:textAllCaps="true"
                             android:textColor="@color/white"

@@ -45,7 +45,7 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
             myViewHolder.ivEvent.setVisibility(View.VISIBLE);
             myViewHolder.tvName.setText(eventList.getName());
             myViewHolder.tvLoc.setText(eventList.getLocation());
-            myViewHolder.tvPerson.setText(eventList.getParticipants() + " peoples");
+            myViewHolder.tvPerson.setText(eventList.getParticipants() + " participants");
             myViewHolder.tvDate.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(eventList.getDate()), "dd MMMM yy"));
             myViewHolder.tvTime.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(eventList.getDate()), "hh:mm a").replace(".", ""));
         } else {

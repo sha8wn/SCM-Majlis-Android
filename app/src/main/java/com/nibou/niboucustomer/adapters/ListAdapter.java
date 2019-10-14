@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.BrandModel;
+import com.nibou.niboucustomer.models.EventResponseModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 
 import java.util.ArrayList;
 
@@ -20,14 +22,15 @@ import java.util.ArrayList;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<BrandModel> mList;
-    int selectedItem = 0;
+    private ListResponseModel.Model listResponseModel;
     private AppCallBack mAppCallBack;
+    private ListResponseModel.ModelList selectedId;
 
-    public ListAdapter(Context context, ArrayList<BrandModel> mList, AppCallBack mAppCallBack) {
+    public ListAdapter(Context context, ListResponseModel.Model listResponseModel, ListResponseModel.ModelList selectedId, AppCallBack mAppCallBack) {
         this.context = context;
-        this.mList = mList;
+        this.listResponseModel = listResponseModel;
         this.mAppCallBack = mAppCallBack;
+        this.selectedId = selectedId;
     }
 
     @NonNull
@@ -39,27 +42,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-
-        myViewHolder.ivTick.setTag(position);
-        myViewHolder.cvBrand.setOnClickListener(view -> {
-            selectedItem = position;
-            mAppCallBack.onSelect(mList.get(position).getName());
-            notifyDataSetChanged();
-        });
-
-        if (selectedItem == position) {
+        if(selectedId!=null&&selectedId.getId().equals(listResponseModel.getList().get(position).getId())){
             myViewHolder.tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
             myViewHolder.ivTick.setVisibility(View.VISIBLE);
-        } else {
+        }else{
             myViewHolder.tvName.setTextColor(context.getResources().getColor(R.color.white));
             myViewHolder.ivTick.setVisibility(View.GONE);
         }
-        myViewHolder.tvName.setText(mList.get(position).getName());
+        myViewHolder.tvName.setText(listResponseModel.getList().get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        if (listResponseModel != null && listResponseModel.getList() != null)
+            return listResponseModel.getList().size();
+        return 0;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -73,6 +70,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
             ivTick = itemView.findViewById(R.id.ivTick);
             tvName = itemView.findViewById(R.id.tvName);
             cvBrand = itemView.findViewById(R.id.cvBrand);
+            cvBrand.setOnClickListener(view -> {
+                mAppCallBack.onSelect(listResponseModel.getList().get(getAdapterPosition()));
+            });
         }
     }
 }

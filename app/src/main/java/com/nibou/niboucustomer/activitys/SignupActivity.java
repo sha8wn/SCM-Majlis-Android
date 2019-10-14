@@ -24,6 +24,7 @@ import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.databinding.ActivitySignupBinding;
 import com.nibou.niboucustomer.models.AccessTokenModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
@@ -70,37 +71,42 @@ public class SignupActivity extends BaseActivity {
             binding.nextTitle.setVisibility(View.GONE);
         }
 
-
         binding.etBrand.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openBrandListDialog("Brand", context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog(getString(R.string.brand), binding.etBrand.getTag(), context, new AppCallBack() {
                 @Override
-                public void onSelect(String item) {
-                    binding.etBrand.setText(item);
+                public void onSelect(ListResponseModel.ModelList modelList) {
+                    if (modelList != null) {
+                        binding.etBrand.setTag(modelList);
+                        binding.etBrand.setText(modelList.getName());
+                    }
                 }
             });
         });
 
         binding.etModel.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openBrandListDialog("Model", context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog(getString(R.string.model), binding.etModel.getTag(), context, new AppCallBack() {
                 @Override
-                public void onSelect(String item) {
-                    binding.etModel.setText(item);
+                public void onSelect(ListResponseModel.ModelList modelList) {
+                    if (modelList != null) {
+                        binding.etModel.setTag(modelList);
+                        binding.etModel.setText(modelList.getName());
+                    }
                 }
             });
         });
 
         binding.btnSignup.setOnClickListener(v -> {
-            AppUtil.hideKeyBoard(SignupActivity.this);
+            AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
-                AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
-                        getString(R.string.thank_you_desc), getString(R.string.continu),
-                        getResources().getColor(R.color.white), status -> {
-                            Intent intent = new Intent(context, PastEventActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
-                        });
+                if (screenValidate()) {
+                    AppDialogs.getInstance().showProgressBar(context, null, true);
+//                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+//                        registerUserNetworkCall("testing");
+//                    });
+                    registerUserNetworkCall("testing");
+                }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
@@ -113,53 +119,34 @@ public class SignupActivity extends BaseActivity {
 
     }
 
-    private void signupNetworkCall() {
-        HashMap<String, Object> mainParameters = new HashMap<>();
-        HashMap<String, String> parameters = new HashMap<>();
+    private void registerUserNetworkCall(String deviceToken) {
+
+        HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("name", binding.etName.getText().toString());
         parameters.put("email", binding.etEmail.getText().toString());
-        parameters.put("phone_num", binding.etPhone.getText().toString());
-        parameters.put("brand", binding.etBrand.getText().toString());
-        parameters.put("model", binding.etModel.getText().toString());
-        parameters.put("account_type", "1");
-        mainParameters.put("user", parameters);
+        parameters.put("phone", "00971" + binding.etPhone.getText().toString());
+        parameters.put("brand", ((ListResponseModel.ModelList) binding.etBrand.getTag()).getId());
+        parameters.put("model", ((ListResponseModel.ModelList) binding.etModel.getTag()).getId());
+        //parameters.put("uid", deviceToken);
 
-
-        AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).signup(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), mainParameters), new ApiHandler.CallBack() {
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).registerUserNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    // accessTokenNetworkCall();
-                    Intent intent = new Intent(context, SignupSuccessActivity.class);
-                    intent.putExtra(AppConstant.EMAIL, binding.etEmail.getText().toString());
-//                    intent.putExtra(AppConstant.PASSWORD, binding.etPassword.getText().toString());
-                    startActivity(intent);
-                    finishAffinity();
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
+                            getString(R.string.thank_you_desc), getString(R.string.continu),
+                            getResources().getColor(R.color.white), status -> {
+                                try {
+                                    Intent intent = new Intent(context, PastEventActivity.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
                 } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.alert), context.getString(R.string.already_registered_message), context.getString(R.string.OK), null);
-                }
-            }
-
-            @Override
-            public void failed() {
-                AppDialogs.getInstance().showProgressBar(context, null, false);
-            }
-        });
-    }
-
-    private void accessTokenNetworkCall() {
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getAccessToken(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.CLIENT_ID, AppConstant.CLIENT_SECRET, AppConstant.PASSWORD, binding.etEmail.getText().toString()
-                , ""/*binding.etPassword.getText().toString()*/, "1"), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    profileNetworkCall((AccessTokenModel) data);
-                    uploadDeviceToken(((AccessTokenModel) data).getAccessToken());
-                } else {
-                    AppUtil.showToast(context, context.getResources().getString(R.string.wrong_with_backend));
-                    AppDialogs.getInstance().showProgressBar(context, null, false);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 
@@ -181,7 +168,6 @@ public class SignupActivity extends BaseActivity {
                     ActionSessionHandler.getActionSessionHandler(context).connectWS();
                     Intent intent = new Intent(context, SignupSuccessActivity.class);
                     intent.putExtra(AppConstant.EMAIL, binding.etEmail.getText().toString());
-//                    intent.putExtra(AppConstant.PASSWORD, binding.etPassword.getText().toString());
                     startActivity(intent);
                     finishAffinity();
                 } else {
@@ -196,32 +182,6 @@ public class SignupActivity extends BaseActivity {
         });
     }
 
-    private void uploadDeviceToken(String accessToken) {
-        if (AppUtil.isInternetAvailable(context)) {
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-                sendDeviceNetworkCall(accessToken, instanceIdResult.getToken());
-            });
-        } else {
-            AppUtil.showToast(context, getString(R.string.internet_error));
-        }
-    }
-
-    public void sendDeviceNetworkCall(String accessToken, String firebasToken) {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("devise_id", AppUtil.getDeviceId(context));
-        parameters.put("devise_description", "android");
-        parameters.put("firebase_token", firebasToken);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).saveDevicesRequest(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessToken, parameters), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-
-            }
-
-            @Override
-            public void failed() {
-            }
-        });
-    }
 
     private boolean screenValidate() {
         if (TextUtils.isEmpty(binding.etName.getText())) {

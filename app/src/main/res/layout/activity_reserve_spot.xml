@@ -29,7 +29,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_reserve_spot"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
             <android.support.constraint.ConstraintLayout
@@ -52,7 +52,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:alpha="0.5"
                         android:background="@drawable/rsvp_red_corner_drawable"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="start|center"
@@ -102,28 +101,26 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sub_title" />
 
-                <TextView
-                    android:id="@+id/btn_reserve_spot"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/grey_btn_gradient"
-                    android:fontFamily="@font/poppins_bold"
-                    android:gravity="center"
-                    android:text="@string/reserve_my_spot"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvList" />
-
-
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
 
+
+        <TextView
+            android:id="@+id/btn_reserve_spot"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/grey_btn_gradient"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/reserve_my_spot"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,6 +1,8 @@
 package com.nibou.niboucustomer.callbacks;
 
+import com.nibou.niboucustomer.models.ListResponseModel;
+
 public interface AppCallBack {
 
-    void onSelect(String item);
+    void onSelect(ListResponseModel.ModelList modelList);
 }
