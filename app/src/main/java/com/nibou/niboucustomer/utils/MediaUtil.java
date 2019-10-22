@@ -2,7 +2,6 @@ package com.nibou.niboucustomer.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -14,23 +13,21 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
-import android.media.MediaMetadataRetriever;
-import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.nibou.niboucustomer.R;
@@ -48,17 +45,18 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MediaUtil {
     private static final int REQUEST_CAMERA = 100;
     private static final int REQUEST_MULTIPLE_IMAGE_GALLERY = 500;
+    private static final int REQUEST_DOCUMENT_GALLERY = 700;
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_FILE_CREATE_PERMISSION = 5;
     private Context context;
     private Uri cameraPhotoUri;
     private Fragment fragment;
     private SelectedImageCallback selectedImageCallback;
+    private SelectedDocumetCallback selectedDocumetCallback;
     private boolean deleteOldFile;
 
     public interface CompressImageCallback {
@@ -67,6 +65,10 @@ public class MediaUtil {
 
     public interface SelectedImageCallback {
         void response(boolean isCamera, Object imageResult);
+    }
+
+    public interface SelectedDocumetCallback {
+        void response(boolean status, String fileName, String path);
     }
 
     public interface DownloadedFileCallback {
@@ -88,17 +90,68 @@ public class MediaUtil {
         MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, (path, uri) -> Log.i("Scan", "Done"));
     }
 
+    public static String getBase64FromPath(String path) {
+        String base64 = null;
+        try {
+            File file = new File(path);
+            byte[] buffer = new byte[(int) file.length() + 100];
+            int length = new FileInputStream(file).read(buffer);
+            base64 = Base64.encodeToString(buffer, 0, length, Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return base64;
+    }
+
     public void openMultipleImageGallery(SelectedImageCallback selectedImageCallback) {
         this.selectedImageCallback = selectedImageCallback;
-        ImagePicker.create(fragment)
-                .returnAfterFirst(true)
-                .folderMode(true)
-                .folderTitle("Select")
-                .imageTitle("Select")
-                .single()
-                .showCamera(true)
-                .theme(R.style.ImagePickerTheme)
-                .start(REQUEST_MULTIPLE_IMAGE_GALLERY);
+        if (fragment != null) {
+            ImagePicker.create(fragment)
+                    .returnAfterFirst(false)
+                    .folderMode(true)
+                    .folderTitle("Select")
+                    .imageTitle("Select")
+                    .multi()
+                    .showCamera(true)
+                    .theme(R.style.ImagePickerTheme)
+                    .start(REQUEST_MULTIPLE_IMAGE_GALLERY);
+        } else {
+            ImagePicker.create((Activity) context)
+                    .returnAfterFirst(false)
+                    .folderMode(true)
+                    .folderTitle("Select")
+                    .imageTitle("Select")
+                    .multi()
+                    .showCamera(true)
+                    .theme(R.style.ImagePickerTheme)
+                    .start(REQUEST_MULTIPLE_IMAGE_GALLERY);
+        }
+    }
+
+    public void openSingleImageGallery(SelectedImageCallback selectedImageCallback) {
+        this.selectedImageCallback = selectedImageCallback;
+        if (fragment != null) {
+            ImagePicker.create(fragment)
+                    .returnAfterFirst(true)
+                    .folderMode(true)
+                    .folderTitle("Select")
+                    .imageTitle("Select")
+                    .single()
+                    .showCamera(true)
+                    .theme(R.style.ImagePickerTheme)
+                    .start(REQUEST_MULTIPLE_IMAGE_GALLERY);
+        } else {
+            ImagePicker.create((Activity) context)
+                    .returnAfterFirst(true)
+                    .folderMode(true)
+                    .folderTitle("Select")
+                    .imageTitle("Select")
+                    .single()
+                    .showCamera(true)
+                    .theme(R.style.ImagePickerTheme)
+                    .start(REQUEST_MULTIPLE_IMAGE_GALLERY);
+        }
+
     }
 
     public void openCameraForImage(boolean deleteOldFile, SelectedImageCallback selectedImageCallback) {
@@ -111,6 +164,16 @@ public class MediaUtil {
         }
     }
 
+    public void openDocumentGallery(final SelectedDocumetCallback selectedDocumetCallback) {
+        this.selectedDocumetCallback = selectedDocumetCallback;
+        if (hasStoragePermission(context)) {
+            documentIntent();
+        } else {
+            ActivityCompat.requestPermissions(((AppCompatActivity) context), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_DOCUMENT_GALLERY);
+        }
+    }
+
+
     private void dispatchTakePictureIntent() {
         try {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -119,11 +182,44 @@ public class MediaUtil {
                 if (photoFile != null) {
                     cameraPhotoUri = Uri.fromFile(photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPhotoUri);
-                    fragment.startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+                    if (fragment != null) {
+                        fragment.startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+                    } else {
+                        ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+                    }
+
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void documentIntent() {
+        try {
+            String[] mimeTypes = {"application/pdf"};
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                intent.setType(mimeTypes.length == 1 ? mimeTypes[0] : "*/*");
+                if (mimeTypes.length > 0) {
+                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                }
+            } else {
+                String mimeTypesStr = "";
+                for (String mimeType : mimeTypes) {
+                    mimeTypesStr += mimeType + "|";
+                }
+                intent.setType(mimeTypesStr.substring(0, mimeTypesStr.length() - 1));
+            }
+            if (fragment != null) {
+                fragment.startActivityForResult(Intent.createChooser(intent, "ChooseFile"), REQUEST_DOCUMENT_GALLERY);
+            } else {
+                ((Activity) context).startActivityForResult(Intent.createChooser(intent, "ChooseFile"), REQUEST_DOCUMENT_GALLERY);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -146,6 +242,8 @@ public class MediaUtil {
             if (selectedImageCallback != null && imagesList != null && imagesList.size() > 0) {
                 selectedImageCallback.response(false, imagesList);
             }
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_DOCUMENT_GALLERY) {
+            copySelctedFileInFolder(data.getData());
         }
     }
 
@@ -155,24 +253,19 @@ public class MediaUtil {
             if (hasCameraPermission(context) && hasStoragePermission(context)) {
                 dispatchTakePictureIntent();
             }
+        } else if (requestCode == REQUEST_DOCUMENT_GALLERY) {
+            if (hasStoragePermission(context)) {
+                documentIntent();
+            }
         }
     }
 
     private File createImageFile(String fileName) throws IOException {
-        return getFolderLocation(ChatConstants.LOCAL_FOLDER_IMAGE_PATH, fileName);
+        return getFolderLocation(AppConstant.LOCAL_FOLDER_PATH, fileName);
     }
 
     private File createMultipleImageFile(String imageName) throws IOException {
-        return getFolderLocation(ChatConstants.LOCAL_FOLDER_IMAGE_PATH, imageName);
-    }
-
-    private boolean hasRecodingPermission(Context context) {
-        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return getFolderLocation(AppConstant.LOCAL_FOLDER_PATH, imageName);
     }
 
     public boolean hasStoragePermission(Context context) {
@@ -293,6 +386,51 @@ public class MediaUtil {
         return inSampleSize;
     }
 
+    public void copySelctedFileInFolder(final Uri selectedFileUri) {
+        class CopyTask extends AsyncTask<Void, Void, String> {
+            File locationFilePath = null;
+            String fileName = null;
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    String filePath = FileUtils.getPath(context, selectedFileUri);
+                    if (!new File(filePath).exists()) {
+                        filePath = getFilePath(context, selectedFileUri);
+                    }
+                    fileName = FilenameUtils.getName(filePath);
+                    locationFilePath = getFolderLocation(AppConstant.LOCAL_FOLDER_PATH, fileName);
+                    InputStream in = new FileInputStream(filePath);
+                    OutputStream out = new FileOutputStream(locationFilePath);
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, read);
+                    }
+                    in.close();
+                    out.flush();
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return locationFilePath.getAbsolutePath();
+            }
+
+            @Override
+            protected void onPostExecute(String path) {
+                super.onPostExecute(path);
+                if (selectedDocumetCallback != null) {
+                    if (path != null)
+                        selectedDocumetCallback.response(true, fileName, locationFilePath.getAbsolutePath());
+                    else
+                        selectedDocumetCallback.response(false, null, null);
+                }
+            }
+        }
+        new CopyTask().execute();
+    }
+
     public void compressMultipleImages(final ArrayList<Image> imageArrayList, final int compressionRatio, final CompressImageCallback compressImageCallback) {
         class MyAsyncTask extends AsyncTask<Void, Void, Void> {
             Bitmap scaledBitmap = null;
@@ -314,8 +452,6 @@ public class MediaUtil {
                         String filePath = getRealPathFromURI(uri);
                         BitmapFactory.Options options = new BitmapFactory.Options();
 
-                        //by setting this field as true, the actual bitmap pixels are not loaded in the memory. Just the bounds are loaded. If
-                        //you try the use the bitmap here, you will get null.
                         options.inJustDecodeBounds = true;
                         Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
 
@@ -388,14 +524,14 @@ public class MediaUtil {
 
                         //write the compressed bitmap at the destination specified by filename.
                         scaledBitmap.compress(Bitmap.CompressFormat.JPEG, compressionRatio, out);
-                        if (deleteOldFile && filePath != null && new File(filePath).exists()) {
-                            new File(filePath).delete();
-                        }
+                        compressImageCallback.response(scaledBitmap, fileName, locationToSaveFile.getAbsolutePath());
                     } catch (Exception e) {
                         e.printStackTrace();
+                        if (locationToSaveFile != null && locationToSaveFile.exists()) {
+                            locationToSaveFile.delete();
+                        }
                         compressImageCallback.response(null, null, null);
                     }
-                    compressImageCallback.response(scaledBitmap, fileName, locationToSaveFile.getAbsolutePath());
                 }
                 return null;
             }

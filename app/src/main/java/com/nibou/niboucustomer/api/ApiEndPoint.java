@@ -19,11 +19,11 @@ public interface ApiEndPoint {
 
     @Headers("Content-Type: application/json")
     @GET("_api/past_events?")
-    Call<EventResponseModel> getPastEventsNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+    Call<ListResponseModel> getPastEventsNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
 
     @Headers("Content-Type: application/json")
     @GET("_api/pages?")
-    Call<TermAndPrivacyResponseModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
+    Call<ListResponseModel> getTermAndPrivacyNetworkCall(@Query("url") String type);
 
     @Headers("Content-Type: application/json")
     @GET("_api/brands")
@@ -34,12 +34,51 @@ public interface ApiEndPoint {
     Call<ListResponseModel> getModelNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
 
     @Headers("Content-Type: application/json")
-    @GET("_api/models")
-    Call<ListResponseModel> getColorNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+    @GET("_api/colors")
+    Call<ListResponseModel> getColorNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber);
 
     @Headers("Content-Type: application/json")
     @POST("_api/user_registration")
-    Call<TermAndPrivacyResponseModel> registerUserNetworkCall(@Body HashMap<String, Object> map);
+    Call<ErrorResponseModel> registerUserNetworkCall(@Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/users")
+    Call<ListResponseModel> getUserDetailsNetworkCall(@Header("token") String token);
+
+    @Headers("Content-Type: application/json")
+    @PUT("_api/users/{id}")
+    Call<ListResponseModel> updateUserDetailNetworkCall(@Path("id") String userId, @Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/cars")
+    Call<ListResponseModel> getCarsDetailsNetworkCall(@Header("token") String token);
+
+    @Headers("Content-Type: application/json")
+    @PUT("_api/cars/{id}")
+    Call<ErrorResponseModel> updateCarDetailNetworkCall(@Path("id") String userId, @Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/cars")
+    Call<ErrorResponseModel> addCarDetailNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @PUT("_api/user_docs/{id}")
+    Call<ListResponseModel> updateUserDocumentNetworkCall(@Path("id") String userId, @Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/user_auth")
+    Call<ListResponseModel> loginNetworkCall(@Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/user_remind")
+    Call<ErrorResponseModel> forgetPasswordNetworkCall(@Body HashMap<String, Object> map);
+
+    //	1 - upcoming, 2 - closed
+    @Headers("Content-Type: application/json")
+    @GET("_api/events?")
+    Call<ListResponseModel> getEventNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("type") int type);
+
+    ///////////////////////////////////////////////////////////////////////////////////
 
     @Headers("Content-Type: application/json")
     @POST("oauth/token?")

@@ -1,11 +1,9 @@
 package com.nibou.niboucustomer.activitys;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
@@ -14,12 +12,9 @@ import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityPrivacyPolicyBinding;
-import com.nibou.niboucustomer.databinding.ActivityUserCheckBinding;
-import com.nibou.niboucustomer.models.ProfileModel;
-import com.nibou.niboucustomer.models.TermAndPrivacyResponseModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.LocalPrefences;
 
 public class PrivacyPolicyActivity extends BaseActivity {
 
@@ -56,11 +51,11 @@ public class PrivacyPolicyActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     if (binding != null && binding.text != null) {
-                        TermAndPrivacyResponseModel termAndPrivacyResponseModel = (TermAndPrivacyResponseModel) data;
+                        ListResponseModel listResponseModel = (ListResponseModel) data;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            binding.text.setText(Html.fromHtml(termAndPrivacyResponseModel.getPages().getList().get(0).getText(), Html.FROM_HTML_MODE_COMPACT));
+                            binding.text.setText(Html.fromHtml(listResponseModel.getPages().getList().get(0).getText(), Html.FROM_HTML_MODE_COMPACT));
                         } else {
-                            binding.text.setText(Html.fromHtml(termAndPrivacyResponseModel.getPages().getList().get(0).getText()));
+                            binding.text.setText(Html.fromHtml(listResponseModel.getPages().getList().get(0).getText()));
                         }
                     }
                 }

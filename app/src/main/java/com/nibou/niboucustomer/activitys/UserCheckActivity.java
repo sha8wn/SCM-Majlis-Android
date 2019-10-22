@@ -44,7 +44,8 @@ public class UserCheckActivity extends BaseActivity {
         });
 
         binding.tvFan.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PastEventActivity.class);
+            Intent intent = new Intent(context, SignupActivity.class);
+            intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
             startActivity(intent);
             finishAffinity();
         });
@@ -76,7 +77,7 @@ public class UserCheckActivity extends BaseActivity {
         });
         startRegister.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(UserCheckActivity.this, SignupActivity.class);
+                Intent intent = new Intent(context, SignupActivity.class);
                 startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();

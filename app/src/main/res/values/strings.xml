@@ -55,23 +55,9 @@
     <string name="continu">Continue</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="login">Log in</string>
-    <string name="name_empty_alert">Please enter full name.</string>
-    <string name="alias_empty_alert">Please enter alias name.</string>
-    <string name="email_empty_alert">Please enter email address.</string>
-    <string name="email_invalid_alert">Invalid Email.</string>
-    <string name="password_empty_alert">Please enter password.</string>
     <string name="country_empty_alert">Please enter country name.</string>
     <string name="dob_empty_alert">Please select DOB.</string>
 
-
-    <!--reset password-->
-    <string name="forgot_password">Forgot password?</string>
-    <string name="enter_email">Enter your email below to receive your password reset instructions</string>
-    <string name="reset_pwd">Reset my password</string>
-    <string name="dialog_reset_pwd_message">If you have entered a valid email, you will recieve an email with reset
-        instructions.
-    </string>
 
 
     <!--survey screen-->
@@ -259,7 +245,6 @@
     <string name="try_again">Try Again</string>
     <string name="account_activate_error_message">Please make sure you have a valid internet connection and have activated your account.</string>
 
-
     <string name="become_member">Become a member</string>
     <string name="general">1.General</string>
     <string name="prevoius_general">eral</string>
@@ -270,12 +255,28 @@
     <string name="brand">Brand</string>
     <string name="model">Model</string>
     <string name="submit">Submit</string>
+    <string name="login">Log in</string>
+    <string name="name_empty_alert">Please enter full name.</string>
+    <string name="alias_empty_alert">Please enter alias name.</string>
+    <string name="email_empty_alert">Please enter email address.</string>
+    <string name="email_invalid_alert">Invalid Email.</string>
+    <string name="password_empty_alert">Please enter password.</string>
     <string name="phone_empty_alert">Please enter phone number.</string>
     <string name="brand_empty_alert">Please select brand.</string>
     <string name="model_empty_alert">Please select model.</string>
+    <string name="color_empty_alert">Please select color.</string>
+    <string name="emirates_front_empty_alert">Please upload emirates id front view too.</string>
+    <string name="emirates_back_empty_alert">Please upload emirates id back view too.</string>
+    <string name="driver_front_empty_alert">Please upload license id front view too.</string>
+    <string name="driver_back_empty_alert">Please upload license id back view too.</string>
+    <string name="car_back_registration_empty_alert">Please upload car registration back view too.</string>
+    <string name="car_front_registration_empty_alert">Please upload car registration front view too.</string>
+
     <string name="membership">Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our privacy policy  and terms &amp; conditions to know more about our selection process></string>
     <string name="start_register">Start registration</string>
     <string name="scm_past_event">SCM Past Events</string>
+    <string name="document_upload_alert">Documents has been uploaded successfully.</string>
+    <string name="car_save_alert">Cars details saved successfully.</string>
     <string name="thank_you_desc">We have received your application.You will be contacted shortly.</string>
     <string name="admin_register_success">You are now a member of supercars majlis.</string>
     <string name="rsvp_error">There was an error in RSVP’ing for the event, please connect with the SCM admin.</string>
@@ -301,12 +302,20 @@
     <string name="drivers_license">Drivers license ID(front/back)</string>
     <string name="upload_car_image">UPLOAD SUPERCAR IMAGE</string>
     <string name="profile_image">Your Photo\nHere</string>
-
+    <string name="link_expired">This link has already been used.</string>
+    <!--reset password-->
+    <string name="forgot_password">Forgot password?</string>
+    <string name="enter_email">Enter your email below to receive your password reset instructions</string>
+    <string name="reset_pwd">Reset my password</string>
+    <string name="dialog_reset_pwd_message">If you have entered a valid email, you will recieve an email with reset
+        instructions.
+    </string>
+    <string name="spots_remaining">spots remaining</string>
 
     <string name="finish">Finish</string>
     <string name="profile">Profile</string>
     <string name="mane_supercar">Manage Supercars</string>
-    <string name="social_media">Social Media</string>
+    <string name="social_media">Social Media <!--Instagram (@supercarsmajlis)--></string>
     <string name="logout">Log out</string>
     <string name="manage_documents">Manage Documents</string>
     <string name="delete_car">Delete the car</string>

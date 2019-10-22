@@ -13,18 +13,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.customviews.MyImageViewPagerActivity;
-import com.nibou.niboucustomer.models.EventResponseModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
-
-import java.util.ArrayList;
 
 
 public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEventAdapter.MyViewHolder> {
 
     private Context context;
-    private EventResponseModel.EventList eventList;
+    private ListResponseModel.ModelList eventList;
 
-    public HorizontalEventAdapter(Context context, EventResponseModel.EventList eventList) {
+    public HorizontalEventAdapter(Context context, ListResponseModel.ModelList eventList) {
         this.context = context;
         this.eventList = eventList;
     }

@@ -12,11 +12,7 @@ import android.widget.TextView;
 
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
-import com.nibou.niboucustomer.models.BrandModel;
-import com.nibou.niboucustomer.models.EventResponseModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
-
-import java.util.ArrayList;
 
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
@@ -24,9 +20,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
     private Context context;
     private ListResponseModel.Model listResponseModel;
     private AppCallBack mAppCallBack;
-    private ListResponseModel.ModelList selectedId;
+    private Object selectedId;
 
-    public ListAdapter(Context context, ListResponseModel.Model listResponseModel, ListResponseModel.ModelList selectedId, AppCallBack mAppCallBack) {
+    public ListAdapter(Context context, ListResponseModel.Model listResponseModel, Object selectedId, AppCallBack mAppCallBack) {
         this.context = context;
         this.listResponseModel = listResponseModel;
         this.mAppCallBack = mAppCallBack;
@@ -42,10 +38,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        if(selectedId!=null&&selectedId.getId().equals(listResponseModel.getList().get(position).getId())){
+        if (selectedId != null && listResponseModel.getList().get(position).getId().equals(selectedId.toString())) {
             myViewHolder.tvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
             myViewHolder.ivTick.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             myViewHolder.tvName.setTextColor(context.getResources().getColor(R.color.white));
             myViewHolder.ivTick.setVisibility(View.GONE);
         }

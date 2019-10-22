@@ -14,19 +14,18 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.models.EventResponseModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MySlidingImageAdapter extends PagerAdapter {
 
-    ArrayList<EventResponseModel.Img> imgArrayList;
+    ArrayList<ListResponseModel.Img> imgArrayList;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public MySlidingImageAdapter(Context context, ArrayList<EventResponseModel.Img> imgArrayList) {
+    public MySlidingImageAdapter(Context context, ArrayList<ListResponseModel.Img> imgArrayList) {
         this.context = context;
         this.imgArrayList = imgArrayList;
         inflater = LayoutInflater.from(context);

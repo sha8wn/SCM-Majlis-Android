@@ -1,9 +1,12 @@
 package com.nibou.niboucustomer.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +16,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.esafirm.imagepicker.model.Image;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.HomeActivity;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
+import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
+import com.nibou.niboucustomer.utils.MediaUtil;
+import com.nibou.niboucustomer.utils.RoundedCornersTransformation;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -29,12 +38,57 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
     private Context context;
     private boolean isSettingMenuScreen;
 
-    private ArrayList<String> arrayList = new ArrayList<>();
+    public ArrayList<ListResponseModel.ModelList> modelListArrayList;
+    public MediaUtil mediaUtil;
 
-    public AddSuperCarAdapter(Context context, boolean isSettingMenuScreen) {
+    public MediaUtil getMediaUtil() {
+        return mediaUtil;
+    }
+
+    public void setMediaUtil(MediaUtil mediaUtil) {
+        this.mediaUtil = mediaUtil;
+    }
+
+    public ArrayList<ListResponseModel.ModelList> getModelListArrayList() {
+        return modelListArrayList;
+    }
+
+    public void setModelListArrayList(ArrayList<ListResponseModel.ModelList> modelListArrayList) {
+        this.modelListArrayList = modelListArrayList;
+    }
+
+    public AddSuperCarAdapter(Context context, boolean isSettingMenuScreen, ArrayList<ListResponseModel.ModelList> modelListArrayList) {
         this.context = context;
         this.isSettingMenuScreen = isSettingMenuScreen;
-        arrayList.add("");
+        this.modelListArrayList = modelListArrayList;
+        mediaUtil = new MediaUtil(context);
+
+        for (int i = 0; i < modelListArrayList.size(); i++) {
+            if (modelListArrayList.get(i).getDocs().size() != 2) {
+                ArrayList<ListResponseModel.Img> imgArrayList = new ArrayList<>();
+                imgArrayList.add(new ListResponseModel.Img());
+                imgArrayList.add(new ListResponseModel.Img());
+                modelListArrayList.get(i).setDocs(imgArrayList);
+            }
+            if (modelListArrayList.get(i).getImgs().size() != 1) {
+                ArrayList<ListResponseModel.Img> imgArrayList = new ArrayList<>();
+                imgArrayList.add(new ListResponseModel.Img());
+                modelListArrayList.get(i).setImgs(imgArrayList);
+            }
+        }
+    }
+
+    private void addNewCarView() {
+        ListResponseModel.ModelList modelList = new ListResponseModel.ModelList();
+        ArrayList<ListResponseModel.Img> docImage = new ArrayList<>();
+        docImage.add(new ListResponseModel.Img());
+        docImage.add(new ListResponseModel.Img());
+        modelList.setDocs(docImage);
+        ArrayList<ListResponseModel.Img> carImage = new ArrayList<>();
+        carImage.add(new ListResponseModel.Img());
+        modelList.setImgs(carImage);
+        modelListArrayList.add(modelList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,70 +100,73 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-
         if (position == getItemCount() - 1) {
             myViewHolder.tv_add_car.setVisibility(View.VISIBLE);
         } else {
             myViewHolder.tv_add_car.setVisibility(View.GONE);
         }
+        if (isSettingMenuScreen) {
+            if (modelListArrayList.get(position).getId() == null) {
+                myViewHolder.delete_car.setVisibility(View.VISIBLE);
+            } else {
+                myViewHolder.delete_car.setVisibility(View.GONE);
+            }
+        } else {
+            if (modelListArrayList.get(position).getId() == null) {
+                myViewHolder.delete_car.setVisibility(View.VISIBLE);
+            } else {
+                myViewHolder.delete_car.setVisibility(View.GONE);
+            }
+        }
+        myViewHolder.etBrand.setText(modelListArrayList.get(position).getBrandName());
+        myViewHolder.etModel.setText(modelListArrayList.get(position).getModelName());
+        myViewHolder.etColor.setText(modelListArrayList.get(position).getColorName());
 
-        myViewHolder.etBrand.setOnClickListener(view -> {
-            AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openListDialog(context.getString(R.string.brand), null, context, new AppCallBack() {
-                @Override
-                public void onSelect(ListResponseModel.ModelList modelList) {
-                    if (modelList != null) {
-                        myViewHolder.etBrand.setText(modelList.getName());
-                    }
-                }
-            });
-        });
-        myViewHolder.etModel.setOnClickListener(view -> {
-            AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openListDialog(context.getString(R.string.model), null, context, new AppCallBack() {
-                @Override
-                public void onSelect(ListResponseModel.ModelList modelList) {
-                    if (modelList != null) {
-                        myViewHolder.etModel.setText(modelList.getName());
-                    }
-                }
-            });
-        });
-        myViewHolder.etColor.setOnClickListener(view -> {
-            AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openListDialog("Color", null, context, new AppCallBack() {
-                @Override
-                public void onSelect(ListResponseModel.ModelList modelList) {
-                    if (modelList != null) {
-                        myViewHolder.etColor.setText(modelList.getName());
-                    }
-
-                }
-            });
-        });
+        if (modelListArrayList.get(position).getDocs().get(0).getImg() != null && !modelListArrayList.get(position).getDocs().get(0).getImg().isEmpty()) {
+            loadImage(myViewHolder.image_car_front, modelListArrayList.get(position).getDocs().get(0).getImg());
+            myViewHolder.image_car_front_cross.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.image_car_front.setImageResource(R.drawable.dashed_bg);
+            myViewHolder.image_car_front_cross.setVisibility(View.GONE);
+        }
+        if (modelListArrayList.get(position).getDocs().get(1).getImg() != null && !modelListArrayList.get(position).getDocs().get(1).getImg().isEmpty()) {
+            loadImage(myViewHolder.image_car_back, modelListArrayList.get(position).getDocs().get(1).getImg());
+            myViewHolder.image_car_back_cross.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.image_car_back.setImageResource(R.drawable.dashed_bg);
+            myViewHolder.image_car_back_cross.setVisibility(View.GONE);
+        }
+        if (modelListArrayList.get(position).getImgs().get(0).getImg() != null && !modelListArrayList.get(position).getImgs().get(0).getImg().isEmpty()) {
+            loadImage(myViewHolder.ivCar, modelListArrayList.get(position).getImgs().get(0).getImg());
+            myViewHolder.imgCross.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.ivCar.setImageResource(R.drawable.dashed_bg);
+            myViewHolder.imgCross.setVisibility(View.GONE);
+        }
     }
 
-    private void showImage(ImageView imageView, String url) {
-        Glide.with(context)
-                .load(url)
-                .dontAnimate()
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
-                .into(imageView);
+    private void loadImage(ImageView imageView, String url) {
+        Glide.with(context).load(url).centerCrop().into(imageView);
     }
+
+
+    private void openImageDialog() {
+
+    }
+
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        if (modelListArrayList != null)
+            return modelListArrayList.size();
+        else return 0;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvFront, tvBack, tv_add_car, delete_car;
+        private TextView tv_add_car, delete_car;
         private EditText etBrand, etModel, etColor;
-        private ImageView ivBackDoc, ivFrontDoc, ivCar, imgCross;
-        private RecyclerView rvEvents;
-        private ConstraintLayout item;
+        private ImageView image_car_front, image_car_front_cross, image_car_back, image_car_back_cross, ivCar, imgCross;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,30 +174,128 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
             etModel = itemView.findViewById(R.id.et_model);
             etColor = itemView.findViewById(R.id.et_color);
             ivCar = itemView.findViewById(R.id.ivCar);
+            image_car_front = itemView.findViewById(R.id.image_car_front);
+            image_car_front_cross = itemView.findViewById(R.id.image_car_front_cross);
+            image_car_back = itemView.findViewById(R.id.image_car_back);
+            image_car_back_cross = itemView.findViewById(R.id.image_car_back_cross);
             imgCross = itemView.findViewById(R.id.imgCross);
             tv_add_car = itemView.findViewById(R.id.tv_add_car);
-            tv_add_car.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    arrayList.add("");
-                    notifyDataSetChanged();
-                }
-            });
             delete_car = itemView.findViewById(R.id.delete_car);
-            if (isSettingMenuScreen) {
-                delete_car.setVisibility(View.VISIBLE);
-            } else {
-                delete_car.setVisibility(View.GONE);
-            }
+
+            etBrand.setOnClickListener(view -> {
+                AppDialogs.getInstance().openListDialog(context.getString(R.string.brand), modelListArrayList.get(getAdapterPosition()).getBrand(), context, new AppCallBack() {
+                    @Override
+                    public void onSelect(ListResponseModel.ModelList modelList) {
+                        if (modelList != null) {
+                            modelListArrayList.get(getAdapterPosition()).setBrand(modelList.getId());
+                            modelListArrayList.get(getAdapterPosition()).setBrandName(modelList.getName());
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            });
+
+
+            etModel.setOnClickListener(view -> {
+                AppDialogs.getInstance().openListDialog(context.getString(R.string.model), modelListArrayList.get(getAdapterPosition()).getModel(), context, new AppCallBack() {
+                    @Override
+                    public void onSelect(ListResponseModel.ModelList modelList) {
+                        if (modelList != null) {
+                            modelListArrayList.get(getAdapterPosition()).setModel(modelList.getId());
+                            modelListArrayList.get(getAdapterPosition()).setModelName(modelList.getName());
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            });
+
+
+            etColor.setOnClickListener(view -> {
+                AppDialogs.getInstance().openListDialog(context.getString(R.string.color), modelListArrayList.get(getAdapterPosition()).getColor(), context, new AppCallBack() {
+                    @Override
+                    public void onSelect(ListResponseModel.ModelList modelList) {
+                        if (modelList != null) {
+                            modelListArrayList.get(getAdapterPosition()).setColor(modelList.getId());
+                            modelListArrayList.get(getAdapterPosition()).setColorName(modelList.getName());
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            });
+
+            image_car_front.setOnClickListener(view -> {
+                mediaUtil.openSingleImageGallery((isCamera, imageResult) -> {
+                    ArrayList<Image> imagesList = (ArrayList<Image>) imageResult;
+                    if (imagesList != null && imagesList.size() > 0) {
+                        mediaUtil.compressMultipleImages(imagesList, AppConstant.COMPRESSION_RATIO, (bitmap, fileName, path) -> {
+                            if (path != null) {
+                                ((Activity) context).runOnUiThread(() -> {
+                                    modelListArrayList.get(getAdapterPosition()).getDocs().get(0).setImg(path);
+                                    notifyDataSetChanged();
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            image_car_front_cross.setOnClickListener(view -> {
+                modelListArrayList.get(getAdapterPosition()).getDocs().get(0).setImg(null);
+                notifyDataSetChanged();
+            });
+
+
+            image_car_back.setOnClickListener(view -> {
+                mediaUtil.openSingleImageGallery((isCamera, imageResult) -> {
+                    ArrayList<Image> imagesList = (ArrayList<Image>) imageResult;
+                    if (imagesList != null && imagesList.size() > 0) {
+                        mediaUtil.compressMultipleImages(imagesList, AppConstant.COMPRESSION_RATIO, (bitmap, fileName, path) -> {
+                            if (path != null) {
+                                ((Activity) context).runOnUiThread(() -> {
+                                    modelListArrayList.get(getAdapterPosition()).getDocs().get(1).setImg(path);
+                                    notifyDataSetChanged();
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            image_car_back_cross.setOnClickListener(view -> {
+                modelListArrayList.get(getAdapterPosition()).getDocs().get(1).setImg(null);
+                notifyDataSetChanged();
+            });
+
+            ivCar.setOnClickListener(view -> {
+                mediaUtil.openSingleImageGallery((isCamera, imageResult) -> {
+                    ArrayList<Image> imagesList = (ArrayList<Image>) imageResult;
+                    if (imagesList != null && imagesList.size() > 0) {
+                        mediaUtil.compressMultipleImages(imagesList, AppConstant.COMPRESSION_RATIO, (bitmap, fileName, path) -> {
+                            if (path != null) {
+                                ((Activity) context).runOnUiThread(() -> {
+                                    modelListArrayList.get(getAdapterPosition()).getImgs().get(0).setImg(path);
+                                    notifyDataSetChanged();
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            imgCross.setOnClickListener(view -> {
+                modelListArrayList.get(getAdapterPosition()).getImgs().get(0).setImg(null);
+                notifyDataSetChanged();
+            });
+
+            tv_add_car.setOnClickListener(v -> addNewCarView());
+
             delete_car.setOnClickListener(v -> {
                 AppDialogs.getInstance().showConfirmCustomDialog(context, context.getString(R.string.alert), context.getString(R.string.car_delete_alert), context.getString(R.string.CANCEL).toUpperCase(), context.getString(R.string.OK).toUpperCase(), context.getResources().getColor(R.color.white), new AppDialogs.DialogCallback() {
                     @Override
                     public void response(boolean status) {
                         if (status) {
-                            if (arrayList.size() > 0) {
-                                arrayList.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                            }
+                            modelListArrayList.remove(modelListArrayList.size() - 1);
+                            notifyDataSetChanged();
                         }
                     }
                 });

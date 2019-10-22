@@ -1,6 +1,7 @@
 package com.nibou.niboucustomer.fragments;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -82,13 +83,11 @@ public class SettingFragment extends Fragment {
 
         binding.maneSupercars.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddSuperCarActivity.class);
-            intent.putExtra("type", "setting");
             startActivity(intent);
         });
 
         binding.manageDocuments.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), DocumentActivity.class);
-            intent.putExtra("type", "setting");
             startActivity(intent);
         });
 
@@ -98,6 +97,13 @@ public class SettingFragment extends Fragment {
             startActivity(intent);
         });
 
+        binding.socialMedia.setOnClickListener(v -> {
+            try {
+                startActivity(getActivity().getPackageManager().getLaunchIntentForPackage("com.instagram.android"));
+            } catch (Exception e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/supercarsmajlis/?hl=en")));
+            }
+        });
     }
 
     private void clearLocalData() {

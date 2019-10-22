@@ -6,13 +6,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public abstract class ErrorResponseModel implements Serializable {
+public class ErrorResponseModel implements Serializable {
 
     @SerializedName("error")
     private int error;
 
     @SerializedName("error_text")
     private String error_text;
+
+    @SerializedName("token")
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getError() {
         return error;

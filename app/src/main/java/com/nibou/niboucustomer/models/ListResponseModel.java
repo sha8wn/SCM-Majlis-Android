@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListResponseModel extends ErrorResponseModel implements Serializable {
 
@@ -13,6 +14,83 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
 
     @SerializedName("models")
     private Model models;
+
+    @SerializedName("colors")
+    private Model colors;
+
+    @SerializedName("users")
+    private Model users;
+
+    @SerializedName("pages")
+    private Model pages;
+
+    @SerializedName("past_events")
+    private Model past_events;
+
+    @SerializedName("events")
+    private Model events;
+
+    @SerializedName("user")
+    private Model user;
+
+    @SerializedName("cars")
+    private Model cars;
+
+    public Model getEvents() {
+        return events;
+    }
+
+    public void setEvents(Model events) {
+        this.events = events;
+    }
+
+    public Model getUser() {
+        return user;
+    }
+
+    public void setUser(Model user) {
+        this.user = user;
+    }
+
+    public Model getCars() {
+        return cars;
+    }
+
+    public void setCars(Model cars) {
+        this.cars = cars;
+    }
+
+    public Model getColors() {
+        return colors;
+    }
+
+    public void setColors(Model colors) {
+        this.colors = colors;
+    }
+
+    public Model getUsers() {
+        return users;
+    }
+
+    public void setUsers(Model users) {
+        this.users = users;
+    }
+
+    public Model getPast_events() {
+        return past_events;
+    }
+
+    public void setPast_events(Model past_events) {
+        this.past_events = past_events;
+    }
+
+    public Model getPages() {
+        return pages;
+    }
+
+    public void setPages(Model pages) {
+        this.pages = pages;
+    }
 
     public Model getBrands() {
         return brands;
@@ -32,6 +110,10 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
 
     public class Model implements Serializable {
 
+        @SerializedName("id")
+        @Expose
+        private String id;
+
         @SerializedName("list")
         @Expose
         private ArrayList<ModelList> list;
@@ -47,6 +129,14 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @SerializedName("num_rows")
         @Expose
         private String numRows;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public ArrayList<ModelList> getList() {
             return list;
@@ -81,7 +171,47 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         }
     }
 
-    public class ModelList implements Serializable {
+    public static class ModelList implements Serializable {
+
+        @SerializedName("users")
+        @Expose
+        private ArrayList<ArrayItem> users;
+
+        @SerializedName("brands")
+        @Expose
+        private ArrayList<ArrayItem> brands;
+
+        @SerializedName("partners")
+        @Expose
+        private ArrayList<ArrayItem> partners;
+
+        @SerializedName("user")
+        @Expose
+        private String user;
+        @SerializedName("brand")
+        @Expose
+        private String brand;
+        @SerializedName("model")
+        @Expose
+        private String model;
+        @SerializedName("color")
+        @Expose
+        private String color;
+        @SerializedName("model_name")
+        @Expose
+        private String modelName;
+        @SerializedName("model_img")
+        @Expose
+        private String modelImg;
+        @SerializedName("brand_name")
+        @Expose
+        private String brandName;
+        @SerializedName("brand_img")
+        @Expose
+        private String brandImg;
+        @SerializedName("color_name")
+        @Expose
+        private String colorName;
 
         @SerializedName("id")
         @Expose
@@ -97,20 +227,252 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private String name;
 
+        @SerializedName("expiry")
+        @Expose
+        private String expiry;
+
+        @SerializedName("email")
+        @Expose
+        private String email;
+        @SerializedName("phone")
+        @Expose
+        private String phone;
+        @SerializedName("tiers")
+        @Expose
+        private String tiers;
+        @SerializedName("status")
+        @Expose
+        private String status;
+        @SerializedName("img")
+        @Expose
+        private String img;
+        @SerializedName("docs")
+        @Expose
+        private List<Img> docs = null;
+        @SerializedName("licenses")
+        @Expose
+        private List<Img> licenses = null;
+
+        @SerializedName("text")
+        @Expose
+        private String text;
+
+        @SerializedName("display")
+        @Expose
+        private String display;
+        @SerializedName("date")
+        @Expose
+        private String date;
+        @SerializedName("participants")
+        @Expose
+        private String participants;
+        @SerializedName("location")
+        @Expose
+        private String location;
+
+        @SerializedName("start")
+        @Expose
+        private String start;
+
+        @SerializedName("end")
+        @Expose
+        private String end;
+
+        @SerializedName("limit_guests")
+        @Expose
+        private String limit_guests;
+
+        @SerializedName("fee")
+        @Expose
+        private String fee;
+
+        @SerializedName("imgs")
+        @Expose
+        private ArrayList<Img> imgs;
+
+        public String getStart() {
+            return start;
+        }
+
+        public void setStart(String start) {
+            this.start = start;
+        }
+
+        public String getEnd() {
+            return end;
+        }
+
+        public String getLimit_guests() {
+            return limit_guests;
+        }
+
+        public void setLimit_guests(String limit_guests) {
+            this.limit_guests = limit_guests;
+        }
+
+        public String getFee() {
+            return fee;
+        }
+
+        public void setFee(String fee) {
+            this.fee = fee;
+        }
+
+        public void setEnd(String end) {
+            this.end = end;
+        }
+
+        public ArrayList<ArrayItem> getUsers() {
+            return users;
+        }
+
+        public void setUsers(ArrayList<ArrayItem> users) {
+            this.users = users;
+        }
+
+        public ArrayList<ArrayItem> getBrands() {
+            return brands;
+        }
+
+        public void setBrands(ArrayList<ArrayItem> brands) {
+            this.brands = brands;
+        }
+
+        public ArrayList<ArrayItem> getPartners() {
+            return partners;
+        }
+
+        public void setPartners(ArrayList<ArrayItem> partners) {
+            this.partners = partners;
+        }
+
+        public String getUser() {
+            return user;
+        }
+
+        public void setUser(String user) {
+            this.user = user;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public void setBrand(String brand) {
+            this.brand = brand;
+        }
+
+        public String getModel() {
+            return model;
+        }
+
+        public void setModel(String model) {
+            this.model = model;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public String getModelName() {
+            return modelName;
+        }
+
+        public void setModelName(String modelName) {
+            this.modelName = modelName;
+        }
+
+        public String getModelImg() {
+            return modelImg;
+        }
+
+        public void setModelImg(String modelImg) {
+            this.modelImg = modelImg;
+        }
+
+        public String getBrandName() {
+            return brandName;
+        }
+
+        public void setBrandName(String brandName) {
+            this.brandName = brandName;
+        }
+
+        public String getBrandImg() {
+            return brandImg;
+        }
+
+        public void setBrandImg(String brandImg) {
+            this.brandImg = brandImg;
+        }
+
+        public String getColorName() {
+            return colorName;
+        }
+
+        public void setColorName(String colorName) {
+            this.colorName = colorName;
+        }
+
+        public String getDisplay() {
+            return display;
+        }
+
+        public void setDisplay(String display) {
+            this.display = display;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getParticipants() {
+            return participants;
+        }
+
+        public void setParticipants(String participants) {
+            this.participants = participants;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+
+        public ArrayList<Img> getImgs() {
+            return imgs;
+        }
+
+        public void setImgs(ArrayList<Img> imgs) {
+            this.imgs = imgs;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
         public String getId() {
             return id;
         }
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getCreated() {
-            return created;
-        }
-
-        public void setCreated(String created) {
-            this.created = created;
         }
 
         public String getUpdated() {
@@ -121,6 +483,22 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
             this.updated = updated;
         }
 
+        public String getCreated() {
+            return created;
+        }
+
+        public void setCreated(String created) {
+            this.created = created;
+        }
+
+        public String getExpiry() {
+            return expiry;
+        }
+
+        public void setExpiry(String expiry) {
+            this.expiry = expiry;
+        }
+
         public String getName() {
             return name;
         }
@@ -128,5 +506,162 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         public void setName(String name) {
             this.name = name;
         }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getTiers() {
+            return tiers;
+        }
+
+        public void setTiers(String tiers) {
+            this.tiers = tiers;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public List<Img> getDocs() {
+            return docs;
+        }
+
+        public void setDocs(List<Img> docs) {
+            this.docs = docs;
+        }
+
+        public List<Img> getLicenses() {
+            return licenses;
+        }
+
+        public void setLicenses(List<Img> licenses) {
+            this.licenses = licenses;
+        }
     }
+
+    public static class ArrayItem implements Serializable {
+        @SerializedName("id")
+        @Expose
+        private String id;
+        @SerializedName("name")
+        @Expose
+        private String name;
+
+        @SerializedName("model_name")
+        @Expose
+        private String modelName;
+
+        @SerializedName("brand_name")
+        @Expose
+        private String brandName;
+
+        @SerializedName("img")
+        @Expose
+        private String img;
+
+        @SerializedName("guests")
+        @Expose
+        private String guests;
+
+        public String getGuests() {
+            return guests;
+        }
+
+        public void setGuests(String guests) {
+            this.guests = guests;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getModelName() {
+            return modelName;
+        }
+
+        public void setModelName(String modelName) {
+            this.modelName = modelName;
+        }
+
+        public String getBrandName() {
+            return brandName;
+        }
+
+        public void setBrandName(String brandName) {
+            this.brandName = brandName;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+    }
+
+    public static class Img implements Serializable {
+
+        @SerializedName("n")
+        @Expose
+        private int n;
+
+        @SerializedName("img")
+        @Expose
+        private String img;
+
+        public int getN() {
+            return n;
+        }
+
+        public void setN(int n) {
+            this.n = n;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+    }
+
 }

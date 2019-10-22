@@ -21,6 +21,7 @@ import com.nibou.niboucustomer.databinding.ActivityLoginBinding;
 import com.nibou.niboucustomer.models.AccessTokenModel;
 import com.nibou.niboucustomer.models.ActiveChatSessionModel;
 import com.nibou.niboucustomer.models.ErrorModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
@@ -50,11 +51,15 @@ public class LoginActivity extends BaseActivity {
         binding.login.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
-                Intent intent = new Intent(context, HomeActivity.class);
-                startActivity(intent);
-                finishAffinity();
-//                if (screenValidate()) {
-//                }
+                if (screenValidate()) {
+                    AppDialogs.getInstance().showProgressBar(context, null, true);
+
+//                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+//                        loginNetworkCall(instanceIdResult.getToken());
+//                    });
+
+                    loginNetworkCall("testing");
+                }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
             }
@@ -86,144 +91,31 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    private void accessTokenNetworkCall() {
-        AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getAccessToken(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.CLIENT_ID, AppConstant.CLIENT_SECRET, AppConstant.PASSWORD, binding.etEmail.getText().toString(), binding.etPassword.getText().toString(), "1"), new ApiHandler.CallBack() {
+    private void loginNetworkCall(String token) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("email", binding.etEmail.getText().toString().trim());
+        parameters.put("password", binding.etPassword.getText().toString());
+        parameters.put("uid", token);
+
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).loginNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    profileNetworkCall((AccessTokenModel) data);
-                    uploadDeviceToken(((AccessTokenModel) data).getAccessToken());
+                    ListResponseModel listResponseModel = (ListResponseModel) data;
+                    LocalPrefences.getInstance().putString(context, AppConstant.TOKEN, listResponseModel.getToken());
+                    LocalPrefences.getInstance().putString(context, AppConstant.USER_ID, listResponseModel.getUser().getId());
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    startActivity(intent);
+                    finishAffinity();
                 } else {
-                    AppDialogs.getInstance().showProgressBar(context, null, false);
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error), context.getString(R.string.error_message), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 
             @Override
             public void failed() {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
-            }
-        });
-    }
-
-    private void profileNetworkCall(AccessTokenModel accessTokenModel) {
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessTokenModel.getAccessToken(), "languages"), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    getCardListNetworkCall((ProfileModel) data, accessTokenModel);
-                } else {
-                    AppDialogs.getInstance().showProgressBar(context, null, false);
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error), context.getString(R.string.wrong_with_backend), context.getString(R.string.OK), null);
-                }
-            }
-
-            @Override
-            public void failed() {
-                AppDialogs.getInstance().showProgressBar(context, null, false);
-            }
-        });
-    }
-
-    private void getCardListNetworkCall(ProfileModel model, AccessTokenModel accessTokenModel) {
-        ApiHandler.requestService(this, ApiClient.getClient().create(ApiEndPoint.class).getMyProfile(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessTokenModel.getAccessToken(), "user_credit_cards"), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                if (isSuccess) {
-                    boolean isCard = false;
-                    ProfileModel profileModel = (ProfileModel) data;
-                    if (profileModel.getIncluded() != null && profileModel.getIncluded().size() > 0) {
-                        for (int i = 0; i < profileModel.getIncluded().size(); i++) {
-                            if (profileModel.getIncluded().get(i).getAttributes().isIs_active()) {
-                                isCard = true;
-                                break;
-                            }
-                        }
-                    }
-                    getChatSessionNetworkCall(model, accessTokenModel, isCard);
-                } else {
-                    AppDialogs.getInstance().showProgressBar(context, null, false);
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error), context.getString(R.string.wrong_with_backend), context.getString(R.string.OK), null);
-                }
-            }
-
-            @Override
-            public void failed() {
-                AppDialogs.getInstance().showProgressBar(context, null, false);
-            }
-        });
-    }
-
-
-    private void getChatSessionNetworkCall(ProfileModel profileModel, AccessTokenModel accessTokenModel, boolean isCard) {
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getActiveChatSession(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessTokenModel.getAccessToken()), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-                AppDialogs.getInstance().showProgressBar(context, null, false);
-                if (isSuccess) {
-                    LocalPrefences.getInstance().saveLocalAccessTokenModel(context, accessTokenModel);
-                    LocalPrefences.getInstance().saveLocalProfileModel(context, profileModel);
-                    ActionSessionHandler.getActionSessionHandler(context).connectWS();
-
-                    ActiveChatSessionModel activeChatSessionModel = (ActiveChatSessionModel) data;
-                    if (isCard) {
-                        if (activeChatSessionModel.getData().size() > 0) {
-                            Intent intent = new Intent(context, HomeActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
-                        } else {
-                            Intent intent = new Intent(context, SurveyActivity.class);
-                            intent.putExtra("login", true);
-                            startActivity(intent);
-                            finishAffinity();
-                        }
-                    } else {
-                        Intent intent = new Intent(context, PaymentInfoActivity.class);
-                        intent.putExtra("login", true);
-                        if (activeChatSessionModel.getData().size() > 0) {
-                            intent.putExtra("isSessionActive", true);
-                        } else {
-                            intent.putExtra("isSessionActive", false);
-                        }
-                        startActivity(intent);
-                    }
-                } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error), context.getString(R.string.wrong_with_backend), context.getString(R.string.OK), null);
-                }
-            }
-
-            @Override
-            public void failed() {
-                AppDialogs.getInstance().showProgressBar(context, null, false);
-            }
-        });
-    }
-
-
-    private void uploadDeviceToken(String accessToken) {
-        if (AppUtil.isInternetAvailable(context)) {
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-                sendDeviceNetworkCall(accessToken, instanceIdResult.getToken());
-            });
-        } else {
-            AppUtil.showToast(context, getString(R.string.internet_error));
-        }
-    }
-
-    public void sendDeviceNetworkCall(String accessToken, String firebasToken) {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("devise_id", AppUtil.getDeviceId(context));
-        parameters.put("devise_description", "android");
-        parameters.put("firebase_token", firebasToken);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).saveDevicesRequest(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE), AppConstant.BEARER + accessToken, parameters), new ApiHandler.CallBack() {
-            @Override
-            public void success(boolean isSuccess, Object data) {
-
-            }
-
-            @Override
-            public void failed() {
             }
         });
     }

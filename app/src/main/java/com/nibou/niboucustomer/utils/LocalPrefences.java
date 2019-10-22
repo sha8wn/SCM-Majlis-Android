@@ -2,27 +2,25 @@ package com.nibou.niboucustomer.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nibou.niboucustomer.models.AccessTokenModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.ProfileModel;
 
 import java.util.HashSet;
 
 public class LocalPrefences {
+    private static LocalPrefences mInstance = null;
+    private String USER_MODEL_DETAILS = "user_model_details";
 
     interface PREF_VAR {
-        String SHER_PREF = "nibou_db";
+        String SHER_PREF = "scm_db";
     }
-
-    private String USER_DETAILS = "user_details";
-    private String TOKEN_DETAILS = "token_details";
-    private String EXPERT_STATUS = "expert_status";
 
     private LocalPrefences() {
     }
-
-    private static LocalPrefences mInstance = null;
 
     public static LocalPrefences getInstance() {
         if (mInstance == null) {
@@ -31,34 +29,16 @@ public class LocalPrefences {
         return mInstance;
     }
 
-    public ProfileModel getLocalProfileModel(Context context) {
-        return new Gson().fromJson(getString(context, USER_DETAILS), ProfileModel.class);
+    public ListResponseModel getUserResponseModel(Context context) {
+        return new Gson().fromJson(getString(context, USER_MODEL_DETAILS), ListResponseModel.class);
     }
 
-    public void saveLocalProfileModel(Context context, ProfileModel profileModel) {
-        putString(context, USER_DETAILS, new Gson().toJson(profileModel));
+    public void saveUserResponseModel(Context context, ListResponseModel userResponseModel) {
+        putString(context, USER_MODEL_DETAILS, new Gson().toJson(userResponseModel));
     }
-
-    public AccessTokenModel getLocalAccessTokenModel(Context context) {
-        return new Gson().fromJson(getString(context, TOKEN_DETAILS), AccessTokenModel.class);
-    }
-
-    public void saveLocalAccessTokenModel(Context context, AccessTokenModel accessTokenModel) {
-        putString(context, TOKEN_DETAILS, new Gson().toJson(accessTokenModel));
-    }
-
-    public HashSet<String> getLocalStatusOfExpert(Context context) {
-        return new Gson().fromJson(getString(context, EXPERT_STATUS), new TypeToken<HashSet<String>>() {
-        }.getType());
-    }
-
-    public void saveLocalStatusOfExpert(Context context, HashSet<String> stringHashSets) {
-        putString(context, EXPERT_STATUS, new Gson().toJson(stringHashSets));
-    }
-
 
     public boolean isUserLogin(Context context) {
-        if (getLocalProfileModel(context) != null && getLocalProfileModel(context).getData() != null && getLocalProfileModel(context).getData().getId() != null && !getLocalProfileModel(context).getData().getId().isEmpty()) {
+        if (getString(context, AppConstant.USER_ID) != null && !getString(context, AppConstant.USER_ID).isEmpty()) {
             return true;
         }
         return false;
@@ -99,5 +79,35 @@ public class LocalPrefences {
 
     public void clearSharePreference(Context context) {
         context.getSharedPreferences(PREF_VAR.SHER_PREF, 0).edit().clear().apply();
+    }
+
+
+    private String TOKEN_DETAILS = "token_details";
+    private String EXPERT_STATUS = "expert_status";
+    private String USER_DETAILS = "user_details";
+
+    public ProfileModel getLocalProfileModel(Context context) {
+        return new Gson().fromJson(getString(context, USER_DETAILS), ProfileModel.class);
+    }
+
+    public void saveLocalProfileModel(Context context, ProfileModel profileModel) {
+        putString(context, USER_DETAILS, new Gson().toJson(profileModel));
+    }
+
+    public AccessTokenModel getLocalAccessTokenModel(Context context) {
+        return new Gson().fromJson(getString(context, TOKEN_DETAILS), AccessTokenModel.class);
+    }
+
+    public void saveLocalAccessTokenModel(Context context, AccessTokenModel accessTokenModel) {
+        putString(context, TOKEN_DETAILS, new Gson().toJson(accessTokenModel));
+    }
+
+    public HashSet<String> getLocalStatusOfExpert(Context context) {
+        return new Gson().fromJson(getString(context, EXPERT_STATUS), new TypeToken<HashSet<String>>() {
+        }.getType());
+    }
+
+    public void saveLocalStatusOfExpert(Context context, HashSet<String> stringHashSets) {
+        putString(context, EXPERT_STATUS, new Gson().toJson(stringHashSets));
     }
 }

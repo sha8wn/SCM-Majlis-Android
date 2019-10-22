@@ -2,29 +2,22 @@ package com.nibou.niboucustomer.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.activitys.PastEventActivity;
-import com.nibou.niboucustomer.models.EventResponseModel;
-import com.nibou.niboucustomer.models.PreviousExpertModel;
-
-import java.util.ArrayList;
+import com.nibou.niboucustomer.models.ListResponseModel;
 
 
 public class PastEventAdapter extends RecyclerView.Adapter<PastEventAdapter.MyViewHolder> {
 
     private Context context;
-    private EventResponseModel eventResponseModel;
+    private ListResponseModel eventResponseModel;
 
-    public PastEventAdapter(Context context, EventResponseModel eventResponseModel) {
+    public PastEventAdapter(Context context, ListResponseModel eventResponseModel) {
         this.context = context;
         this.eventResponseModel = eventResponseModel;
     }

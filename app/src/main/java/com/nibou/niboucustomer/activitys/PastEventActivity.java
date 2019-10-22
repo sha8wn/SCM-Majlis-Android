@@ -16,11 +16,9 @@ import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityScmPastEventsBinding;
-import com.nibou.niboucustomer.models.EventResponseModel;
-import com.nibou.niboucustomer.models.PreviousExpertModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.LocalPrefences;
 
 public class PastEventActivity extends AppCompatActivity {
     private long backPressedClickTime;
@@ -28,7 +26,7 @@ public class PastEventActivity extends AppCompatActivity {
     private ActivityScmPastEventsBinding binding;
     private Context context;
     private PastEventAdapter mListAdapter;
-    private EventResponseModel eventResponseModel;
+    private ListResponseModel eventResponseModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,7 @@ public class PastEventActivity extends AppCompatActivity {
         });
 
         binding.tvLogin.setOnClickListener(view -> {
-            startActivity(new Intent(PastEventActivity.this, UserCheckActivity.class));
+            startActivity(new Intent(context, UserCheckActivity.class));
             finishAffinity();
         });
 
@@ -50,7 +48,7 @@ public class PastEventActivity extends AppCompatActivity {
     }
 
     private void init() {
-        if (getIntent().hasExtra("type")) {
+        if (getIntent().hasExtra(AppConstant.SCREEN_FLOW_FLAG)) {
             binding.tvLogin.setVisibility(View.GONE);
             binding.toolbar.setVisibility(View.VISIBLE);
         } else {
@@ -72,7 +70,7 @@ public class PastEventActivity extends AppCompatActivity {
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    eventResponseModel = (EventResponseModel) data;
+                    eventResponseModel = (ListResponseModel) data;
                     binding.rvEvents.setLayoutManager(new LinearLayoutManager(context));
                     mListAdapter = new PastEventAdapter(context, eventResponseModel);
                     binding.rvEvents.setAdapter(mListAdapter);
@@ -90,7 +88,7 @@ public class PastEventActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getIntent().hasExtra("type")) {
+        if (getIntent().hasExtra(AppConstant.SCREEN_FLOW_FLAG)) {
             super.onBackPressed();
         } else {
             checkForAppExit();

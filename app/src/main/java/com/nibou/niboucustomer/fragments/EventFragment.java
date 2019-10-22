@@ -9,11 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.*;
 
+import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.activitys.AddSuperCarActivity;
 import com.nibou.niboucustomer.activitys.PastEventActivity;
 import com.nibou.niboucustomer.adapters.EventAdapter;
+import com.nibou.niboucustomer.adapters.PastEventAdapter;
+import com.nibou.niboucustomer.api.ApiClient;
+import com.nibou.niboucustomer.api.ApiEndPoint;
+import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.FragmentScmEventsBinding;
+import com.nibou.niboucustomer.models.ListResponseModel;
+import com.nibou.niboucustomer.utils.AppConstant;
+import com.nibou.niboucustomer.utils.AppUtil;
+import com.nibou.niboucustomer.utils.LocalPrefences;
 
 public class EventFragment extends Fragment {
 
@@ -34,29 +42,42 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    private void initView() {
-        binding.tvCheckIn.setOnClickListener(view -> {
+        binding.tvCheckIn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PastEventActivity.class);
-            intent.putExtra("type", "setting");
+            intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, true);
             startActivity(intent);
         });
 
+        if (AppUtil.isInternetAvailable(context)) {
+            getEventNetworkCall(1);
+        } else {
+            AppUtil.showToast(context, getString(R.string.internet_error));
+        }
+    }
 
-        binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
-        eventAdapter = new EventAdapter(getActivity());
-        binding.rvEvents.setAdapter(eventAdapter);
+    public void getEventNetworkCall(int pageNumber) {
+        AppDialogs.getInstance().showProgressBar(context, null, true);
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getEventNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), 20, pageNumber, 1), new ApiHandler.CallBack() {
+            @Override
+            public void success(boolean isSuccess, Object data) {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+                if (isSuccess) {
+                    ListResponseModel listResponseModel = (ListResponseModel) data;
+                    if (listResponseModel.getEvents() != null && listResponseModel.getEvents().getList() != null && listResponseModel.getEvents().getList().size() > 0) {
+                        binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        eventAdapter = new EventAdapter(getActivity(), listResponseModel.getEvents().getList());
+                        binding.rvEvents.setAdapter(eventAdapter);
+                    }
+                } else {
+                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                }
+            }
+
+            @Override
+            public void failed() {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+            }
+        });
     }
 }

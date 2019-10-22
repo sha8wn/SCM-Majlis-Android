@@ -24,15 +24,15 @@ import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.adapters.GoingToAdapter;
 import com.nibou.niboucustomer.adapters.ListAdapter;
-import com.nibou.niboucustomer.adapters.PastEventAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.BrandModel;
-import com.nibou.niboucustomer.models.EventResponseModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
+import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
+import com.nibou.niboucustomer.utils.LocalPrefences;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -426,6 +426,8 @@ public class AppDialogs implements Serializable {
                 requestCall = ApiClient.getClient().create(ApiEndPoint.class).getBrandNetworkCall(1000, 1);
             } else if (title.equals(context.getString(R.string.model))) {
                 requestCall = ApiClient.getClient().create(ApiEndPoint.class).getModelNetworkCall(1000, 1);
+            } else if (title.equals(context.getString(R.string.color))) {
+                requestCall = ApiClient.getClient().create(ApiEndPoint.class).getColorNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), 1000, 1);
             }
             if (requestCall != null) {
                 AppDialogs.getInstance().showProgressBar(context, null, true);
@@ -440,8 +442,10 @@ public class AppDialogs implements Serializable {
                                 model = listResponseModel.getBrands();
                             } else if (title.equals(context.getString(R.string.model))) {
                                 model = listResponseModel.getModels();
+                            } else if (title.equals(context.getString(R.string.color))) {
+                                model = listResponseModel.getColors();
                             }
-                            rvBrandList.setAdapter(new ListAdapter(context, model, (ListResponseModel.ModelList) selectedId, modelList -> {
+                            rvBrandList.setAdapter(new ListAdapter(context, model, selectedId, modelList -> {
                                 dialog.dismiss();
                                 if (appCallBack != null)
                                     appCallBack.onSelect(modelList);

@@ -4,13 +4,16 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 //import android.arch.lifecycle.ProcessLifecycleOwner;
+import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
+
 import com.facebook.stetho.Stetho;
 import com.google.firebase.FirebaseApp;
 import com.nibou.niboucustomer.actioncable.ActionSessionHandler;
 import com.nibou.niboucustomer.utils.LocalPrefences;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,22 +23,22 @@ public class NibouApplication extends MultiDexApplication implements LifecycleOb
     public void onCreate() {
         super.onCreate();
         setupLibrary();
-//        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
     }
 
     private void setupLibrary() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //firebase setup
-                FirebaseApp.initializeApp(NibouApplication.this);
-
                 // for nogut crash
                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                 StrictMode.setVmPolicy(builder.build());
                 builder.detectFileUriExposure();
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
+
+                //firebase setup
+                FirebaseApp.initializeApp(NibouApplication.this);
 
                 //local database for chat
                 Realm.init(NibouApplication.this);
