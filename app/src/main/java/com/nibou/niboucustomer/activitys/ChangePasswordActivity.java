@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityChangePasswordBinding;
+import com.nibou.niboucustomer.models.ErrorResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
@@ -39,6 +40,7 @@ public class ChangePasswordActivity extends BaseActivity {
             AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
+                    changePasswordNetworkCall();
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
@@ -83,20 +85,20 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
     private void changePasswordNetworkCall() {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("old_password", binding.etCurrentPassword.getText().toString());
+        HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("password", binding.etNewPassword.getText().toString());
-        parameters.put("password_confirmation", binding.etRepeatPassword.getText().toString());
 
         AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).changePassword(LocalPrefences.getInstance().getString(this, AppConstant.APP_LANGUAGE), AppConstant.BEARER + LocalPrefences.getInstance().getLocalAccessTokenModel(context).getAccessToken(), parameters), new ApiHandler.CallBack() {
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).changePasswordNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), parameters), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.pwd_change_success_alert), getString(R.string.OK), status -> onBackPressed());
+                    LocalPrefences.getInstance().putString(context, AppConstant.TOKEN, ((ErrorResponseModel) data).getToken());
+                    LocalPrefences.getInstance().putString(context, AppConstant.PASSWORD, binding.etNewPassword.getText().toString());
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.pwd_change_success_alert), getString(R.string.OK), getResources().getColor(R.color.green), status -> onBackPressed());
                 } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.pwd_change_failed_alert), getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 
@@ -122,6 +124,9 @@ public class ChangePasswordActivity extends BaseActivity {
             return false;
         } else if (!TextUtils.equals(binding.etNewPassword.getText(), binding.etRepeatPassword.getText())) {
             AppUtil.showToast(this, getResources().getString(R.string.pwd_mismatch_alert));
+            return false;
+        } else if (!TextUtils.equals(binding.etCurrentPassword.getText(), LocalPrefences.getInstance().getString(context, AppConstant.PASSWORD))) {
+            AppUtil.showToast(this, getResources().getString(R.string.current_password_mismatch_alert));
             return false;
         }
         return true;

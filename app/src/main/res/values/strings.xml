@@ -189,9 +189,9 @@
     <string name="repeatpwd_empty_alert">Please enter repeated password</string>
     <string name="pwd_length_alert">Password must be 6 digits or greater</string>
     <string name="pwd_mismatch_alert">Repeated password does not matched.</string>
+    <string name="current_password_mismatch_alert">Current password does not matched.</string>
     <string name="pwd_change_success_alert">Password has been changed successfully.</string>
     <string name="pwd_change_failed_alert">Current password is entered wrong.</string>
-
     <string name="profile_change_success_alert">Profile has been updated successfully.</string>
 
     <!--Expert offline screen-->
@@ -263,6 +263,7 @@
     <string name="password_empty_alert">Please enter password.</string>
     <string name="phone_empty_alert">Please enter phone number.</string>
     <string name="brand_empty_alert">Please select brand.</string>
+    <string name="brand_first_empty_alert">Please select a brand first</string>
     <string name="model_empty_alert">Please select model.</string>
     <string name="color_empty_alert">Please select color.</string>
     <string name="emirates_front_empty_alert">Please upload emirates id front view too.</string>
@@ -315,7 +316,7 @@
     <string name="finish">Finish</string>
     <string name="profile">Profile</string>
     <string name="mane_supercar">Manage Supercars</string>
-    <string name="social_media">Social Media <!--Instagram (@supercarsmajlis)--></string>
+    <string name="social_media">Instagram (@supercarsmajlis)</string>
     <string name="logout">Log out</string>
     <string name="manage_documents">Manage Documents</string>
     <string name="delete_car">Delete the car</string>

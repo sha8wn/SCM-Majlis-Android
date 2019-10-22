@@ -225,11 +225,11 @@
             android:layout_marginTop="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivProfile"
+                android:id="@+id/dummy"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
-                android:src="#383843"
+                android:src="@drawable/place_holder"
                 app:layout_constraintBottom_toBottomOf="@id/ivProfile_view"
                 app:layout_constraintLeft_toLeftOf="@+id/ivProfile_view"
                 app:layout_constraintRight_toRightOf="@+id/ivProfile_view"
@@ -251,6 +251,16 @@
                 app:layout_constraintLeft_toLeftOf="@+id/ivProfile"
                 app:layout_constraintRight_toRightOf="@+id/ivProfile"
                 app:layout_constraintTop_toTopOf="@+id/ivProfile" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivProfile_view"
+                app:layout_constraintLeft_toLeftOf="@+id/ivProfile_view"
+                app:layout_constraintRight_toRightOf="@+id/ivProfile_view"
+                app:layout_constraintTop_toTopOf="@+id/ivProfile_view" />
+
         </android.support.constraint.ConstraintLayout>
 
 

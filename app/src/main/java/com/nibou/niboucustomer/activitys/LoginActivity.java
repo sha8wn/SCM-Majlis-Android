@@ -105,6 +105,7 @@ public class LoginActivity extends BaseActivity {
                     ListResponseModel listResponseModel = (ListResponseModel) data;
                     LocalPrefences.getInstance().putString(context, AppConstant.TOKEN, listResponseModel.getToken());
                     LocalPrefences.getInstance().putString(context, AppConstant.USER_ID, listResponseModel.getUser().getId());
+                    LocalPrefences.getInstance().putString(context, AppConstant.PASSWORD, binding.etPassword.getText().toString());
                     Intent intent = new Intent(context, HomeActivity.class);
                     startActivity(intent);
                     finishAffinity();

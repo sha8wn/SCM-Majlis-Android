@@ -23,14 +23,18 @@ public class WelcomeActivity extends AppCompatActivity {
         startButton.setOnClickListener(v -> {
             startButton.setImageResource(R.drawable.logo5);
             startButton.setEnabled(false);
-            MediaPlayer mPlayer = MediaPlayer.create(WelcomeActivity.this, R.raw.start);
-            mPlayer.setOnCompletionListener(mp -> {
-                LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
-                Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
-                startActivity(intent);
-                finishAffinity();
-            });
-            mPlayer.start();
+            LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
+            Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
+            startActivity(intent);
+            finishAffinity();
+//            MediaPlayer mPlayer = MediaPlayer.create(WelcomeActivity.this, R.raw.start);
+//            mPlayer.setOnCompletionListener(mp -> {
+//                LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
+//                Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
+//                startActivity(intent);
+//                finishAffinity();
+//            });
+//            mPlayer.start();
         });
     }
 

@@ -44,7 +44,7 @@
                 android:alpha="0.8"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center|start"
-                android:text="Shawn Frank"
+                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -59,7 +59,7 @@
                 android:alpha="0.8"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center|start"
-                android:text="SCM0215"
+                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -85,7 +85,7 @@
                 android:alpha="0.8"
                 android:fontFamily="@font/poppins_black_italic"
                 android:gravity="end"
-                android:text="20 jan 2019 to 12 feb 2019"
+                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp" />

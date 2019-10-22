@@ -53,7 +53,7 @@ public class SignupActivity extends BaseActivity {
         }
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-            token = LocalPrefences.getInstance().getString(context,AppConstant.TOKEN);
+            token = LocalPrefences.getInstance().getString(context, AppConstant.TOKEN);
             if (AppUtil.isInternetAvailable(context)) {
                 getUserDetailsNetworkCall();
             } else {
@@ -92,6 +92,9 @@ public class SignupActivity extends BaseActivity {
                     if (modelList != null) {
                         binding.etBrand.setTag(modelList.getId());
                         binding.etBrand.setText(modelList.getName());
+
+                        binding.etModel.setTag(null);
+                        binding.etModel.setText("");
                     }
                 }
             });
@@ -99,15 +102,19 @@ public class SignupActivity extends BaseActivity {
 
         binding.etModel.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openListDialog(getString(R.string.model), binding.etModel.getTag(), context, new AppCallBack() {
-                @Override
-                public void onSelect(ListResponseModel.ModelList modelList) {
-                    if (modelList != null) {
-                        binding.etModel.setTag(modelList.getId());
-                        binding.etModel.setText(modelList.getName());
+            if (binding.etBrand.getText().toString().equals("")) {
+                AppUtil.showToast(context, getResources().getString(R.string.brand_first_empty_alert));
+            } else {
+                AppDialogs.getInstance().openListDialog(getString(R.string.model), binding.etModel.getTag(), context, new AppCallBack() {
+                    @Override
+                    public void onSelect(ListResponseModel.ModelList modelList) {
+                        if (modelList != null) {
+                            binding.etModel.setTag(modelList.getId());
+                            binding.etModel.setText(modelList.getName());
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         binding.btnSignup.setOnClickListener(v -> {
@@ -204,6 +211,7 @@ public class SignupActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     LocalPrefences.getInstance().putString(context, AppConstant.TOKEN, ((ListResponseModel) data).getToken());
+                    LocalPrefences.getInstance().putString(context, AppConstant.PASSWORD, binding.etPassword.getText().toString());
                     Intent intent = new Intent(context, AddSuperCarActivity.class);
                     intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
                     startActivityForResult(intent, 100);

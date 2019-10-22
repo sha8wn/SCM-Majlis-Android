@@ -78,6 +78,16 @@ public interface ApiEndPoint {
     @GET("_api/events?")
     Call<ListResponseModel> getEventNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("type") int type);
 
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/user_password")
+    Call<ErrorResponseModel> changePasswordNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/users/{id}")
+    Call<ErrorResponseModel> updateProfileNetworkCall(@Header("token") String token, @Path("id") String userId, @Body HashMap<String, Object> map);
+
+
     ///////////////////////////////////////////////////////////////////////////////////
 
     @Headers("Content-Type: application/json")

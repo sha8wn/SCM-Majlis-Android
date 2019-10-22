@@ -190,6 +190,9 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                             modelListArrayList.get(getAdapterPosition()).setBrand(modelList.getId());
                             modelListArrayList.get(getAdapterPosition()).setBrandName(modelList.getName());
                             notifyDataSetChanged();
+
+                            modelListArrayList.get(getAdapterPosition()).setModel(null);
+                            modelListArrayList.get(getAdapterPosition()).setModelName(null);
                         }
                     }
                 });
@@ -197,16 +200,20 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
 
             etModel.setOnClickListener(view -> {
-                AppDialogs.getInstance().openListDialog(context.getString(R.string.model), modelListArrayList.get(getAdapterPosition()).getModel(), context, new AppCallBack() {
-                    @Override
-                    public void onSelect(ListResponseModel.ModelList modelList) {
-                        if (modelList != null) {
-                            modelListArrayList.get(getAdapterPosition()).setModel(modelList.getId());
-                            modelListArrayList.get(getAdapterPosition()).setModelName(modelList.getName());
-                            notifyDataSetChanged();
+                if (modelListArrayList.get(getAdapterPosition()).getBrandName() != null && !modelListArrayList.get(getAdapterPosition()).getBrandName().equals("")) {
+                    AppDialogs.getInstance().openListDialog(context.getString(R.string.model), modelListArrayList.get(getAdapterPosition()).getModel(), context, new AppCallBack() {
+                        @Override
+                        public void onSelect(ListResponseModel.ModelList modelList) {
+                            if (modelList != null) {
+                                modelListArrayList.get(getAdapterPosition()).setModel(modelList.getId());
+                                modelListArrayList.get(getAdapterPosition()).setModelName(modelList.getName());
+                                notifyDataSetChanged();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    AppUtil.showToast(context, context.getResources().getString(R.string.brand_first_empty_alert));
+                }
             });
 
 
