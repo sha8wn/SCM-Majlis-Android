@@ -67,6 +67,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         if (modelList.get(position).getUsers() != null && modelList.get(position).getUsers().size() > 0) {
             myViewHolder.goingView.setVisibility(View.VISIBLE);
             myViewHolder.tvGoing.setText(modelList.get(position).getUsers().size() + " " + context.getString(R.string.going));
+
+            loadProfileImage(myViewHolder.icon1, modelList.get(position).getUsers().get(0).getImg());
+
+            if (modelList.get(position).getUsers().size() > 1)
+                loadProfileImage(myViewHolder.icon2, modelList.get(position).getUsers().get(1).getImg());
+
+            if (modelList.get(position).getUsers().size() > 2)
+                loadProfileImage(myViewHolder.icon3, modelList.get(position).getUsers().get(2).getImg());
+
+            if (modelList.get(position).getUsers().size() > 3)
+                loadProfileImage(myViewHolder.icon4, modelList.get(position).getUsers().get(3).getImg());
+
         } else {
             myViewHolder.goingView.setVisibility(View.INVISIBLE);
         }
@@ -85,8 +97,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         }
     }
 
+    private void loadProfileImage(ImageView imageView, String url) {
+        if (url != null && !url.isEmpty())
+            Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.default_placeholder).error(R.drawable.default_placeholder).into(imageView);
+    }
+
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(imageView);
+        Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(imageView);
     }
 
     @Override
@@ -99,7 +116,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvDate, tvTime, tvName, tvLoc, tvPerson, tvCost, tvGoing;
-        private ImageView ivEventImage, ivLive;
+        private ImageView ivEventImage, ivLive, icon1, icon2, icon3, icon4;
         private View goingView, card;
 
         MyViewHolder(@NonNull View itemView) {
@@ -115,8 +132,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             ivLive = itemView.findViewById(R.id.ivLive);
             tvGoing = itemView.findViewById(R.id.tvGoing);
 
+            icon1 = itemView.findViewById(R.id.icon1);
+            icon2 = itemView.findViewById(R.id.icon2);
+            icon3 = itemView.findViewById(R.id.icon3);
+            icon4 = itemView.findViewById(R.id.icon4);
+
             goingView = itemView.findViewById(R.id.goingView);
-            goingView.setOnClickListener(v -> AppDialogs.getInstance().openGoingToListScreen("Drag Race", context, item -> {
+            goingView.setOnClickListener(v -> AppDialogs.getInstance().openGoingToListScreen(modelList.get(getAdapterPosition()).getName(), modelList.get(getAdapterPosition()).getUsers(), context, item -> {
             }));
 
             card = itemView.findViewById(R.id.card);

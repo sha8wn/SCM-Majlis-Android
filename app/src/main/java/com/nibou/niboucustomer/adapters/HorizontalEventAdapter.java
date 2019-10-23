@@ -54,6 +54,7 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
     private void showImage(ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
+                .dontAnimate()
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder)
                 .into(imageView);

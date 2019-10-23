@@ -467,30 +467,22 @@ public class AppDialogs implements Serializable {
         }
     }
 
-    public void openGoingToListScreen(String type, Context context, AppCallBack appCallBack) {
+    public void openGoingToListScreen(String type,ArrayList<ListResponseModel.ArrayItem> mList, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.dialog_going_to_view);
 
         TextView title = dialog.findViewById(R.id.tvTitle);
         title.setText(type);
 
+        TextView sub_title = dialog.findViewById(R.id.sub_title);
+        sub_title.setText(mList.size()+" members going");
+
         ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
         back_arrow.setOnClickListener(view -> dialog.dismiss());
 
         RecyclerView rvBrandList = dialog.findViewById(R.id.rvList);
-
-
-        ArrayList<BrandModel> mList = new ArrayList();
-        mList.add(new BrandModel("Toyota"));
-        mList.add(new BrandModel("BMW"));
-        mList.add(new BrandModel("Nissan"));
-        mList.add(new BrandModel("Audi"));
-        mList.add(new BrandModel("Porsche"));
         rvBrandList.setLayoutManager(new LinearLayoutManager(context));
         rvBrandList.setAdapter(new GoingToAdapter(context, mList, item -> {
-            dialog.dismiss();
-            if (appCallBack != null)
-                appCallBack.onSelect(item);
         }));
         dialog.show();
     }

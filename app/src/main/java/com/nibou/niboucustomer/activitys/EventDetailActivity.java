@@ -39,7 +39,7 @@ public class EventDetailActivity extends BaseActivity {
             onBackPressed();
         });
 
-        binding.goingView.setOnClickListener(v -> AppDialogs.getInstance().openGoingToListScreen("Drag Race", context, item -> {
+        binding.goingView.setOnClickListener(v -> AppDialogs.getInstance().openGoingToListScreen("Drag Race", null, context, item -> {
         }));
 
         binding.btnReserveSpot.setOnClickListener(v -> {

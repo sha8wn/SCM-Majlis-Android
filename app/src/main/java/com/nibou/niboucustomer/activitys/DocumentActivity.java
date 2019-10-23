@@ -42,6 +42,8 @@ public class DocumentActivity extends BaseActivity {
     private boolean isSettingMenuScreen;
     private String userId;
     private String imageEmiratesFrontUrl, imageEmiratesBackUrl, imageDriverFrontUrl, imageDriverBackUrl;
+    private int imageEmiratesFrontId, imageEmiratesBackId, imageDriverFrontId, imageDriverBackId;
+    private ListResponseModel.ModelList modelList;
 
 
     @Override
@@ -182,17 +184,41 @@ public class DocumentActivity extends BaseActivity {
     private void showAdminApproveUserDetails(ListResponseModel.ModelList user) {
         userId = user.getId();
 
-        if (user.getDocs().size() > 0)
-            loadImage(binding.imageEmiratesFront, user.getDocs().get(0).getImg());
+        if (user.getDocs().size() > 0) {
+            imageEmiratesFrontUrl = user.getDocs().get(0).getImg();
+            imageEmiratesFrontId = user.getDocs().get(0).getN();
+            binding.imageEmiratesFrontCross.setVisibility(View.VISIBLE);
+            loadImage(binding.imageEmiratesFront, imageEmiratesFrontUrl);
+        } else {
+            binding.imageEmiratesFrontCross.setVisibility(View.GONE);
+        }
 
-        if (user.getDocs().size() > 1)
-            loadImage(binding.imageEmiratesBack, user.getDocs().get(1).getImg());
+        if (user.getDocs().size() > 1) {
+            imageEmiratesBackUrl = user.getDocs().get(1).getImg();
+            imageEmiratesBackId = user.getDocs().get(1).getN();
+            binding.imageEmiratesBackCross.setVisibility(View.VISIBLE);
+            loadImage(binding.imageEmiratesBack, imageEmiratesBackUrl);
+        } else {
+            binding.imageEmiratesBackCross.setVisibility(View.GONE);
+        }
 
-        if (user.getDocs().size() > 0)
-            loadImage(binding.imageDriverFront, user.getLicenses().get(0).getImg());
+        if (user.getLicenses().size() > 0) {
+            imageDriverFrontUrl = user.getLicenses().get(0).getImg();
+            imageDriverFrontId = user.getLicenses().get(0).getN();
+            binding.imageDriverFrontCross.setVisibility(View.VISIBLE);
+            loadImage(binding.imageDriverFront, imageDriverFrontUrl);
+        } else {
+            binding.imageDriverFrontCross.setVisibility(View.GONE);
+        }
 
-        if (user.getDocs().size() > 1)
-            loadImage(binding.imageDriverBack, user.getLicenses().get(1).getImg());
+        if (user.getLicenses().size() > 1) {
+            imageDriverBackUrl = user.getLicenses().get(1).getImg();
+            imageDriverBackId = user.getLicenses().get(1).getN();
+            binding.imageDriverBackCross.setVisibility(View.VISIBLE);
+            loadImage(binding.imageDriverBack, imageDriverBackUrl);
+        } else {
+            binding.imageDriverBackCross.setVisibility(View.GONE);
+        }
     }
 
     private void movedToNextScreen() {
@@ -216,23 +242,49 @@ public class DocumentActivity extends BaseActivity {
         HashMap<String, Object> parameters = new HashMap<>();
 
         ArrayList<String> emiratesImages = new ArrayList<>();
-        if (imageEmiratesFrontUrl != null)
+        if (imageEmiratesFrontUrl != null && !imageEmiratesFrontUrl.startsWith("http"))
             emiratesImages.add(MediaUtil.getBase64FromPath(imageEmiratesFrontUrl));
-        if (imageEmiratesBackUrl != null)
+        if (imageEmiratesBackUrl != null && !imageEmiratesBackUrl.startsWith("http"))
             emiratesImages.add(MediaUtil.getBase64FromPath(imageEmiratesBackUrl));
         if (emiratesImages.size() > 0)
             parameters.put("docs_add", emiratesImages);
 
         ArrayList<String> licenseImages = new ArrayList<>();
-        if (imageDriverFrontUrl != null)
+        if (imageDriverFrontUrl != null && !imageDriverFrontUrl.startsWith("http"))
             licenseImages.add(MediaUtil.getBase64FromPath(imageDriverFrontUrl));
-        if (imageDriverBackUrl != null)
+        if (imageDriverBackUrl != null && !imageDriverBackUrl.startsWith("http"))
             licenseImages.add(MediaUtil.getBase64FromPath(imageDriverBackUrl));
         if (licenseImages.size() > 0)
             parameters.put("licenses_add", licenseImages);
 
+
+        String dec_deleted_ids = "";
+        if ((imageEmiratesFrontUrl == null || (imageEmiratesFrontUrl != null && !imageEmiratesFrontUrl.startsWith("http"))) && imageEmiratesFrontId != 0) {
+            dec_deleted_ids = dec_deleted_ids + imageEmiratesFrontId;
+        }
+        if ((imageEmiratesBackUrl == null || (imageEmiratesBackUrl != null && !imageEmiratesBackUrl.startsWith("http"))) && imageEmiratesBackId != 0) {
+            if (dec_deleted_ids.length() > 0)
+                dec_deleted_ids = dec_deleted_ids + "," + imageEmiratesBackId;
+            else
+                dec_deleted_ids = dec_deleted_ids + imageEmiratesBackId;
+        }
+        if (!dec_deleted_ids.isEmpty())
+            parameters.put("docs_del", dec_deleted_ids);
+
+        String license_deleted_ids = "";
+        if ((imageDriverFrontUrl == null || (imageDriverFrontUrl != null && !imageDriverFrontUrl.startsWith("http"))) && imageDriverFrontId != 0) {
+            license_deleted_ids = license_deleted_ids + imageDriverFrontId;
+        }
+        if ((imageDriverBackUrl == null || (imageDriverBackUrl != null && !imageDriverBackUrl.startsWith("http"))) && imageDriverBackId != 0) {
+            if (license_deleted_ids.length() > 0)
+                license_deleted_ids = license_deleted_ids + "," + imageDriverBackId;
+            else
+                license_deleted_ids = license_deleted_ids + imageDriverBackId;
+        }
+        if (!license_deleted_ids.isEmpty())
+            parameters.put("licenses_del", license_deleted_ids);
+
         if (parameters.size() == 0) {
-            movedToNextScreen();
             return;
         }
 
@@ -263,8 +315,10 @@ public class DocumentActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     ListResponseModel listResponseModel = (ListResponseModel) data;
-                    if (listResponseModel.getUsers().getList() != null && listResponseModel.getUsers().getList().size() > 0)
+                    if (listResponseModel.getUsers().getList() != null && listResponseModel.getUsers().getList().size() > 0) {
+                        modelList = listResponseModel.getUsers().getList().get(0);
                         showAdminApproveUserDetails(listResponseModel.getUsers().getList().get(0));
+                    }
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
@@ -284,7 +338,7 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).centerCrop().into(imageView);
+        Glide.with(context).load(url).dontAnimate().centerCrop().into(imageView);
     }
 
     private boolean screenValidate() {

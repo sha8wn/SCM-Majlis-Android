@@ -20,17 +20,24 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.esafirm.imagepicker.model.Image;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.activitys.DocumentActivity;
 import com.nibou.niboucustomer.activitys.HomeActivity;
+import com.nibou.niboucustomer.api.ApiClient;
+import com.nibou.niboucustomer.api.ApiEndPoint;
+import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.models.PreviousExpertModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
+import com.nibou.niboucustomer.utils.LocalPrefences;
 import com.nibou.niboucustomer.utils.MediaUtil;
 import com.nibou.niboucustomer.utils.RoundedCornersTransformation;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 
 public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.MyViewHolder> {
@@ -105,19 +112,14 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
         } else {
             myViewHolder.tv_add_car.setVisibility(View.GONE);
         }
-        if (isSettingMenuScreen) {
-            if (modelListArrayList.get(position).getId() == null) {
-                myViewHolder.delete_car.setVisibility(View.VISIBLE);
-            } else {
-                myViewHolder.delete_car.setVisibility(View.GONE);
-            }
+
+        if (getItemCount() == 1) {
+            myViewHolder.delete_car.setVisibility(View.GONE);
         } else {
-            if (modelListArrayList.get(position).getId() == null) {
-                myViewHolder.delete_car.setVisibility(View.VISIBLE);
-            } else {
-                myViewHolder.delete_car.setVisibility(View.GONE);
-            }
+            myViewHolder.delete_car.setVisibility(View.VISIBLE);
         }
+
+
         myViewHolder.etBrand.setText(modelListArrayList.get(position).getBrandName());
         myViewHolder.etModel.setText(modelListArrayList.get(position).getModelName());
         myViewHolder.etColor.setText(modelListArrayList.get(position).getColorName());
@@ -146,12 +148,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
     }
 
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).centerCrop().into(imageView);
-    }
-
-
-    private void openImageDialog() {
-
+        Glide.with(context).load(url).dontAnimate().centerCrop().into(imageView);
     }
 
 
@@ -189,10 +186,11 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                         if (modelList != null) {
                             modelListArrayList.get(getAdapterPosition()).setBrand(modelList.getId());
                             modelListArrayList.get(getAdapterPosition()).setBrandName(modelList.getName());
-                            notifyDataSetChanged();
 
                             modelListArrayList.get(getAdapterPosition()).setModel(null);
                             modelListArrayList.get(getAdapterPosition()).setModelName(null);
+                            notifyDataSetChanged();
+
                         }
                     }
                 });
@@ -301,12 +299,43 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
                     @Override
                     public void response(boolean status) {
                         if (status) {
-                            modelListArrayList.remove(modelListArrayList.size() - 1);
-                            notifyDataSetChanged();
+                            if (modelListArrayList.get(getAdapterPosition()).getId() != null) {
+                                if (AppUtil.isInternetAvailable(context)) {
+                                    deleteCarNetworkCall(getAdapterPosition());
+                                } else {
+                                    AppUtil.showToast(context, context.getString(R.string.internet_error));
+                                }
+                            } else {
+                                modelListArrayList.remove(getAdapterPosition());
+                                notifyDataSetChanged();
+                            }
                         }
                     }
                 });
             });
         }
+    }
+
+    private void deleteCarNetworkCall(int position) {
+        AppDialogs.getInstance().showProgressBar(context, null, true);
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).deleteCarNetworkCall(modelListArrayList.get(position).getId(), LocalPrefences.getInstance().getString(context, AppConstant.TOKEN)), new ApiHandler.CallBack() {
+            @Override
+            public void success(boolean isSuccess, Object data) {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+                if (isSuccess) {
+                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.success), context.getString(R.string.car_success_delete_alert), context.getString(R.string.OK), context.getResources().getColor(R.color.green), status -> {
+                        modelListArrayList.remove(position);
+                        notifyDataSetChanged();
+                    });
+                } else {
+                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), context.getResources().getColor(R.color.colorPrimary), null);
+                }
+            }
+
+            @Override
+            public void failed() {
+                AppDialogs.getInstance().showProgressBar(context, null, false);
+            }
+        });
     }
 }

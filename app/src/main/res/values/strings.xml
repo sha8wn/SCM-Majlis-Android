@@ -291,7 +291,7 @@
     <string name="going">Going</string>
     <string name="free">Free</string>
     <string name="color">Color</string>
-    <string name="car_register">Car Registration</string>
+    <string name="car_register">Car Registration(Front/Back)</string>
     <string name="upload_License_front">Upload License Front</string>
     <string name="upload_License_back">Upload License Back</string>
     <string name="add_supercar">Add another Supercar</string>
@@ -321,6 +321,7 @@
     <string name="manage_documents">Manage Documents</string>
     <string name="delete_car">Delete the car</string>
     <string name="car_delete_alert">Are you sure, Do you want to delete this car?</string>
+    <string name="car_success_delete_alert">Car has been deleted successfully</string>
     <string name="about_event">About Event</string>
     <string name="brand_in_the_event">Brands in the events</string>
     <string name="partners">Partners</string>

@@ -20,7 +20,6 @@
             android:id="@+id/ivEventImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
             android:src="@drawable/place_holder"
             app:layout_constraintBottom_toBottomOf="@+id/cardChild"
             app:layout_constraintLeft_toLeftOf="@+id/cardChild"
@@ -164,7 +163,7 @@
                 android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:src="@color/green" />
+                android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon2"
@@ -173,7 +172,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="15dp"
-                android:src="@color/colorPrimary" />
+                android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon3"
@@ -181,7 +180,7 @@
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/icon1"
-                android:src="@color/menu_selected" />
+                android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon4"
@@ -189,7 +188,7 @@
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/icon2"
-                android:src="@color/colorPrimary" />
+                android:src="@drawable/default_placeholder" />
 
             <TextView
                 android:id="@+id/tvGoing"

@@ -106,16 +106,9 @@ public class SettingFragment extends Fragment {
         });
 
         binding.socialMedia.setOnClickListener(v -> {
-            startActivity(newInstagramProfileIntent(getActivity().getPackageManager(), "https://www.instagram.com/supercarsmajlis/?hl=en"));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/supercarsmajlis/?hl=en")));
         });
     }
-
-//    try {
-//        startActivity(getActivity().getPackageManager().getLaunchIntentForPackage("com.instagram.android"));
-//    } catch (Exception e) {
-//        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/supercarsmajlis/?hl=en")));
-//    }
-
 
     public static Intent newInstagramProfileIntent(PackageManager pm, String url) {
         final Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -124,7 +117,7 @@ public class SettingFragment extends Fragment {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length() - 1);
                 }
-                intent.setData(Uri.parse("http://instagram.com/_u/supercarsmajlis"));
+                intent.setData(Uri.parse("https://www.instagram.com/supercarsmajlis/?hl=en"));
                 intent.setPackage("com.instagram.android");
                 return intent;
             }

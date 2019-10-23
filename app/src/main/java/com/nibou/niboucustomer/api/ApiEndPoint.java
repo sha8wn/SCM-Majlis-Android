@@ -62,8 +62,14 @@ public interface ApiEndPoint {
     Call<ErrorResponseModel> addCarDetailNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 
     @Headers("Content-Type: application/json")
+    @DELETE("_api/cars/{id}")
+    Call<ListResponseModel> deleteCarNetworkCall(@Path("id") String userId, @Header("token") String token);
+
+
+    @Headers("Content-Type: application/json")
     @PUT("_api/user_docs/{id}")
     Call<ListResponseModel> updateUserDocumentNetworkCall(@Path("id") String userId, @Header("token") String token, @Body HashMap<String, Object> map);
+
 
     @Headers("Content-Type: application/json")
     @POST("_api/user_auth")
@@ -84,7 +90,7 @@ public interface ApiEndPoint {
     Call<ErrorResponseModel> changePasswordNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 
     @Headers("Content-Type: application/json")
-    @POST("_api/users/{id}")
+    @PUT("_api/users/{id}")
     Call<ErrorResponseModel> updateProfileNetworkCall(@Header("token") String token, @Path("id") String userId, @Body HashMap<String, Object> map);
 
 

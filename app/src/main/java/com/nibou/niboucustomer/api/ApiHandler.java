@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.LoginActivity;
+import com.nibou.niboucustomer.activitys.UserCheckActivity;
 import com.nibou.niboucustomer.models.AccessTokenModel;
 import com.nibou.niboucustomer.models.ErrorResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -42,6 +43,12 @@ public class ApiHandler {
                         if (callBack != null) {
                             callBack.success(SUCCESS, response.body());
                         }
+                    } else if (errorResponseModel.getError() == 11 || errorResponseModel.getError() == 12) {
+                        if (callBack != null) {
+                            callBack.failed();
+                        }
+                        AppUtil.showToast(context, errorResponseModel.getError_text());
+                        logout(context);
                     } else {
                         if (callBack != null) {
                             callBack.success(FAILED, errorResponseModel.getError_text());
@@ -102,12 +109,10 @@ public class ApiHandler {
     }
 
     private static void logout(Context context) {
-        String language = LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE);
         boolean firstLaunch = LocalPrefences.getInstance().getBoolean(context, AppConstant.IS_FIRST_LAUNCH_SUCCESS);
         LocalPrefences.getInstance().clearSharePreference(context);
-        LocalPrefences.getInstance().putString(context, AppConstant.APP_LANGUAGE, language);
         LocalPrefences.getInstance().putBoolean(context, AppConstant.IS_FIRST_LAUNCH_SUCCESS, firstLaunch);
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, UserCheckActivity.class);
         context.startActivity(intent);
         ((Activity) context).finishAffinity();
     }

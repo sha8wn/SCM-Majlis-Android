@@ -116,12 +116,35 @@ public class AddSuperCarActivity extends BaseActivity {
             parameters.put("docs_add", carregistration);
 
 
+        String dec_deleted_ids = "";
+        if ((modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(0).getImg() == null || (modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(0).getImg() != null && !modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(0).getImg().startsWith("http"))) && modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(0).getN() != 0) {
+            dec_deleted_ids = dec_deleted_ids + modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(0).getN();
+        }
+        if ((modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getImg() == null || (modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getImg() != null && !modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getImg().startsWith("http"))) && modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getN() != 0) {
+            if (dec_deleted_ids.length() > 0)
+                dec_deleted_ids = dec_deleted_ids + "," + modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getN();
+            else
+                dec_deleted_ids = dec_deleted_ids + modelListArrayList.get(modelListArrayList.size() - 1).getDocs().get(1).getN();
+        }
+        if (!dec_deleted_ids.isEmpty())
+            parameters.put("docs_del", dec_deleted_ids);
+
+
         ArrayList<String> carimage = new ArrayList<>();
         if (modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg() != null && !modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg().isEmpty() && !modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg().startsWith("http")) {
             carimage.add(MediaUtil.getBase64FromPath(modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg()));
         }
         if (carimage.size() > 0)
             parameters.put("imgs_add", carimage);
+
+
+        String img_deleted_ids = "";
+        if ((modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg() == null || (modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg() != null && !modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getImg().startsWith("http"))) && modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getN() != 0) {
+            img_deleted_ids = img_deleted_ids + modelListArrayList.get(modelListArrayList.size() - 1).getImgs().get(0).getN();
+        }
+        if (!img_deleted_ids.isEmpty())
+            parameters.put("imgs_del", img_deleted_ids);
+
 
         Call requestCall = null;
         if (modelListArrayList.get(modelListArrayList.size() - 1).getId() != null) {
