@@ -44,9 +44,13 @@ public class EventFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.tvCheckIn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), PastEventActivity.class);
-            intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, true);
-            startActivity(intent);
+            if (binding.tvCheckIn.getText().toString().equalsIgnoreCase(getString(R.string.check_in))) {
+
+            } else {
+                Intent intent = new Intent(getActivity(), PastEventActivity.class);
+                intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, true);
+                startActivity(intent);
+            }
         });
 
         if (AppUtil.isInternetAvailable(context)) {
@@ -68,6 +72,15 @@ public class EventFragment extends Fragment {
                         binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                         eventAdapter = new EventAdapter(getActivity(), listResponseModel.getEvents().getList());
                         binding.rvEvents.setAdapter(eventAdapter);
+
+                        for (int i = 0; i < listResponseModel.getEvents().getList().size(); i++) {
+                            if (listResponseModel.getEvents().getList().get(i).getReservation() != 0 && listResponseModel.getEvents().getList().get(i).getStatus() != null && listResponseModel.getEvents().getList().get(i).getStatus().equalsIgnoreCase("Live")) {
+                                binding.tvCheckIn.setText(getString(R.string.check_in));
+                                break;
+                            } else {
+                                binding.tvCheckIn.setText(getString(R.string.past_event));
+                            }
+                        }
                     }
                 } else {
                     AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);

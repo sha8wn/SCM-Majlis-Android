@@ -12,12 +12,14 @@
         android:background="@drawable/brand_bg_drawable"
         android:visibility="visible">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/amex_icon" />
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="wrap_content"

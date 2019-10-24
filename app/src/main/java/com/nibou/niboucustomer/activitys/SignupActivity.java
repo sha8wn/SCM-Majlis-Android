@@ -86,7 +86,7 @@ public class SignupActivity extends BaseActivity {
 
         binding.etBrand.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
-            AppDialogs.getInstance().openListDialog(getString(R.string.brand), binding.etBrand.getTag(), context, new AppCallBack() {
+            AppDialogs.getInstance().openListDialog(getString(R.string.brand), binding.etBrand.getTag(), null, context, new AppCallBack() {
                 @Override
                 public void onSelect(ListResponseModel.ModelList modelList) {
                     if (modelList != null) {
@@ -105,7 +105,7 @@ public class SignupActivity extends BaseActivity {
             if (binding.etBrand.getText().toString().equals("")) {
                 AppUtil.showToast(context, getResources().getString(R.string.brand_first_empty_alert));
             } else {
-                AppDialogs.getInstance().openListDialog(getString(R.string.model), binding.etModel.getTag(), context, new AppCallBack() {
+                AppDialogs.getInstance().openListDialog(getString(R.string.model), binding.etModel.getTag(), binding.etBrand.getTag(), context, new AppCallBack() {
                     @Override
                     public void onSelect(ListResponseModel.ModelList modelList) {
                         if (modelList != null) {

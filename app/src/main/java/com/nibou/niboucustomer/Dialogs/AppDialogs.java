@@ -406,7 +406,7 @@ public class AppDialogs implements Serializable {
         dialog.show();
     }
 
-    public void openListDialog(String title, Object selectedId, Context context, AppCallBack appCallBack) {
+    public void openListDialog(String title, Object selectedId, Object brandId, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.brand_list);
         ((TextView) dialog.findViewById(R.id.tvTitle)).setText(title);
@@ -425,7 +425,7 @@ public class AppDialogs implements Serializable {
             if (title.equals(context.getString(R.string.brand))) {
                 requestCall = ApiClient.getClient().create(ApiEndPoint.class).getBrandNetworkCall(1000, 1);
             } else if (title.equals(context.getString(R.string.model))) {
-                requestCall = ApiClient.getClient().create(ApiEndPoint.class).getModelNetworkCall(1000, 1);
+                requestCall = ApiClient.getClient().create(ApiEndPoint.class).getModelNetworkCall(1000, 1, Integer.parseInt(brandId.toString()));
             } else if (title.equals(context.getString(R.string.color))) {
                 requestCall = ApiClient.getClient().create(ApiEndPoint.class).getColorNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), 1000, 1);
             }
@@ -467,7 +467,7 @@ public class AppDialogs implements Serializable {
         }
     }
 
-    public void openGoingToListScreen(String type,ArrayList<ListResponseModel.ArrayItem> mList, Context context, AppCallBack appCallBack) {
+    public void openGoingToListScreen(String type, ArrayList<ListResponseModel.ArrayItem> mList, Context context, AppCallBack appCallBack) {
         Dialog dialog = new Dialog(context, R.style.FullScreenDialogStyle);
         dialog.setContentView(R.layout.dialog_going_to_view);
 
@@ -475,7 +475,7 @@ public class AppDialogs implements Serializable {
         title.setText(type);
 
         TextView sub_title = dialog.findViewById(R.id.sub_title);
-        sub_title.setText(mList.size()+" members going");
+        sub_title.setText(mList.size() + " members going");
 
         ImageView back_arrow = dialog.findViewById(R.id.back_arrow);
         back_arrow.setOnClickListener(view -> dialog.dismiss());

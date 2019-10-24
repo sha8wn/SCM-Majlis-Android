@@ -12,6 +12,7 @@ public class AppConstant {
     public static final int COMPRESSION_RATIO = 80;
     public static final String USER_ID = "user_id";
     public static final String PASSWORD = "password";
+    public static final String EVENT_MODEL = "event_model";
 
     public static final String STRIPE_PUBLISH_KEY = "pk_test_yOBkGpiAkWajiy6qMVbcX1pf00dtA7sx1n";
     public static final String STRIPE_SECRET_KEY = "sk_test_FfjUYGHC7Eh374hmXTrIijkn00BL17Y2QN";

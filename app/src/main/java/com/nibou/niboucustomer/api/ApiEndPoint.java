@@ -31,7 +31,7 @@ public interface ApiEndPoint {
 
     @Headers("Content-Type: application/json")
     @GET("_api/models")
-    Call<ListResponseModel> getModelNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber);
+    Call<ListResponseModel> getModelNetworkCall(@Query("limit") int limit, @Query("n") int pageNumber, @Query("brand") int brand);
 
     @Headers("Content-Type: application/json")
     @GET("_api/colors")
@@ -84,6 +84,10 @@ public interface ApiEndPoint {
     @GET("_api/events?")
     Call<ListResponseModel> getEventNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("type") int type);
 
+    @Headers("Content-Type: application/json")
+    @GET("_api/checkpoints")
+    Call<ListResponseModel> getCheckpointNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("event") String event);
+
 
     @Headers("Content-Type: application/json")
     @POST("_api/user_password")
@@ -92,6 +96,17 @@ public interface ApiEndPoint {
     @Headers("Content-Type: application/json")
     @PUT("_api/users/{id}")
     Call<ErrorResponseModel> updateProfileNetworkCall(@Header("token") String token, @Path("id") String userId, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/reservations")
+    Call<ErrorResponseModel> reserveSpotNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+    @HTTP(method = "DELETE", path = "_api/reservations", hasBody = true)
+    Call<ErrorResponseModel> deleteReserveSpotNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+//    @Headers("Content-Type: application/json")
+//    @DELETE("_api/reservations")
+//    Call<ErrorResponseModel> deleteReserveSpotNetworkCall(@Header("token") String token,  @Query("user") String user, @Query("event") String event);
 
 
     ///////////////////////////////////////////////////////////////////////////////////

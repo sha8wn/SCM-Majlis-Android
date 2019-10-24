@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.EventDetailActivity;
 import com.nibou.niboucustomer.models.ListResponseModel;
+import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
 
 import java.util.ArrayList;
@@ -67,18 +68,25 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         if (modelList.get(position).getUsers() != null && modelList.get(position).getUsers().size() > 0) {
             myViewHolder.goingView.setVisibility(View.VISIBLE);
             myViewHolder.tvGoing.setText(modelList.get(position).getUsers().size() + " " + context.getString(R.string.going));
-
             loadProfileImage(myViewHolder.icon1, modelList.get(position).getUsers().get(0).getImg());
 
-            if (modelList.get(position).getUsers().size() > 1)
+            if (modelList.get(position).getUsers().size() > 1) {
                 loadProfileImage(myViewHolder.icon2, modelList.get(position).getUsers().get(1).getImg());
+                myViewHolder.icon2.setVisibility(View.VISIBLE);
+            } else
+                myViewHolder.icon2.setVisibility(View.GONE);
 
-            if (modelList.get(position).getUsers().size() > 2)
+            if (modelList.get(position).getUsers().size() > 2) {
                 loadProfileImage(myViewHolder.icon3, modelList.get(position).getUsers().get(2).getImg());
+                myViewHolder.icon3.setVisibility(View.VISIBLE);
+            } else
+                myViewHolder.icon3.setVisibility(View.GONE);
 
-            if (modelList.get(position).getUsers().size() > 3)
+            if (modelList.get(position).getUsers().size() > 3) {
                 loadProfileImage(myViewHolder.icon4, modelList.get(position).getUsers().get(3).getImg());
-
+                myViewHolder.icon4.setVisibility(View.VISIBLE);
+            } else
+                myViewHolder.icon4.setVisibility(View.GONE);
         } else {
             myViewHolder.goingView.setVisibility(View.INVISIBLE);
         }
@@ -144,7 +152,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             card = itemView.findViewById(R.id.card);
             card.setOnClickListener(v -> {
                 Intent intent = new Intent(context, EventDetailActivity.class);
-                intent.putExtra("type", "setting");
+                intent.putExtra(AppConstant.EVENT_MODEL, modelList.get(getAdapterPosition()));
                 context.startActivity(intent);
             });
 

@@ -59,7 +59,6 @@
     <string name="dob_empty_alert">Please select DOB.</string>
 
 
-
     <!--survey screen-->
     <string name="survey_title">What can we help\nyou with today?</string>
     <string name="survey_sub_title">Select up to 3 options</string>
@@ -193,6 +192,8 @@
     <string name="pwd_change_success_alert">Password has been changed successfully.</string>
     <string name="pwd_change_failed_alert">Current password is entered wrong.</string>
     <string name="profile_change_success_alert">Profile has been updated successfully.</string>
+    <string name="reserve_spot_alert">Reserve spot sucessfully</string>
+    <string name="unreserve_spot_alert">Unreserve spot sucessfully</string>
 
     <!--Expert offline screen-->
     <string name="expert_offline">Expert Offline</string>
@@ -266,12 +267,12 @@
     <string name="brand_first_empty_alert">Please select a brand first</string>
     <string name="model_empty_alert">Please select model.</string>
     <string name="color_empty_alert">Please select color.</string>
-    <string name="emirates_front_empty_alert">Please upload emirates id front view too.</string>
-    <string name="emirates_back_empty_alert">Please upload emirates id back view too.</string>
-    <string name="driver_front_empty_alert">Please upload license id front view too.</string>
-    <string name="driver_back_empty_alert">Please upload license id back view too.</string>
-    <string name="car_back_registration_empty_alert">Please upload car registration back view too.</string>
-    <string name="car_front_registration_empty_alert">Please upload car registration front view too.</string>
+    <string name="emirates_front_empty_alert">Please upload emirates id.</string>
+    <string name="emirates_back_empty_alert">Please upload emirates id.</string>
+    <string name="driver_front_empty_alert">Please upload license id.</string>
+    <string name="driver_back_empty_alert">Please upload license id.</string>
+    <string name="car_back_registration_empty_alert">Please upload car registration.</string>
+    <string name="car_front_registration_empty_alert">Please upload car registration.</string>
 
     <string name="membership">Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our privacy policy  and terms &amp; conditions to know more about our selection process></string>
     <string name="start_register">Start registration</string>
@@ -291,16 +292,16 @@
     <string name="going">Going</string>
     <string name="free">Free</string>
     <string name="color">Color</string>
-    <string name="car_register">Car Registration(Front/Back)</string>
-    <string name="upload_License_front">Upload License Front</string>
-    <string name="upload_License_back">Upload License Back</string>
+    <string name="car_register">Car Registration (Front/Back)</string>
+    <string name="upload_License_front">Upload License</string>
+    <string name="upload_License_back">Upload License</string>
     <string name="add_supercar">Add another Supercar</string>
-    <string name="upload_Emirates_front">Upload Emirates Id\nFront</string>
-    <string name="upload_Emirates_back">Upload Emirates Id\nBack</string>
-    <string name="upload_Registration_front">Upload Car\nRegistration Front</string>
-    <string name="upload_Registration_back">Upload Car\nRegistration Back</string>
-    <string name="emirates_id">Emirates ID(front/back)</string>
-    <string name="drivers_license">Drivers license ID(front/back)</string>
+    <string name="upload_Emirates_front">Upload Emirates Id</string>
+    <string name="upload_Emirates_back">Upload Emirates Id</string>
+    <string name="upload_Registration_front">Upload Car\nRegistration</string>
+    <string name="upload_Registration_back">Upload Car\nRegistration</string>
+    <string name="emirates_id">Emirates ID (Front/Back)</string>
+    <string name="drivers_license">Drivers license ID (Front/Back)</string>
     <string name="upload_car_image">UPLOAD SUPERCAR IMAGE</string>
     <string name="profile_image">Your Photo\nHere</string>
     <string name="link_expired">This link has already been used.</string>
@@ -326,9 +327,13 @@
     <string name="brand_in_the_event">Brands in the events</string>
     <string name="partners">Partners</string>
     <string name="reserve_my_spot">Reserve my spot</string>
+    <string name="unreserve">Unreserve</string>
+    <string name="fully_booked">Fully Booked</string>
     <string name="directions"><u>Directions</u></string>
     <string name="which_car_event_text">Which car will you bring to the event?</string>
     <string name="rsvp_member">RSVP\nMember only</string>
     <string name="rsvp_member_guest">RSVP\nMember + Guest</string>
+    <string name="google_map_error">Please installed google map app.</string>
+    <string name="car_select_error">Please select car</string>
 
 </resources>

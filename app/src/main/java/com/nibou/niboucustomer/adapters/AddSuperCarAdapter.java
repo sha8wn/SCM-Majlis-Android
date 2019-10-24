@@ -180,7 +180,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
             delete_car = itemView.findViewById(R.id.delete_car);
 
             etBrand.setOnClickListener(view -> {
-                AppDialogs.getInstance().openListDialog(context.getString(R.string.brand), modelListArrayList.get(getAdapterPosition()).getBrand(), context, new AppCallBack() {
+                AppDialogs.getInstance().openListDialog(context.getString(R.string.brand), modelListArrayList.get(getAdapterPosition()).getBrand(), null, context, new AppCallBack() {
                     @Override
                     public void onSelect(ListResponseModel.ModelList modelList) {
                         if (modelList != null) {
@@ -199,7 +199,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
             etModel.setOnClickListener(view -> {
                 if (modelListArrayList.get(getAdapterPosition()).getBrandName() != null && !modelListArrayList.get(getAdapterPosition()).getBrandName().equals("")) {
-                    AppDialogs.getInstance().openListDialog(context.getString(R.string.model), modelListArrayList.get(getAdapterPosition()).getModel(), context, new AppCallBack() {
+                    AppDialogs.getInstance().openListDialog(context.getString(R.string.model), modelListArrayList.get(getAdapterPosition()).getModel(), modelListArrayList.get(getAdapterPosition()).getBrand(), context, new AppCallBack() {
                         @Override
                         public void onSelect(ListResponseModel.ModelList modelList) {
                             if (modelList != null) {
@@ -216,7 +216,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
 
 
             etColor.setOnClickListener(view -> {
-                AppDialogs.getInstance().openListDialog(context.getString(R.string.color), modelListArrayList.get(getAdapterPosition()).getColor(), context, new AppCallBack() {
+                AppDialogs.getInstance().openListDialog(context.getString(R.string.color), modelListArrayList.get(getAdapterPosition()).getColor(), null, context, new AppCallBack() {
                     @Override
                     public void onSelect(ListResponseModel.ModelList modelList) {
                         if (modelList != null) {

@@ -36,6 +36,17 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
     @SerializedName("cars")
     private Model cars;
 
+    @SerializedName("checkpoints")
+    private Model checkpoints;
+
+    public Model getCheckpoints() {
+        return checkpoints;
+    }
+
+    public void setCheckpoints(Model checkpoints) {
+        this.checkpoints = checkpoints;
+    }
+
     public Model getEvents() {
         return events;
     }
@@ -185,6 +196,30 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private ArrayList<ArrayItem> partners;
 
+        @SerializedName("event")
+        @Expose
+        private String event;
+
+        @SerializedName("hours")
+        @Expose
+        private String hours;
+
+        @SerializedName("minutes")
+        @Expose
+        private String minutes;
+
+        @SerializedName("lat")
+        @Expose
+        private String lat;
+
+        @SerializedName("lng")
+        @Expose
+        private String lng;
+
+        @SerializedName("checked")
+        @Expose
+        private String checked;
+
         @SerializedName("user")
         @Expose
         private String user;
@@ -286,9 +321,70 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private String fee;
 
+        @SerializedName("reservation")
+        @Expose
+        private Integer reservation;
+
         @SerializedName("imgs")
         @Expose
         private ArrayList<Img> imgs;
+
+
+        public String getEvent() {
+            return event;
+        }
+
+        public void setEvent(String event) {
+            this.event = event;
+        }
+
+        public String getHours() {
+            return hours;
+        }
+
+        public void setHours(String hours) {
+            this.hours = hours;
+        }
+
+        public String getMinutes() {
+            return minutes;
+        }
+
+        public void setMinutes(String minutes) {
+            this.minutes = minutes;
+        }
+
+        public String getLat() {
+            return lat;
+        }
+
+        public void setLat(String lat) {
+            this.lat = lat;
+        }
+
+        public String getLng() {
+            return lng;
+        }
+
+        public void setLng(String lng) {
+            this.lng = lng;
+        }
+
+        public String getChecked() {
+            return checked;
+        }
+
+        public void setChecked(String checked) {
+            this.checked = checked;
+        }
+
+        public Integer getReservation() {
+            return reservation;
+        }
+
+        public void setReservation(Integer reservation) {
+            this.reservation = reservation;
+        }
 
         public String getStart() {
             return start;

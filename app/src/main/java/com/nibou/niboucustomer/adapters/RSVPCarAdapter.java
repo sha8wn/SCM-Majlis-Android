@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.RSVPSpotActivity;
 import com.nibou.niboucustomer.models.BrandModel;
+import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppUtil;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ import java.util.ArrayList;
 public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<BrandModel> mList;
+    private ArrayList<ListResponseModel.ModelList> mList;
 
     private int selectedPosition = -1;
 
-    public RSVPCarAdapter(Context context, ArrayList<BrandModel> mList) {
+    public RSVPCarAdapter(Context context, ArrayList<ListResponseModel.ModelList> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -61,20 +62,21 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
             iconLayoutParams.width = (int) AppUtil.convertDpToPixel(100, context);
             myViewHolder.icon.setLayoutParams(iconLayoutParams);
         }
-        showImage(myViewHolder.icon, "https://images.financialexpress.com/2018/06/Brezza-1.png?w=420&h=280&imflag=true");
+        showImage(myViewHolder.icon, mList.get(position).getBrandImg());
 
     }
 
     private void showImage(ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
-                .fitCenter()
+                .dontAnimate()
+                .centerCrop()
                 .into(imageView);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -96,12 +98,12 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
                     if (selectedPosition == getAdapterPosition()) {
                         selectedPosition = -1;
                         if (context instanceof RSVPSpotActivity) {
-                            ((RSVPSpotActivity) context).carSelectedCallBack(false, selectedPosition);
+                            ((RSVPSpotActivity) context).carSelectedCallBack(false, null);
                         }
                     } else {
                         selectedPosition = getAdapterPosition();
                         if (context instanceof RSVPSpotActivity) {
-                            ((RSVPSpotActivity) context).carSelectedCallBack(true, selectedPosition);
+                            ((RSVPSpotActivity) context).carSelectedCallBack(true, mList.get(selectedPosition).getId());
                         }
                     }
                     notifyDataSetChanged();
