@@ -293,8 +293,8 @@
     <string name="free">Free</string>
     <string name="color">Color</string>
     <string name="car_register">Car Registration (Front/Back)</string>
-    <string name="upload_License_front">Upload License</string>
-    <string name="upload_License_back">Upload License</string>
+    <string name="upload_License_front">Upload License Id</string>
+    <string name="upload_License_back">Upload License Id</string>
     <string name="add_supercar">Add another Supercar</string>
     <string name="upload_Emirates_front">Upload Emirates Id</string>
     <string name="upload_Emirates_back">Upload Emirates Id</string>
@@ -335,5 +335,6 @@
     <string name="rsvp_member_guest">RSVP\nMember + Guest</string>
     <string name="google_map_error">Please installed google map app.</string>
     <string name="car_select_error">Please select car</string>
+    <string name="user_check_in_success_alert">Successfully checked in</string>
 
 </resources>

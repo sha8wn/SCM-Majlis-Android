@@ -14,6 +14,10 @@
     <style name="MyEditTextBlackTheme">
         <item name="colorControlNormal">@color/app_disable_color</item>
     </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/app_theme_color</item>
+    </style>
     
     <style name="ProfileScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorAccent</item>

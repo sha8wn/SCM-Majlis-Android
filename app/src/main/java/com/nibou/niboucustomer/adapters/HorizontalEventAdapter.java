@@ -52,12 +52,7 @@ public class HorizontalEventAdapter extends RecyclerView.Adapter<HorizontalEvent
     }
 
     private void showImage(ImageView imageView, String url) {
-        Glide.with(imageView.getContext())
-                .load(url)
-                .dontAnimate()
-                .placeholder(R.drawable.place_holder)
-                .error(R.drawable.place_holder)
-                .into(imageView);
+        Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(imageView);
     }
 
     @Override

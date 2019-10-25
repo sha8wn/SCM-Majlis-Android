@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:layout_marginLeft="15dp"
         android:background="@drawable/brand_bg_drawable"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/icon"
@@ -19,6 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/logo" />
 
         <LinearLayout
@@ -52,7 +53,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/brand_bg_drawable"
         android:padding="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/checkpoint_name"
@@ -101,6 +102,17 @@
             android:text="@string/directions"
             android:textColor="#242424"
             android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/checkin_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/checkin" />
 
     </RelativeLayout>
 

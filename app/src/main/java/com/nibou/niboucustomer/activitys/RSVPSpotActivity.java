@@ -73,6 +73,7 @@ public class RSVPSpotActivity extends BaseActivity {
         });
 
         modelList = (ListResponseModel.ModelList) getIntent().getSerializableExtra(AppConstant.EVENT_MODEL);
+        binding.tvTitle.setText(modelList.getName());
 
 
         if (AppUtil.isInternetAvailable(context)) {

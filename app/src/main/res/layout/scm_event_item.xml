@@ -19,6 +19,7 @@
             android:id="@+id/ivEventImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/place_holder"
             app:layout_constraintBottom_toBottomOf="@+id/cardChild"
@@ -163,6 +164,7 @@
                 android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -173,6 +175,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@+id/icon1"
+                android:scaleType="centerCrop"
                 android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -181,6 +184,7 @@
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/icon1"
+                android:scaleType="centerCrop"
                 android:src="@drawable/default_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -189,6 +193,7 @@
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/icon2"
+                android:scaleType="centerCrop"
                 android:src="@drawable/default_placeholder" />
 
             <TextView

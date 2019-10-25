@@ -2,7 +2,9 @@ package com.nibou.niboucustomer.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.EventDetailActivity;
+import com.nibou.niboucustomer.fragments.EventFragment;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
@@ -24,10 +27,12 @@ import java.util.ArrayList;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     private Context context;
+    private EventFragment eventFragment;
     private ArrayList<ListResponseModel.ModelList> modelList;
 
-    public EventAdapter(Context context, ArrayList<ListResponseModel.ModelList> modelList) {
+    public EventAdapter(Context context, EventFragment eventFragment, ArrayList<ListResponseModel.ModelList> modelList) {
         this.context = context;
+        this.eventFragment = eventFragment;
         this.modelList = modelList;
     }
 
@@ -48,11 +53,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         if (modelList.get(position).getFee() != null && !modelList.get(position).getFee().equals("0")) {
             myViewHolder.tvCost.setText(modelList.get(position).getFee() + " AED");
+            myViewHolder.tvCost.setTextColor(ContextCompat.getColor(context, R.color.app_disable_color));
+            myViewHolder.tvCost.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_gradient_white));
         } else {
             myViewHolder.tvCost.setText(context.getString(R.string.free));
+            myViewHolder.tvCost.setTextColor(Color.WHITE);
+            myViewHolder.tvCost.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_gradient_blue));
         }
 
-        if (modelList.get(position).getStatus() != null && !modelList.get(position).getStatus().equalsIgnoreCase("closed")) {
+        if (modelList.get(position).getStatus() != null && modelList.get(position).getStatus().equalsIgnoreCase("Live")) {
             myViewHolder.ivLive.setVisibility(View.VISIBLE);
         } else {
             myViewHolder.ivLive.setVisibility(View.INVISIBLE);
@@ -99,7 +108,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 if (modelList.getUsers().get(i).getGuests() != null && !modelList.getUsers().get(i).getGuests().isEmpty())
                     guest = guest + Integer.parseInt(modelList.getUsers().get(i).getGuests());
             }
-            return String.valueOf(Integer.parseInt(modelList.getLimit_guests()) - guest);
+            if ((Integer.parseInt(modelList.getLimit_guests()) - guest) < 0)
+                return "0";
+            else
+                return String.valueOf(Integer.parseInt(modelList.getLimit_guests()) - guest);
         } else {
             return modelList.getLimit_guests();
         }
@@ -107,11 +119,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     private void loadProfileImage(ImageView imageView, String url) {
         if (url != null && !url.isEmpty())
-            Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.default_placeholder).error(R.drawable.default_placeholder).into(imageView);
+            Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.default_placeholder).error(R.drawable.default_placeholder).dontAnimate().into(imageView);
     }
 
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(imageView);
+        Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(imageView);
     }
 
     @Override
@@ -153,7 +165,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             card.setOnClickListener(v -> {
                 Intent intent = new Intent(context, EventDetailActivity.class);
                 intent.putExtra(AppConstant.EVENT_MODEL, modelList.get(getAdapterPosition()));
-                context.startActivity(intent);
+                eventFragment.startActivityForResult(intent, 300);
             });
 
         }

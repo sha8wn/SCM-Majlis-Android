@@ -103,7 +103,7 @@ public class EditProfileActivity extends BaseActivity {
 
     private void loadImage(String url) {
         if (url != null && !url.isEmpty())
-            Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(binding.ivProfile);
+            Glide.with(this).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(binding.ivProfile);
     }
 
 

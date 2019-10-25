@@ -338,7 +338,7 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).dontAnimate().centerCrop().into(imageView);
+        Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.dashed_bg).error(R.drawable.dashed_bg).dontAnimate().into(imageView);
     }
 
     private boolean screenValidate() {

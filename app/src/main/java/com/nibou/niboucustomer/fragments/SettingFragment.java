@@ -24,7 +24,6 @@ import android.view.*;
 
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.actioncable.ActionSessionHandler;
 import com.nibou.niboucustomer.activitys.*;
 import com.nibou.niboucustomer.adapters.ChatAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
@@ -159,7 +158,6 @@ public class SettingFragment extends Fragment {
     }
 
     private void clearLocalData() {
-        ActionSessionHandler.getActionSessionHandler(getActivity()).disconnectWS();
         String language = LocalPrefences.getInstance().getString(getActivity(), AppConstant.APP_LANGUAGE);
         boolean firstLaunch = LocalPrefences.getInstance().getBoolean(getActivity(), AppConstant.IS_FIRST_LAUNCH_SUCCESS);
         LocalPrefences.getInstance().clearSharePreference(getActivity());

@@ -63,15 +63,15 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
             myViewHolder.icon.setLayoutParams(iconLayoutParams);
         }
         showImage(myViewHolder.icon, mList.get(position).getBrandImg());
-
+        if (mList.get(position).getBrandName() != null)
+            myViewHolder.name.setText(mList.get(position).getBrandName().trim());
+        if (mList.get(position).getModelName() != null)
+            myViewHolder.model.setText(mList.get(position).getModelName().trim());
     }
 
     private void showImage(ImageView imageView, String url) {
-        Glide.with(context)
-                .load(url)
-                .dontAnimate()
-                .centerCrop()
-                .into(imageView);
+        if (url != null && !url.isEmpty())
+            Glide.with(imageView.getContext()).load(url).fitCenter().dontAnimate().into(imageView);
     }
 
     @Override

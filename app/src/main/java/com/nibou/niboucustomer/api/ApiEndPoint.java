@@ -84,6 +84,12 @@ public interface ApiEndPoint {
     @GET("_api/events?")
     Call<ListResponseModel> getEventNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("type") int type);
 
+
+    @Headers("Content-Type: application/json")
+    @GET("_api/events?")
+    Call<ListResponseModel> getEventDetailNetworkCall(@Header("token") String token, @Query("id") String id);
+
+
     @Headers("Content-Type: application/json")
     @GET("_api/checkpoints")
     Call<ListResponseModel> getCheckpointNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("event") String event);
@@ -104,10 +110,9 @@ public interface ApiEndPoint {
     @HTTP(method = "DELETE", path = "_api/reservations", hasBody = true)
     Call<ErrorResponseModel> deleteReserveSpotNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 
-//    @Headers("Content-Type: application/json")
-//    @DELETE("_api/reservations")
-//    Call<ErrorResponseModel> deleteReserveSpotNetworkCall(@Header("token") String token,  @Query("user") String user, @Query("event") String event);
-
+    @Headers("Content-Type: application/json")
+    @POST("_api/reservation_checks")
+    Call<ErrorResponseModel> checkInNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 
     ///////////////////////////////////////////////////////////////////////////////////
 

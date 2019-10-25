@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
+import com.nibou.niboucustomer.activitys.EventDetailActivity;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.BrandModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
@@ -25,12 +26,14 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
 
     private Context context;
     private boolean isCheckpointAdapter;
+    private boolean checkPointStatus;
     private ArrayList<ListResponseModel.ArrayItem> mList;
     private ArrayList<ListResponseModel.ModelList> modelLists;
 
-    public EventDetailsAdapter(Context context, boolean isCheckpointAdapter, Object data) {
+    public EventDetailsAdapter(Context context, boolean isCheckpointAdapter, boolean checkPointStatus, Object data) {
         this.context = context;
         this.isCheckpointAdapter = isCheckpointAdapter;
+        this.checkPointStatus = checkPointStatus;
         if (isCheckpointAdapter) {
             modelLists = (ArrayList<ListResponseModel.ModelList>) data;
         } else {
@@ -52,6 +55,17 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
             myViewHolder.checkpoint_view.setVisibility(View.VISIBLE);
             myViewHolder.checkpoint_name.setText(modelLists.get(position).getName());
             myViewHolder.time.setText(modelLists.get(position).getHours() + ":" + modelLists.get(position).getMinutes());
+            if (checkPointStatus) {
+                myViewHolder.checkin_icon.setVisibility(View.VISIBLE);
+                if (modelLists.get(position).getChecked() != null && !modelLists.get(position).getChecked().equals("0")) {
+                    myViewHolder.checkin_icon.setImageResource(R.drawable.green_tick);
+                } else {
+                    myViewHolder.checkin_icon.setImageResource(R.drawable.checkin);
+                }
+            } else {
+                myViewHolder.checkin_icon.setVisibility(View.GONE);
+            }
+
         } else {
             myViewHolder.brand_view.setVisibility(View.VISIBLE);
             myViewHolder.checkpoint_view.setVisibility(View.GONE);
@@ -62,7 +76,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
 
     private void loadImage(ImageView imageView, String url) {
         if (url != null && !url.isEmpty())
-            Glide.with(context).load(url).dontAnimate().centerCrop().placeholder(R.drawable.logo).error(R.drawable.logo).into(imageView);
+            Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.logo).error(R.drawable.logo).dontAnimate().into(imageView);
     }
 
     @Override
@@ -78,7 +92,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
 
         private TextView name, checkpoint_name, time, directions;
         private View checkpoint_view, brand_view;
-        private ImageView icon;
+        private ImageView icon, checkin_icon;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +102,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
 
             checkpoint_view = itemView.findViewById(R.id.checkpointView);
             checkpoint_name = itemView.findViewById(R.id.checkpoint_name);
+            checkin_icon = itemView.findViewById(R.id.checkin_icon);
             time = itemView.findViewById(R.id.time);
             directions = itemView.findViewById(R.id.directions);
 
@@ -101,6 +116,14 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
                     AppUtil.showToast(context, context.getString(R.string.google_map_error));
                 }
             });
+            checkin_icon.setOnClickListener(v -> {
+                if (context instanceof EventDetailActivity) {
+                    if (modelLists.get(getAdapterPosition()).getChecked() == null || modelLists.get(getAdapterPosition()).getChecked().equals("0")) {
+                        ((EventDetailActivity) context).getLocation(modelLists.get(getAdapterPosition()).getId());
+                    }
+                }
+            });
+
         }
     }
 }

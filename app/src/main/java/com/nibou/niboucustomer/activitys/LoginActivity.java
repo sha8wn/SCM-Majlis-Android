@@ -13,7 +13,6 @@ import android.util.Patterns;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.actioncable.ActionSessionHandler;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
