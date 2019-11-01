@@ -76,7 +76,7 @@ public class EditProfileActivity extends BaseActivity {
         });
 
 
-        binding.ivProfile.setOnClickListener(view -> {
+        binding.ivProfileView.setOnClickListener(view -> {
             mediaUtil.openSingleImageGallery((isCamera, imageResult) -> {
                 ArrayList<Image> imagesList = (ArrayList<Image>) imageResult;
                 if (imagesList != null && imagesList.size() > 0) {
@@ -103,7 +103,7 @@ public class EditProfileActivity extends BaseActivity {
 
     private void loadImage(String url) {
         if (url != null && !url.isEmpty())
-            Glide.with(this).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(binding.ivProfile);
+            Glide.with(binding.ivProfile.getContext()).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(binding.ivProfile);
     }
 
 

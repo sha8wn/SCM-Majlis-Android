@@ -19,6 +19,7 @@ import com.nibou.niboucustomer.models.BrandModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -54,7 +55,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
             myViewHolder.brand_view.setVisibility(View.GONE);
             myViewHolder.checkpoint_view.setVisibility(View.VISIBLE);
             myViewHolder.checkpoint_name.setText(modelLists.get(position).getName());
-            myViewHolder.time.setText(modelLists.get(position).getHours() + ":" + modelLists.get(position).getMinutes());
+            myViewHolder.time.setText(String.format("%02d", modelLists.get(position).getHours() != null && !modelLists.get(position).getHours().isEmpty() ? Integer.parseInt(modelLists.get(position).getHours()) : 0) + ":" + String.format("%02d", modelLists.get(position).getMinutes() != null && !modelLists.get(position).getMinutes().isEmpty() ? Integer.parseInt(modelLists.get(position).getMinutes()) : 0));
             if (checkPointStatus) {
                 myViewHolder.checkin_icon.setVisibility(View.VISIBLE);
                 if (modelLists.get(position).getChecked() != null && !modelLists.get(position).getChecked().equals("0")) {
@@ -107,7 +108,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<EventDetailsAdapte
             directions = itemView.findViewById(R.id.directions);
 
             directions.setOnClickListener(v -> {
-                Uri gmmIntentUri = Uri.parse("geo:" + modelLists.get(getAdapterPosition()).getLat() + "," + modelLists.get(getAdapterPosition()).getLng());
+                Uri gmmIntentUri = Uri.parse("geo:" + modelLists.get(getAdapterPosition()).getLat() + "," + modelLists.get(getAdapterPosition()).getLng() + "?z=17&q=" + modelLists.get(getAdapterPosition()).getLat() + "," + modelLists.get(getAdapterPosition()).getLng() + "(" + Uri.encode(modelLists.get(getAdapterPosition()).getName()) + ")");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(context.getPackageManager()) != null) {

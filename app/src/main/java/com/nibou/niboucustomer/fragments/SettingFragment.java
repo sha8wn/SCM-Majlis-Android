@@ -158,10 +158,8 @@ public class SettingFragment extends Fragment {
     }
 
     private void clearLocalData() {
-        String language = LocalPrefences.getInstance().getString(getActivity(), AppConstant.APP_LANGUAGE);
         boolean firstLaunch = LocalPrefences.getInstance().getBoolean(getActivity(), AppConstant.IS_FIRST_LAUNCH_SUCCESS);
         LocalPrefences.getInstance().clearSharePreference(getActivity());
-        LocalPrefences.getInstance().putString(getActivity(), AppConstant.APP_LANGUAGE, language);
         LocalPrefences.getInstance().putBoolean(getActivity(), AppConstant.IS_FIRST_LAUNCH_SUCCESS, firstLaunch);
         Intent intent = new Intent(getActivity(), UserCheckActivity.class);
         startActivity(intent);

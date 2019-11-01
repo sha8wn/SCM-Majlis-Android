@@ -76,19 +76,25 @@ public class ApiHandler {
         });
     }
 
-    public static <T> void requestRefreshTokenService(Context context, CallBack callBack, Call lastApiCall, Call<T> call) {
-        call.enqueue(new Callback<T>() {
+
+    public static <T> void requestLinkService(Context context, final Call<T> requestCall, CallBack callBack) {
+        requestCall.clone().enqueue(new Callback<T>() {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                if (response != null && (response.code() == 200 || response.code() == 201)) { //success
-                    LocalPrefences.getInstance().saveLocalAccessTokenModel(context, (AccessTokenModel) response.body());
-                    requestService(context, lastApiCall, callBack);
-                } else if (response != null && response.code() == 400) { //success
-                    AppUtil.showToast(context, context.getResources().getString(R.string.refresh_token_error_alert));
-                    logout(context);
-                } else {
+                try {
+                    ErrorResponseModel errorResponseModel = (ErrorResponseModel) response.body();
+                    if (errorResponseModel.getError() == 0) {
+                        if (callBack != null) {
+                            callBack.success(SUCCESS, response.body());
+                        }
+                    } else {
+                        if (callBack != null) {
+                            callBack.success(FAILED, errorResponseModel.getError_text());
+                        }
+                    }
+                } catch (Exception e) {
+                    AppUtil.showToast(context, context.getResources().getString(R.string.wrong_with_backend));
                     if (callBack != null) {
-                        AppUtil.showToast(context, context.getResources().getString(R.string.wrong_with_backend));
                         callBack.failed();
                     }
                 }

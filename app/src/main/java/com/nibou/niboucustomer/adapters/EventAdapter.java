@@ -123,7 +123,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     private void loadImage(ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(imageView);
+        if (url != null && !url.isEmpty())
+            Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).dontAnimate().into(imageView);
     }
 
     @Override

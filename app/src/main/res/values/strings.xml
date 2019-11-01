@@ -192,8 +192,8 @@
     <string name="pwd_change_success_alert">Password has been changed successfully.</string>
     <string name="pwd_change_failed_alert">Current password is entered wrong.</string>
     <string name="profile_change_success_alert">Profile has been updated successfully.</string>
-    <string name="reserve_spot_alert">Reserve spot sucessfully</string>
-    <string name="unreserve_spot_alert">Unreserve spot sucessfully</string>
+    <string name="reserve_spot_alert">You have successfully registered for</string>
+    <string name="unreserve_spot_alert">You have cancelled your registration successfully</string>
 
     <!--Expert offline screen-->
     <string name="expert_offline">Expert Offline</string>
@@ -277,7 +277,7 @@
     <string name="membership">Completing this form not guarantee an SCM membersip. You will be notified if your application is successful. Please read our privacy policy  and terms &amp; conditions to know more about our selection process></string>
     <string name="start_register">Start registration</string>
     <string name="scm_past_event">SCM Past Events</string>
-    <string name="document_upload_alert">Documents has been uploaded successfully.</string>
+    <string name="document_upload_alert">Your documents has been updated successfully</string>
     <string name="car_save_alert">Cars details saved successfully.</string>
     <string name="thank_you_desc">We have received your application.You will be contacted shortly.</string>
     <string name="admin_register_success">You are now a member of supercars majlis.</string>
@@ -327,7 +327,7 @@
     <string name="brand_in_the_event">Brands in the events</string>
     <string name="partners">Partners</string>
     <string name="reserve_my_spot">Reserve my spot</string>
-    <string name="unreserve">Unreserve</string>
+    <string name="unreserve">Cancel Reservation</string>
     <string name="fully_booked">Fully Booked</string>
     <string name="directions"><u>Directions</u></string>
     <string name="which_car_event_text">Which car will you bring to the event?</string>

@@ -71,12 +71,15 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
         mediaUtil = new MediaUtil(context);
 
         for (int i = 0; i < modelListArrayList.size(); i++) {
-            if (modelListArrayList.get(i).getDocs().size() != 2) {
+            if (modelListArrayList.get(i).getDocs().size() == 1) {
+                modelListArrayList.get(i).getDocs().add(new ListResponseModel.Img());
+            } else if (modelListArrayList.get(i).getDocs().size() != 2) {
                 ArrayList<ListResponseModel.Img> imgArrayList = new ArrayList<>();
                 imgArrayList.add(new ListResponseModel.Img());
                 imgArrayList.add(new ListResponseModel.Img());
                 modelListArrayList.get(i).setDocs(imgArrayList);
             }
+
             if (modelListArrayList.get(i).getImgs().size() != 1) {
                 ArrayList<ListResponseModel.Img> imgArrayList = new ArrayList<>();
                 imgArrayList.add(new ListResponseModel.Img());
@@ -148,7 +151,7 @@ public class AddSuperCarAdapter extends RecyclerView.Adapter<AddSuperCarAdapter.
     }
 
     private void loadImage(ImageView imageView, String url) {
-            Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.dashed_bg).error(R.drawable.dashed_bg).dontAnimate().into(imageView);
+        Glide.with(imageView.getContext()).load(url).centerCrop().placeholder(R.drawable.dashed_bg).error(R.drawable.dashed_bg).dontAnimate().into(imageView);
     }
 
 

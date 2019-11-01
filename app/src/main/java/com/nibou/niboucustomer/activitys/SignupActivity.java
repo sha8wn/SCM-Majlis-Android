@@ -6,9 +6,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.api.ApiClient;
@@ -122,10 +124,9 @@ public class SignupActivity extends BaseActivity {
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
                     AppDialogs.getInstance().showProgressBar(context, null, true);
-//                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-//                        registerUserNetworkCall("testing");
-//                    });
-                    registerUserNetworkCall("testing");
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+                        registerUserNetworkCall(instanceIdResult.getToken());
+                    });
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
@@ -169,7 +170,7 @@ public class SignupActivity extends BaseActivity {
 
     private void getUserDetailsNetworkCall() {
         AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getUserDetailsNetworkCall(token), new ApiHandler.CallBack() {
+        ApiHandler.requestLinkService(context, ApiClient.getClient().create(ApiEndPoint.class).getUserDetailsNetworkCall(token), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
@@ -236,6 +237,8 @@ public class SignupActivity extends BaseActivity {
         parameters.put("brand", binding.etBrand.getTag());
         parameters.put("model", binding.etModel.getTag());
         parameters.put("uid", deviceToken);
+        Log.e("token", ":" + token);
+
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).registerUserNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {

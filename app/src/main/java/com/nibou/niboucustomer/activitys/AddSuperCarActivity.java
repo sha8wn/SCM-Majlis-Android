@@ -212,10 +212,10 @@ public class AddSuperCarActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-//            Intent intent = new Intent();
-//            intent.putExtra(AppConstant.REFRESH_TOKEN, LocalPrefences.getInstance().getString(context, AppConstant.TOKEN));
-//            setResult(RESULT_OK, intent);
-//            finish();
+            Intent intent = new Intent();
+            intent.putExtra(AppConstant.REFRESH_TOKEN, LocalPrefences.getInstance().getString(context, AppConstant.TOKEN));
+            setResult(RESULT_OK, intent);
+            finish();
         } else {
             super.onBackPressed();
         }
@@ -247,13 +247,14 @@ public class AddSuperCarActivity extends BaseActivity {
                 } else if (!(mListAdapter.getModelListArrayList().get(i).getColor() != null && !mListAdapter.getModelListArrayList().get(i).getColor().isEmpty() && !mListAdapter.getModelListArrayList().get(i).getColor().equals("0"))) {
                     AppUtil.showToast(context, getResources().getString(R.string.color_empty_alert));
                     return false;
-                } else if (mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() == null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() != null) {
-                    AppUtil.showToast(context, getResources().getString(R.string.car_front_registration_empty_alert));
-                    return false;
-                } else if ((mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() != null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() == null)) {
-                    AppUtil.showToast(context, getResources().getString(R.string.car_back_registration_empty_alert));
-                    return false;
                 }
+//                else if (mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() == null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() != null) {
+//                    AppUtil.showToast(context, getResources().getString(R.string.car_front_registration_empty_alert));
+//                    return false;
+//                } else if ((mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() != null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() == null)) {
+//                    AppUtil.showToast(context, getResources().getString(R.string.car_back_registration_empty_alert));
+//                    return false;
+//                }
             }
             return true;
         }

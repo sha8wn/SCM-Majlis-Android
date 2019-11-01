@@ -104,7 +104,7 @@ public class RSVPSpotActivity extends BaseActivity {
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.reserve_spot_alert), getString(R.string.OK), getResources().getColor(R.color.green), status -> {
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.reserve_spot_alert) + " " + modelList.getName(), getString(R.string.OK), getResources().getColor(R.color.green), status -> {
                         setResult(RESULT_OK, new Intent());
                         finish();
                     });
@@ -129,9 +129,10 @@ public class RSVPSpotActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     ListResponseModel listResponseModel = (ListResponseModel) data;
-                    if (listResponseModel.getCars() != null && listResponseModel.getCars().getList() != null) {
+                    if (listResponseModel.getCars() != null && listResponseModel.getCars().getList() != null && listResponseModel.getCars().getList().size() > 0) {
                         binding.rvList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                         binding.rvList.setAdapter(new RSVPCarAdapter(context, listResponseModel.getCars().getList()));
+                        carSelectedCallBack(true, listResponseModel.getCars().getList().get(0).getId());
                     }
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);

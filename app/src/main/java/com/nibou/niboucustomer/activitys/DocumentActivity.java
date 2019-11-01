@@ -285,6 +285,7 @@ public class DocumentActivity extends BaseActivity {
             parameters.put("licenses_del", license_deleted_ids);
 
         if (parameters.size() == 0) {
+            movedToNextScreen();
             return;
         }
 
@@ -342,25 +343,26 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private boolean screenValidate() {
-        if (imageEmiratesFrontUrl == null && imageEmiratesBackUrl != null) {
-            AppUtil.showToast(context, getResources().getString(R.string.emirates_front_empty_alert));
-            return false;
-        } else if (imageEmiratesFrontUrl != null && imageEmiratesBackUrl == null) {
-            AppUtil.showToast(context, getResources().getString(R.string.emirates_back_empty_alert));
-            return false;
-        } else if (imageDriverFrontUrl == null && imageDriverBackUrl != null) {
-            AppUtil.showToast(context, getResources().getString(R.string.driver_front_empty_alert));
-            return false;
-        } else if (imageDriverFrontUrl != null && imageDriverBackUrl == null) {
-            AppUtil.showToast(context, getResources().getString(R.string.driver_back_empty_alert));
-            return false;
-        }
+//        if (imageEmiratesFrontUrl == null && imageEmiratesBackUrl != null) {
+//            AppUtil.showToast(context, getResources().getString(R.string.emirates_front_empty_alert));
+//            return false;
+//        } else if (imageEmiratesFrontUrl != null && imageEmiratesBackUrl == null) {
+//            AppUtil.showToast(context, getResources().getString(R.string.emirates_back_empty_alert));
+//            return false;
+//        } else if (imageDriverFrontUrl == null && imageDriverBackUrl != null) {
+//            AppUtil.showToast(context, getResources().getString(R.string.driver_front_empty_alert));
+//            return false;
+//        } else if (imageDriverFrontUrl != null && imageDriverBackUrl == null) {
+//            AppUtil.showToast(context, getResources().getString(R.string.driver_back_empty_alert));
+//            return false;
+//        }
         return true;
     }
 
     @Override
     public void onBackPressed() {
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+            super.onBackPressed();
         } else {
             super.onBackPressed();
         }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -52,12 +53,9 @@ public class LoginActivity extends BaseActivity {
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
                     AppDialogs.getInstance().showProgressBar(context, null, true);
-
-//                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-//                        loginNetworkCall(instanceIdResult.getToken());
-//                    });
-
-                    loginNetworkCall("testing");
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+                        loginNetworkCall(instanceIdResult.getToken());
+                    });
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
@@ -95,6 +93,7 @@ public class LoginActivity extends BaseActivity {
         parameters.put("email", binding.etEmail.getText().toString().trim());
         parameters.put("password", binding.etPassword.getText().toString());
         parameters.put("uid", token);
+        Log.e("token", ":" + token);
 
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).loginNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override

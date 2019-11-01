@@ -26,7 +26,7 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
     private Context context;
     private ArrayList<ListResponseModel.ModelList> mList;
 
-    private int selectedPosition = -1;
+    private int selectedPosition = 0;
 
     public RSVPCarAdapter(Context context, ArrayList<ListResponseModel.ModelList> mList) {
         this.context = context;
@@ -45,28 +45,20 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
 
         if (selectedPosition == position) {
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) myViewHolder.brand_card.getLayoutParams();
-            layoutParams.height = (int) AppUtil.convertDpToPixel(270, context);
+            layoutParams.height = (int) AppUtil.convertDpToPixel(240, context);
             myViewHolder.brand_card.setLayoutParams(layoutParams);
             myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_selected_drawable));
-            RelativeLayout.LayoutParams iconLayoutParams = (RelativeLayout.LayoutParams) myViewHolder.icon.getLayoutParams();
-            iconLayoutParams.height = (int) AppUtil.convertDpToPixel(180, context);
-            iconLayoutParams.width = (int) AppUtil.convertDpToPixel(120, context);
-            myViewHolder.icon.setLayoutParams(iconLayoutParams);
         } else {
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) myViewHolder.brand_card.getLayoutParams();
-            layoutParams.height = (int) AppUtil.convertDpToPixel(250, context);
+            layoutParams.height = (int) AppUtil.convertDpToPixel(230, context);
             myViewHolder.brand_card.setLayoutParams(layoutParams);
             myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_unselected_drawable));
-            RelativeLayout.LayoutParams iconLayoutParams = (RelativeLayout.LayoutParams) myViewHolder.icon.getLayoutParams();
-            iconLayoutParams.height = (int) AppUtil.convertDpToPixel(150, context);
-            iconLayoutParams.width = (int) AppUtil.convertDpToPixel(100, context);
-            myViewHolder.icon.setLayoutParams(iconLayoutParams);
         }
-        showImage(myViewHolder.icon, mList.get(position).getBrandImg());
-        if (mList.get(position).getBrandName() != null)
-            myViewHolder.name.setText(mList.get(position).getBrandName().trim());
-        if (mList.get(position).getModelName() != null)
-            myViewHolder.model.setText(mList.get(position).getModelName().trim());
+
+
+        showImage(myViewHolder.icon, mList.get(position).getModelImg());
+        myViewHolder.name.setText(mList.get(position).getBrandName());
+        myViewHolder.model.setText(mList.get(position).getModelName());
     }
 
     private void showImage(ImageView imageView, String url) {
