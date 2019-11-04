@@ -39,6 +39,17 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
     @SerializedName("checkpoints")
     private Model checkpoints;
 
+    @SerializedName("promotions")
+    private Model promotions;
+
+    public Model getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Model promotions) {
+        this.promotions = promotions;
+    }
+
     public Model getCheckpoints() {
         return checkpoints;
     }
@@ -216,6 +227,38 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private String lng;
 
+        @SerializedName("display")
+        @Expose
+        private String display;
+
+        @SerializedName("partner")
+        @Expose
+        private String partner;
+
+        @SerializedName("partner_name")
+        @Expose
+        private String partner_name;
+
+        @SerializedName("partner_phone")
+        @Expose
+        private String partner_phone;
+
+        @SerializedName("partner_location")
+        @Expose
+        private String partner_location;
+
+        @SerializedName("partner_img")
+        @Expose
+        private String partner_img;
+
+        @SerializedName("redeemed")
+        @Expose
+        private String redeemed;
+
+        @SerializedName("code")
+        @Expose
+        private String code;
+
         @SerializedName("checked")
         @Expose
         private String checked;
@@ -292,9 +335,10 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private String text;
 
-        @SerializedName("display")
+        @SerializedName("terms")
         @Expose
-        private String display;
+        private String terms;
+
         @SerializedName("date")
         @Expose
         private String date;
@@ -329,6 +373,69 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private ArrayList<Img> imgs;
 
+        public String getTerms() {
+            return terms;
+        }
+
+        public void setTerms(String terms) {
+            this.terms = terms;
+        }
+
+        public String getPartner_name() {
+            return partner_name;
+        }
+
+        public void setPartner_name(String partner_name) {
+            this.partner_name = partner_name;
+        }
+
+        public String getPartner_phone() {
+            return partner_phone;
+        }
+
+        public void setPartner_phone(String partner_phone) {
+            this.partner_phone = partner_phone;
+        }
+
+        public String getPartner_location() {
+            return partner_location;
+        }
+
+        public void setPartner_location(String partner_location) {
+            this.partner_location = partner_location;
+        }
+
+        public String getPartner_img() {
+            return partner_img;
+        }
+
+        public void setPartner_img(String partner_img) {
+            this.partner_img = partner_img;
+        }
+
+        public String getPartner() {
+            return partner;
+        }
+
+        public void setPartner(String partner) {
+            this.partner = partner;
+        }
+
+        public String getRedeemed() {
+            return redeemed;
+        }
+
+        public void setRedeemed(String redeemed) {
+            this.redeemed = redeemed;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
 
         public String getEvent() {
             return event;

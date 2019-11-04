@@ -206,7 +206,7 @@ public class EventFragment extends Fragment implements LocationListener {
 //                        }
                     }
                 } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 
@@ -236,9 +236,9 @@ public class EventFragment extends Fragment implements LocationListener {
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.success).toUpperCase(), context.getString(R.string.user_check_in_success_alert), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), context.getString(R.string.user_check_in_success_alert), getString(R.string.OK), getResources().getColor(R.color.green), null);
                 } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 

@@ -336,5 +336,12 @@
     <string name="google_map_error">Please installed google map app.</string>
     <string name="car_select_error">Please select car</string>
     <string name="user_check_in_success_alert">Successfully checked in</string>
+    <string name="redeem">Redeem</string>
+    <string name="enter_partner_redeem">Enter Partner Code to Redeem</string>
+    <string name="redeem_code_alert">Please enter correct code</string>
+    <string name="redeem_success_alert">Promotion coupon has be redeemed.</string>
+    <string name="redeem_failed_alert">Invalid code entered.</string>
+
+
 
 </resources>

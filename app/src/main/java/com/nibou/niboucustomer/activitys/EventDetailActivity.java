@@ -373,7 +373,7 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
 
                 } else {
                     AppDialogs.getInstance().showProgressBar(context, null, false);
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 

@@ -75,7 +75,7 @@ public class PastEventActivity extends AppCompatActivity {
                     mListAdapter = new PastEventAdapter(context, eventResponseModel);
                     binding.rvEvents.setAdapter(mListAdapter);
                 } else {
-                    AppDialogs.getInstance().showInfoCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), null);
+                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK),context.getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 

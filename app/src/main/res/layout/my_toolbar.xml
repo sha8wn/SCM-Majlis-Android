@@ -85,5 +85,17 @@
             android:layout_centerVertical="true"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/close_icon"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_close_black_24dp"
+            android:visibility="gone" />
+
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

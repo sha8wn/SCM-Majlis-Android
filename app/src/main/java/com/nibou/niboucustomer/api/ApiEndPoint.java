@@ -114,6 +114,16 @@ public interface ApiEndPoint {
     @POST("_api/reservation_checks")
     Call<ErrorResponseModel> checkInNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 
+    //	1 - active, 2 - suspended
+    @Headers("Content-Type: application/json")
+    @GET("_api/promotions")
+    Call<ListResponseModel> getPromotionNetworkCall(@Header("token") String token, @Query("limit") int limit, @Query("n") int pageNumber, @Query("type") int type);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/promotions_code")
+    Call<ErrorResponseModel> redeemNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+
     ///////////////////////////////////////////////////////////////////////////////////
 
     @Headers("Content-Type: application/json")
