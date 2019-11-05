@@ -20,33 +20,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="3dp"
         android:layout_toRightOf="@+id/icon"
-        android:gravity="center|left"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/seguisb"
             android:gravity="start|center_vertical"
             android:text="@string/brand"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.5"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/segoeui"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
             android:lineSpacingMultiplier="1"
             android:text="19 members going"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

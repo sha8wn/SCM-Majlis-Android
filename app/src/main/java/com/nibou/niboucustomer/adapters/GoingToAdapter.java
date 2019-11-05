@@ -2,7 +2,6 @@ package com.nibou.niboucustomer.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
-import com.nibou.niboucustomer.models.BrandModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
 
 import java.util.ArrayList;

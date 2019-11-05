@@ -12,21 +12,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.activitys.ReviewActivity;
 import com.nibou.niboucustomer.activitys.SplashActivity;
-import com.nibou.niboucustomer.models.AppSessionModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.LocalPrefences;
-
-import java.util.HashSet;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

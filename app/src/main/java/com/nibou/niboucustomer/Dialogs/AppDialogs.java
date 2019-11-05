@@ -17,10 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.adapters.GoingToAdapter;
 import com.nibou.niboucustomer.adapters.ListAdapter;
@@ -28,7 +24,6 @@ import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
-import com.nibou.niboucustomer.models.BrandModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
@@ -158,49 +153,6 @@ public class AppDialogs implements Serializable {
         }
     }
 
-    public void showFullScreenProgress(Context context, boolean isShow, String title, String message) {
-        if (context != null && !((AppCompatActivity) context).isFinishing()) {
-            if (fullScreenDialog == null) {
-                fullScreenDialog = new Dialog(context, R.style.FullScreenDialogStyle);
-                fullScreenDialog.setContentView(R.layout.activity_progressbar);
-                TextView progress_title = fullScreenDialog.findViewById(R.id.progress_title);
-                progress_title.setText(title);
-                TextView progress_message = fullScreenDialog.findViewById(R.id.progress_message);
-                progress_message.setText(message);
-                fullScreenDialog.setCanceledOnTouchOutside(false);
-                fullScreenDialog.setCancelable(false);
-            }
-            try {
-                if (isShow) {
-                    if (fullScreenDialog != null && !fullScreenDialog.isShowing())
-                        fullScreenDialog.show();
-                } else {
-                    if (fullScreenDialog != null && fullScreenDialog.isShowing())
-                        fullScreenDialog.dismiss();
-                }
-            } catch (WindowManager.BadTokenException e) {
-                if (isShow) {
-                    fullScreenDialog = null;
-                    showFullScreenProgress(context, isShow, title, message);
-                }
-            }
-        } else {
-            if (fullScreenDialog != null && fullScreenDialog.isShowing())
-                fullScreenDialog.dismiss();
-        }
-    }
-
-    public void hideFullScreenProgress() {
-        new android.os.Handler().postDelayed(() -> {
-            if (fullScreenDialog != null)
-                fullScreenDialog.dismiss();
-        }, 1000);
-    }
-
-    public void hideFullScreenProgressWithoutDelay() {
-        if (fullScreenDialog != null)
-            fullScreenDialog.dismiss();
-    }
 
     public void showConfirmCustomDialog(final Context context, String title, String message, String b1, String b2, int color, final DialogCallback dialogCallback) {
         final Dialog dialog = new Dialog(context);
@@ -278,49 +230,6 @@ public class AppDialogs implements Serializable {
         dialog.show();
     }
 
-    public void showConfirmCustomDialog(final Context context, String title, String message, String b1, String b2, final DialogCallback dialogCallback) {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_custom);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
-        dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button1).setVisibility(View.VISIBLE);
-        dialog.findViewById(R.id.button2).setVisibility(View.VISIBLE);
-
-        TextView titletext = dialog.findViewById(R.id.title);
-        titletext.setText(title);
-        if (title == null)
-            titletext.setVisibility(View.INVISIBLE);
-
-        TextView messagetext = dialog.findViewById(R.id.message);
-        messagetext.setText(message);
-
-        TextView button1 = dialog.findViewById(R.id.button1);
-        button1.setText(b1);
-        button1.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (dialogCallback != null) {
-                dialogCallback.response(false);
-            }
-        });
-
-        TextView button2 = dialog.findViewById(R.id.button2);
-        button2.setText(b2);
-        button2.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (dialogCallback != null) {
-                dialogCallback.response(true);
-            }
-        });
-        dialog.show();
-    }
-
     public void showInfoCustomDialog(final Context context, String title, String message, String buttonText, final DialogCallback dialogCallback) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -348,61 +257,6 @@ public class AppDialogs implements Serializable {
                 dialogCallback.response(true);
             }
         });
-        dialog.show();
-    }
-
-    public void showInputCustomDialog(final Context context, String title, String buttonText, final InputDialogCallback dialogCallback) {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_custom);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.findViewById(R.id.button1).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button2).setVisibility(View.GONE);
-        dialog.findViewById(R.id.message).setVisibility(View.INVISIBLE);
-        dialog.findViewById(R.id.edittext).setVisibility(View.VISIBLE);
-        dialog.findViewById(R.id.button).setVisibility(View.VISIBLE);
-
-        final TextView edittext = dialog.findViewById(R.id.edittext);
-        TextView titletext = dialog.findViewById(R.id.title);
-        titletext.setText(title);
-        TextView button = dialog.findViewById(R.id.button);
-        button.setText(buttonText);
-        button.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (dialogCallback != null) {
-                dialogCallback.response(edittext.getText().toString());
-            }
-        });
-        dialog.show();
-    }
-
-    public void showFullScreenImage(Context context, String path) {
-        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        dialog.setContentView(R.layout.dialog_image_fullscreen);
-        ImageView fullImageView = (ImageView) dialog.findViewById(R.id.fullImageView);
-        final View progress_bar = dialog.findViewById(R.id.progress_bar);
-        Glide.with(context)
-                .load(path)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        progress_bar.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progress_bar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.drawable.default_placeholder)
-                .fitCenter().into(fullImageView);
         dialog.show();
     }
 

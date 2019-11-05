@@ -57,7 +57,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_parent"
-            android:fontFamily="@font/ubuntu_m"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:text="Dr. jane Doe"
             android:textColor="@color/screen_title_color"

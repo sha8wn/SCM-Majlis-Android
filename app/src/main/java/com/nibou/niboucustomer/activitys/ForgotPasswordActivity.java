@@ -1,9 +1,7 @@
 package com.nibou.niboucustomer.activitys;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -14,10 +12,7 @@ import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityForgotPasswordBinding;
-import com.nibou.niboucustomer.models.ProfileModel;
-import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.LocalPrefences;
 
 import java.util.HashMap;
 

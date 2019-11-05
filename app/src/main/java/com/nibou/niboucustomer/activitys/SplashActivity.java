@@ -1,51 +1,14 @@
 package com.nibou.niboucustomer.activitys;
 
-import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.api.ApiClient;
-import com.nibou.niboucustomer.api.ApiEndPoint;
-import com.nibou.niboucustomer.api.ApiHandler;
-import com.nibou.niboucustomer.models.ActiveChatSessionModel;
-import com.nibou.niboucustomer.models.ProfileModel;
-import com.nibou.niboucustomer.models.SessionTimeoutModel;
 import com.nibou.niboucustomer.utils.AppConstant;
-import com.nibou.niboucustomer.utils.AppUtil;
-import com.nibou.niboucustomer.utils.DateFormatUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class SplashActivity extends BaseActivity {
 

@@ -561,7 +561,7 @@ public class MediaUtil {
                 int count;
                 try {
                     URL url = new URL(f_url[0]);
-                    videoFilePath = getFolderLocation(ChatConstants.LOCAL_FOLDER_IMAGE_PATH, System.currentTimeMillis() + "." + FilenameUtils.getExtension(f_url[0]));
+                    videoFilePath = getFolderLocation(AppConstant.LOCAL_FOLDER_PATH, System.currentTimeMillis() + "." + FilenameUtils.getExtension(f_url[0]));
                     URLConnection conection = url.openConnection();
                     conection.connect();
                     int lenghtOfFile = conection.getContentLength();

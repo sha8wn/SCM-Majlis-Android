@@ -5,11 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.activitys.LoginActivity;
 import com.nibou.niboucustomer.activitys.UserCheckActivity;
-import com.nibou.niboucustomer.models.AccessTokenModel;
 import com.nibou.niboucustomer.models.ErrorResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
@@ -19,7 +16,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public class ApiHandler {

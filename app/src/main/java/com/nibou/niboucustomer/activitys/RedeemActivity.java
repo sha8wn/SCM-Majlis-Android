@@ -162,7 +162,7 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
                                 finish();
                             });
                         } else {
-                            AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.redeem_failed_alert), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
+                            AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.redeem_failed_alert), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), status -> finish());
                         }
                     }
 

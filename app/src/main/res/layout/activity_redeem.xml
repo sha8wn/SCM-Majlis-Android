@@ -94,7 +94,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/seguisb"
                 android:lineSpacingExtra="5dp"
                 android:text="@string/enter_partner_redeem"
                 android:textAlignment="center"

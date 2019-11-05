@@ -64,18 +64,12 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
 
-    implementation 'com.stripe:stripe-android:8.0.0'
-    implementation 'com.stripe:stripe-java:5.36.0'
-
     // required for all Android apps
     implementation 'io.branch.sdk.android:library:3.+'
-    implementation 'com.google.android.gms:play-services-appindexing:9.+'
+
     implementation 'com.google.android.gms:play-services-ads:9+'
 
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-
     implementation 'com.android.support:multidex:1.0.0'
-    implementation 'com.kevalpatel2106:emoticongifkeyboard:1.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.esafirm.android-image-picker:imagepicker:1.7.5'
     implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.7.5'
@@ -84,11 +78,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.uphyca:stetho_realm:2.1.0'
-    implementation 'io.realm:android-adapters:2.1.1'
+
     implementation 'com.github.yesterselga:country-picker-android:1.0'
-    implementation 'com.github.hosopy:actioncable-client-java:0.1.2'
+
+    // implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

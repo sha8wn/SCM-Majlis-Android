@@ -1,45 +1,26 @@
 package com.nibou.niboucustomer.fragments;
 
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.TypedValue;
 import android.view.*;
 
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.activitys.*;
-import com.nibou.niboucustomer.adapters.ChatAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.FragmentSettingBinding;
-import com.nibou.niboucustomer.models.AccessTokenModel;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
-import com.nibou.niboucustomer.utils.MediaUtil;
-
-import java.util.HashMap;
-import java.util.Locale;
 
 public class SettingFragment extends Fragment {
 

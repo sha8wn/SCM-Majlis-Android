@@ -17,7 +17,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,23 +24,17 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.nibou.niboucustomer.Dialogs.AppDialogs;
 import com.nibou.niboucustomer.R;
-import com.nibou.niboucustomer.adapters.EventAdapter;
 import com.nibou.niboucustomer.adapters.EventDetailsAdapter;
-import com.nibou.niboucustomer.adapters.GoingToAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
 import com.nibou.niboucustomer.databinding.ActivityEventDetailsBinding;
-import com.nibou.niboucustomer.databinding.FragmentProfileBinding;
-import com.nibou.niboucustomer.fragments.EventFragment;
 import com.nibou.niboucustomer.models.ListResponseModel;
-import com.nibou.niboucustomer.models.ProfileModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.DateFormatUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EventDetailActivity extends BaseActivity implements LocationListener {
