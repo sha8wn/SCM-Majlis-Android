@@ -11,7 +11,7 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.LocalPrefences;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     private ImageView startButton;
 

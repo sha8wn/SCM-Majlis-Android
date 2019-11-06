@@ -59,22 +59,6 @@ public class AppUtil {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
-    public static String getAmountSign(Context context) {
-        if (LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE) != null) {
-            if (AppConstant.ENGLISH.equals(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE))) {
-                return context.getString(R.string.doller);
-            } else if (AppConstant.ARABIC.equals(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE))) {
-                return context.getString(R.string.aed);
-            } else if (AppConstant.TURKISH.equals(LocalPrefences.getInstance().getString(context, AppConstant.APP_LANGUAGE))) {
-                return context.getString(R.string.tl);
-            } else {
-                return context.getString(R.string.doller);
-            }
-        } else {
-            return context.getString(R.string.doller);
-        }
-    }
-
     public static void setFragment(int containerViewId, FragmentManager fragmentManager, Fragment fragment, String fragmentTag, boolean addBackStack, boolean replace) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (replace) {
@@ -280,46 +264,6 @@ public class AppUtil {
         return file;
     }
 
-
-    public static void openFile(Context context, String url) {
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(new File(url));
-            if (url.toString().contains(".doc") || url.toString().contains(".docx")) {
-                intent.setDataAndType(uri, "application/msword");
-            } else if (url.toString().contains(".pdf")) {
-                intent.setDataAndType(uri, "application/pdf");
-            } else if (url.toString().contains(".ppt") || url.toString().contains(".pptx")) {
-                intent.setDataAndType(uri, "application/vnd.ms-powerpoint");
-            } else if (url.toString().contains(".xls") || url.toString().contains(".xlsx")) {
-                intent.setDataAndType(uri, "application/vnd.ms-excel");
-            } else if (url.toString().contains(".zip") || url.toString().contains(".rar")) {
-                intent.setDataAndType(uri, "application/x-wav");
-            } else if (url.toString().contains(".rtf")) {
-                intent.setDataAndType(uri, "application/rtf");
-            } else if (url.toString().contains(".wav") || url.toString().contains(".mp3")) {
-                intent.setDataAndType(uri, "audio/x-wav");
-            } else if (url.toString().contains(".gif")) {
-                intent.setDataAndType(uri, "image/gif");
-            } else if (url.toString().contains(".jpg") || url.toString().contains(".jpeg") || url.toString().contains(".png")) {
-                intent.setDataAndType(uri, "image/jpeg");
-            } else if (url.toString().contains(".txt")) {
-                intent.setDataAndType(uri, "text/plain");
-            } else if (url.toString().contains(".3gp") || url.toString().contains(".mpg") || url.toString().contains(".mpeg") || url.toString().contains(".mpe") || url.toString().contains(".mp4") || url.toString().contains(".avi")) {
-                intent.setDataAndType(uri, "video/*");
-            } else if (url.toString().contains(".apk")) {
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            } else {
-                intent.setDataAndType(uri, "*/*");
-            }
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public static Bitmap loadBitmapFromView(View v) {
         v.setDrawingCacheEnabled(true);
         return v.getDrawingCache();
@@ -353,30 +297,5 @@ public class AppUtil {
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
         return bitmap;
-    }
-
-    public static String generateTimestampInGMT(Long millis) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getDefault());
-        Date date = null;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(millis);
-        calendar.setTimeZone(TimeZone.getDefault());
-        date = calendar.getTime();
-        return simpleDateFormat.format(date);
-    }
-
-    public static String changeFormatInGMT(String dateString, String newformat) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat newDateFormat = new SimpleDateFormat(newformat);
-        newDateFormat.setTimeZone(TimeZone.getDefault());
-        String format = "";
-        try {
-            Date d = simpleDateFormat.parse(dateString);
-            format = newDateFormat.format(d);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return format;
     }
 }

@@ -47,28 +47,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(broadcastOfflineReceiver, new IntentFilter(AppConstant.TIMEOUT_RECIEVER));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        try {
-            unregisterReceiver(broadcastOfflineReceiver);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
-    BroadcastReceiver broadcastOfflineReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent != null) {
-                try {
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
 }

@@ -69,7 +69,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         if (modelList.get(position).getLimit_guests() != null && !modelList.get(position).getLimit_guests().equals("0")) {
             myViewHolder.tvPerson.setVisibility(View.VISIBLE);
-            myViewHolder.tvPerson.setText(getLeftSpot(modelList.get(position)) + " " + context.getString(R.string.spots_remaining));
+            if (Integer.parseInt(getLeftSpot(modelList.get(position))) <= 0) {
+                myViewHolder.tvPerson.setText(context.getString(R.string.fully_booked));
+            } else {
+                myViewHolder.tvPerson.setText(getLeftSpot(modelList.get(position)) + " " + context.getString(R.string.spots_remaining));
+            }
         } else {
             myViewHolder.tvPerson.setVisibility(View.INVISIBLE);
         }

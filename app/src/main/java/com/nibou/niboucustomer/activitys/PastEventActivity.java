@@ -20,7 +20,7 @@ import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 
-public class PastEventActivity extends AppCompatActivity {
+public class PastEventActivity extends BaseActivity {
     private long backPressedClickTime;
 
     private ActivityScmPastEventsBinding binding;

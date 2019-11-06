@@ -61,6 +61,8 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
         two.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         three.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         four.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+
+        AppUtil.showKeyBoard(context);
         one.requestFocus();
 
         one.addTextChangedListener(this);
@@ -126,6 +128,16 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
         redeemNetworkCall();
     }
 
+
+    private void clearCodeAndSetFocus() {
+        one.setText("");
+        two.setText("");
+        three.setText("");
+        four.setText("");
+        one.requestFocus();
+        AppUtil.showKeyBoard(context);
+    }
+
     private void handleBackPressed() {
         if (!three.getText().toString().trim().isEmpty()) {
             three.requestFocus();
@@ -146,6 +158,7 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
         if (one.getText().toString().trim().length() == 0 || two.getText().toString().trim().length() == 0 || three.getText().toString().trim().length() == 0 || four.getText().toString().trim().length() == 0) {
             AppUtil.showToast(this, getResources().getString(R.string.redeem_code_alert));
         } else {
+            AppUtil.hideKeyBoard(context);
             if (AppUtil.isInternetAvailable(context)) {
                 AppDialogs.getInstance().showProgressBar(context, null, true);
                 HashMap<String, Object> parameters = new HashMap<>();
@@ -162,7 +175,7 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
                                 finish();
                             });
                         } else {
-                            AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.redeem_failed_alert), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), status -> finish());
+                            AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.redeem_failed_alert), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), status -> clearCodeAndSetFocus());
                         }
                     }
 

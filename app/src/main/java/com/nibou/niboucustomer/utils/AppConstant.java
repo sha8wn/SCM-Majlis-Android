@@ -14,13 +14,6 @@ public class AppConstant {
     public static final String PASSWORD = "password";
     public static final String EVENT_MODEL = "event_model";
     public static final String PROMOTION_ID = "promotion_id";
-
-
-    public static final String ENGLISH = "en";
-    public static final String ARABIC = "ar";
-    public static final String TURKISH = "tr";
     public static final String IS_FIRST_LAUNCH_SUCCESS = "is_first_launch_success";
-    public static final String APP_LANGUAGE = "app_lanaguage";
     public static final String NOTIFICATION_ID = "notification_id";
-    public static final String TIMEOUT_RECIEVER = "timeout_reciever";
 }

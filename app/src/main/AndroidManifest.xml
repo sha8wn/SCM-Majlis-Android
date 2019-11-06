@@ -59,15 +59,17 @@
             android:windowSoftInputMode="stateHidden">
 
 
-            <intent-filter android:label="filter_view_example_gizmos">
+            <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
+                <!--scm://user/complete?token=token_value-->
+
                 <data
-                    android:host="supercarsmajlisapp"
-                    android:scheme="http" />
+                    android:host="user"
+                    android:scheme="scm" />
             </intent-filter>
 
         </activity>
@@ -113,7 +115,7 @@
         <activity
             android:name=".activitys.RedeemActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activitys.ForgotPasswordActivity"
             android:screenOrientation="portrait"

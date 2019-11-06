@@ -110,7 +110,11 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
 
         if (modelList.getLimit_guests() != null && !modelList.getLimit_guests().equals("0")) {
             binding.tvPerson.setVisibility(View.VISIBLE);
-            binding.tvPerson.setText(getLeftSpot(modelList) + " " + context.getString(R.string.spots_remaining));
+            if (Integer.parseInt(getLeftSpot(modelList)) <= 0) {
+                binding.tvPerson.setText(context.getString(R.string.fully_booked));
+            } else {
+                binding.tvPerson.setText(getLeftSpot(modelList) + " " + context.getString(R.string.spots_remaining));
+            }
         } else {
             binding.tvPerson.setVisibility(View.INVISIBLE);
         }
@@ -265,7 +269,7 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
                 }
             }
         } catch (Exception e) {
-            AppDialogs.getInstance().showProgressDialog(context, null, "Retrieving Location...", false);
+            AppDialogs.getInstance().showProgressBar(context, null, false);
             e.printStackTrace();
         }
     }

@@ -115,7 +115,7 @@ public class EventFragment extends Fragment implements LocationListener {
                 }
             }
         } catch (Exception e) {
-            AppDialogs.getInstance().showProgressDialog(context, null, "Retrieving Location...", false);
+            AppDialogs.getInstance().showProgressBar(context, null, false);
             e.printStackTrace();
         }
     }

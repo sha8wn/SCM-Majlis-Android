@@ -37,10 +37,7 @@ import retrofit2.Call;
 public class AppDialogs implements Serializable {
 
     private Dialog progressBar;
-    private ProgressDialog progressDialog;
     private static AppDialogs instance = null;
-
-    private Dialog fullScreenDialog;
 
     public interface DialogCallback {
         void response(boolean status);
@@ -114,46 +111,6 @@ public class AppDialogs implements Serializable {
         }
     }
 
-    public void showProgressDialog(Context context, final ProgressDialogDissmissListener progressDialogDissmissListener, String message, boolean isShow) {
-        if (context != null && !((AppCompatActivity) context).isFinishing()) {
-            if (progressDialog == null) {
-                progressDialog = new ProgressDialog(context);
-                progressDialog.setMessage(message);
-                progressDialog.setCanceledOnTouchOutside(false);
-            }
-            progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    if (progressDialogDissmissListener != null) {
-                        progressDialogDissmissListener.progressDialogDismiss();
-                    }
-                }
-            });
-            try {
-                if (isShow) {
-                    if (progressDialog != null && !progressDialog.isShowing()) {
-                        progressDialog.setMessage(message);
-                        progressDialog.show();
-                    }
-                } else {
-                    if (progressDialog != null && progressDialog.isShowing())
-                        progressDialog.dismiss();
-                }
-            } catch (WindowManager.BadTokenException e) {
-                e.printStackTrace();
-                if (isShow) {
-                    progressDialog = null;
-                    showProgressDialog(context, progressDialogDissmissListener, message, isShow);
-                }
-            }
-        } else {
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-            }
-        }
-    }
-
-
     public void showConfirmCustomDialog(final Context context, String title, String message, String b1, String b2, int color, final DialogCallback dialogCallback) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -209,36 +166,6 @@ public class AppDialogs implements Serializable {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.findViewById(R.id.v1).setBackgroundColor(color);
-        dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
-        dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button1).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button2).setVisibility(View.GONE);
-        dialog.findViewById(R.id.button).setVisibility(View.VISIBLE);
-
-        TextView titletext = dialog.findViewById(R.id.title);
-        titletext.setText(title);
-        TextView messagetext = dialog.findViewById(R.id.message);
-        messagetext.setText(message);
-        TextView button = dialog.findViewById(R.id.button);
-        button.setText(buttonText);
-        button.setOnClickListener(v -> {
-            dialog.dismiss();
-            if (dialogCallback != null) {
-                dialogCallback.response(true);
-            }
-        });
-        dialog.show();
-    }
-
-    public void showInfoCustomDialog(final Context context, String title, String message, String buttonText, final DialogCallback dialogCallback) {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_custom);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         dialog.findViewById(R.id.message).setVisibility(View.VISIBLE);
         dialog.findViewById(R.id.edittext).setVisibility(View.GONE);
         dialog.findViewById(R.id.button1).setVisibility(View.GONE);
