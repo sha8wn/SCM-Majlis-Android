@@ -11,7 +11,8 @@
     <string name="survey_description">Get notified about the latest events and RSVP to them using the app</string>
     <string name="secure_description">Get connected to our partners and get exclusive offers available only to SCM members.</string>
     <string name="welcome_description">Many brands, one passion.</string>
-    <string name="new_user">Register\nyour interest</string>
+    <string name="new_user">Register your interest</string>
+    <string name="register_your_interest">Register\nyour interest</string>
     <string name="old_user">I am a\nreturning user</string>
     <string name="guest_user">Continue as a fan</string>
     <string name="sign_up">Sign up</string>
@@ -102,8 +103,12 @@
     <string name="upload_Emirates_back">Upload Emirates Id</string>
     <string name="upload_Registration_front">Upload Car\nRegistration</string>
     <string name="upload_Registration_back">Upload Car\nRegistration</string>
+    <string name="registration_image_empty_alert">Please upload registration image</string>
+    <string name="car_image_empty_alert">Please upload car image</string>
     <string name="emirates_id">Emirates ID (Front/Back)</string>
+    <string name="emirates_id_empty_alert">Please upload emirates ID document</string>
     <string name="drivers_license">Drivers license ID (Front/Back)</string>
+    <string name="driver_license_empty_alert">Please upload driver license ID document</string>
     <string name="upload_car_image">UPLOAD SUPERCAR IMAGE</string>
     <string name="profile_image">Your Photo\nHere</string>
     <string name="link_expired">This link has already been used.</string>

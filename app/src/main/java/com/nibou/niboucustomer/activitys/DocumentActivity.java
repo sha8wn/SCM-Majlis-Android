@@ -70,6 +70,10 @@ public class DocumentActivity extends BaseActivity {
             binding.prevoiusTitle.setVisibility(View.VISIBLE);
             binding.screenTitle.setText(getString(R.string.documents));
             isSettingMenuScreen = false;
+
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                binding.signupTitle.setText(getString(R.string.new_user));
+            }
         } else {
             isSettingMenuScreen = true;
             binding.signupTitle.setVisibility(View.GONE);
@@ -295,7 +299,21 @@ public class DocumentActivity extends BaseActivity {
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    movedToNextScreen();
+                    if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                        AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
+                                getString(R.string.thank_you_desc), getString(R.string.continu),
+                                getResources().getColor(R.color.white), status -> {
+                                    try {
+                                        Intent intent = new Intent(context, PastEventActivity.class);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                    } else {
+                        movedToNextScreen();
+                    }
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
@@ -343,28 +361,28 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private boolean screenValidate() {
-//        if (imageEmiratesFrontUrl == null && imageEmiratesBackUrl != null) {
-//            AppUtil.showToast(context, getResources().getString(R.string.emirates_front_empty_alert));
-//            return false;
-//        } else if (imageEmiratesFrontUrl != null && imageEmiratesBackUrl == null) {
-//            AppUtil.showToast(context, getResources().getString(R.string.emirates_back_empty_alert));
-//            return false;
-//        } else if (imageDriverFrontUrl == null && imageDriverBackUrl != null) {
-//            AppUtil.showToast(context, getResources().getString(R.string.driver_front_empty_alert));
-//            return false;
-//        } else if (imageDriverFrontUrl != null && imageDriverBackUrl == null) {
-//            AppUtil.showToast(context, getResources().getString(R.string.driver_back_empty_alert));
-//            return false;
-//        }
+        if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+            if (imageEmiratesFrontUrl == null && imageEmiratesBackUrl == null) {
+                AppUtil.showToast(context, getResources().getString(R.string.emirates_id_empty_alert));
+                return false;
+            } else if (imageDriverFrontUrl == null && imageDriverBackUrl == null) {
+                AppUtil.showToast(context, getResources().getString(R.string.driver_license_empty_alert));
+                return false;
+            }
+        }
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-            super.onBackPressed();
+        if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+
         } else {
-            super.onBackPressed();
+            if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+                super.onBackPressed();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 }

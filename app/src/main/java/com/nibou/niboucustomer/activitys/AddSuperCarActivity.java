@@ -52,6 +52,7 @@ public class AddSuperCarActivity extends BaseActivity {
             AppUtil.showToast(context, getString(R.string.internet_error));
         }
 
+
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
             isSettingMenuScreen = false;
             binding.btnSave.setVisibility(View.GONE);
@@ -60,6 +61,11 @@ public class AddSuperCarActivity extends BaseActivity {
             binding.prevoiusTitle.setVisibility(View.VISIBLE);
             binding.nextTitle.setVisibility(View.VISIBLE);
             binding.screenTitle.setText(getString(R.string.supercars));
+
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                binding.signupTitle.setText(getString(R.string.new_user));
+            }
+
         } else {
             isSettingMenuScreen = true;
             binding.signupTitle.setVisibility(View.GONE);
@@ -163,6 +169,7 @@ public class AddSuperCarActivity extends BaseActivity {
                         } else {
                             Intent intent = new Intent(context, DocumentActivity.class);
                             intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
+                            intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
                             startActivityForResult(intent, 1000);
                         }
                     } else {
@@ -208,13 +215,17 @@ public class AddSuperCarActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-            Intent intent = new Intent();
-            intent.putExtra(AppConstant.REFRESH_TOKEN, LocalPrefences.getInstance().getString(context, AppConstant.TOKEN));
-            setResult(RESULT_OK, intent);
-            finish();
+        if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+
         } else {
-            super.onBackPressed();
+            if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+                Intent intent = new Intent();
+                intent.putExtra(AppConstant.REFRESH_TOKEN, LocalPrefences.getInstance().getString(context, AppConstant.TOKEN));
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -245,13 +256,15 @@ public class AddSuperCarActivity extends BaseActivity {
                     AppUtil.showToast(context, getResources().getString(R.string.color_empty_alert));
                     return false;
                 }
-//                else if (mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() == null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() != null) {
-//                    AppUtil.showToast(context, getResources().getString(R.string.car_front_registration_empty_alert));
-//                    return false;
-//                } else if ((mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() != null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() == null)) {
-//                    AppUtil.showToast(context, getResources().getString(R.string.car_back_registration_empty_alert));
-//                    return false;
-//                }
+                if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                    if ((mListAdapter.getModelListArrayList().get(i).getDocs().get(0).getImg() == null && mListAdapter.getModelListArrayList().get(i).getDocs().get(1).getImg() == null)) {
+                        AppUtil.showToast(context, getResources().getString(R.string.registration_image_empty_alert));
+                        return false;
+                    } else if (mListAdapter.getModelListArrayList().get(i).getImgs().get(0).getImg() == null) {
+                        AppUtil.showToast(context, getResources().getString(R.string.car_image_empty_alert));
+                        return false;
+                    }
+                }
             }
             return true;
         }

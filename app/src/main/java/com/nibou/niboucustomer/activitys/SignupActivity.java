@@ -84,6 +84,10 @@ public class SignupActivity extends BaseActivity {
             binding.btnSignup.setVisibility(View.VISIBLE);
             binding.btnNext.setVisibility(View.GONE);
             binding.nextTitle.setVisibility(View.GONE);
+
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                binding.signupTitle.setText(getString(R.string.new_user));
+            }
         }
 
         binding.etBrand.setOnClickListener(v -> {
@@ -194,6 +198,7 @@ public class SignupActivity extends BaseActivity {
             @Override
             public void failed() {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
+                finish();
             }
         });
     }
@@ -245,17 +250,21 @@ public class SignupActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     LocalPrefences.getInstance().putString(context, AppConstant.TOKEN, ((ErrorResponseModel) data).getToken());
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
-                            getString(R.string.thank_you_desc), getString(R.string.continu),
-                            getResources().getColor(R.color.white), status -> {
-                                try {
-                                    Intent intent = new Intent(context, PastEventActivity.class);
-                                    startActivity(intent);
-                                    finishAffinity();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                    Intent intent = new Intent(context, AddSuperCarActivity.class);
+                    intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
+                    intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
+                    startActivity(intent);
+//                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
+//                            getString(R.string.thank_you_desc), getString(R.string.continu),
+//                            getResources().getColor(R.color.white), status -> {
+//                                try {
+//                                    Intent intent = new Intent(context, PastEventActivity.class);
+//                                    startActivity(intent);
+//                                    finishAffinity();
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            });
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }

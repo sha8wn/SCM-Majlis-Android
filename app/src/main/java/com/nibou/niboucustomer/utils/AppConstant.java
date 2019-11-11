@@ -3,6 +3,7 @@ package com.nibou.niboucustomer.utils;
 public class AppConstant {
     public static final String BASE_URL = "https://scmajlis.ae/";
     public static final String ADMIN_SIGNUP = "admin_signup";
+    public static final String NORMAL_SIGNUP = "normal_signup";
     public static final String SCREEN_FLOW_FLAG = "screen_flow_flag";
     public static final String TEXT_PRIVACY = "privacy";
     public static final String TEXT_TERMS = "terms";

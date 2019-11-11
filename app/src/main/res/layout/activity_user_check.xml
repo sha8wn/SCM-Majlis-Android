@@ -29,7 +29,7 @@
             android:fontFamily="@font/poppins_bold"
             android:gravity="start|center_vertical"
             android:padding="10dp"
-            android:text="@string/new_user"
+            android:text="@string/register_your_interest"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
