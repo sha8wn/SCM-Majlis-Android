@@ -12,10 +12,13 @@ import com.nibou.niboucustomer.utils.AppConstant;
 import com.nibou.niboucustomer.utils.AppUtil;
 import com.nibou.niboucustomer.utils.LocalPrefences;
 
+import org.apache.http.conn.ConnectTimeoutException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeoutException;
 
 public class ApiHandler {
@@ -60,7 +63,7 @@ public class ApiHandler {
 
             @Override
             public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-                if (t instanceof TimeoutException) {
+                if (t instanceof TimeoutException || t instanceof SocketTimeoutException || t instanceof ConnectTimeoutException) {
                     AppUtil.showToast(context, context.getResources().getString(R.string.timeout));
                 } else {
                     AppUtil.showToast(context, context.getResources().getString(R.string.server_faliure));
@@ -98,7 +101,7 @@ public class ApiHandler {
 
             @Override
             public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-                if (t instanceof TimeoutException) {
+                if (t instanceof TimeoutException || t instanceof SocketTimeoutException || t instanceof ConnectTimeoutException) {
                     AppUtil.showToast(context, context.getResources().getString(R.string.timeout));
                 } else {
                     AppUtil.showToast(context, context.getResources().getString(R.string.server_faliure));

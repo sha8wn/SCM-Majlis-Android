@@ -3,6 +3,7 @@ package com.nibou.niboucustomer.api;
 import java.util.concurrent.TimeUnit;
 
 import com.nibou.niboucustomer.utils.AppConstant;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -14,9 +15,9 @@ public class ApiClient {
     private static String BASE_URL = AppConstant.BASE_URL;
 
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .readTimeout(120, TimeUnit.SECONDS)
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .writeTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(180, TimeUnit.SECONDS)
+            .connectTimeout(180, TimeUnit.SECONDS)
+            .writeTimeout(180, TimeUnit.SECONDS)
             .build();
 
     public static Retrofit getClient() {
@@ -36,5 +37,4 @@ public class ApiClient {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
     }
-
 }

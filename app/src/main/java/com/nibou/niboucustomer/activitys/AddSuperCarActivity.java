@@ -64,6 +64,18 @@ public class AddSuperCarActivity extends BaseActivity {
 
             if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
                 binding.signupTitle.setText(getString(R.string.new_user));
+                ListResponseModel.ModelList modelList = new ListResponseModel.ModelList();
+                ArrayList<ListResponseModel.Img> docImage = new ArrayList<>();
+                docImage.add(new ListResponseModel.Img());
+                docImage.add(new ListResponseModel.Img());
+                modelList.setDocs(docImage);
+                ArrayList<ListResponseModel.Img> carImage = new ArrayList<>();
+                carImage.add(new ListResponseModel.Img());
+                modelList.setImgs(carImage);
+                ArrayList<ListResponseModel.ModelList> modelLists = new ArrayList<>();
+                modelLists.add(modelList);
+                mListAdapter = new AddSuperCarAdapter(context, isSettingMenuScreen, modelLists);
+                binding.rvCars.setAdapter(mListAdapter);
             }
 
         } else {
@@ -169,7 +181,9 @@ public class AddSuperCarActivity extends BaseActivity {
                         } else {
                             Intent intent = new Intent(context, DocumentActivity.class);
                             intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
-                            intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
+                            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                                intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
+                            }
                             startActivityForResult(intent, 1000);
                         }
                     } else {
@@ -197,7 +211,7 @@ public class AddSuperCarActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     ListResponseModel listResponseModel = (ListResponseModel) data;
-                    if (listResponseModel.getCars() != null && listResponseModel.getCars().getList() != null) {
+                    if (listResponseModel.getCars() != null && listResponseModel.getCars().getList() != null && listResponseModel.getCars().getList().size() > 0) {
                         mListAdapter = new AddSuperCarAdapter(context, isSettingMenuScreen, listResponseModel.getCars().getList());
                         binding.rvCars.setAdapter(mListAdapter);
                     }

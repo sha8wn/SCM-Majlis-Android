@@ -78,6 +78,7 @@ public class UserCheckActivity extends BaseActivity {
         startRegister.setOnClickListener(view -> {
             try {
                 Intent intent = new Intent(context, SignupActivity.class);
+                intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
                 intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
                 startActivity(intent);
             } catch (Exception e) {

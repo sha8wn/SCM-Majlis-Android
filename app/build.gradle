@@ -15,7 +15,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "2.0"
+        versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -61,27 +61,19 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:multidex:1.0.0'
+    implementation 'org.apache.commons:commons-io:1.3.2'
 
+    // for push notification
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
 
-    // required for all Android apps
-    implementation 'io.branch.sdk.android:library:3.+'
-
-    implementation 'com.google.android.gms:play-services-ads:9+'
-
-    implementation 'com.android.support:multidex:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.esafirm.android-image-picker:imagepicker:1.7.5'
     implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.7.5'
-    implementation 'org.apache.commons:commons-io:1.3.2'
-    implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
+
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
-    implementation 'com.github.yesterselga:country-picker-android:1.0'
-
-    // implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

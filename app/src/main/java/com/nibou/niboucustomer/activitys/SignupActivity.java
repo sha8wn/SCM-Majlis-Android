@@ -55,11 +55,13 @@ public class SignupActivity extends BaseActivity {
         }
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-            token = LocalPrefences.getInstance().getString(context, AppConstant.TOKEN);
-            if (AppUtil.isInternetAvailable(context)) {
-                getUserDetailsNetworkCall();
-            } else {
-                AppUtil.showToast(context, getString(R.string.internet_error));
+            if (!getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                token = LocalPrefences.getInstance().getString(context, AppConstant.TOKEN);
+                if (AppUtil.isInternetAvailable(context)) {
+                    getUserDetailsNetworkCall();
+                } else {
+                    AppUtil.showToast(context, getString(R.string.internet_error));
+                }
             }
         }
 
@@ -74,6 +76,13 @@ public class SignupActivity extends BaseActivity {
             binding.btnSignup.setVisibility(View.GONE);
             binding.btnNext.setVisibility(View.VISIBLE);
             binding.nextTitle.setVisibility(View.VISIBLE);
+
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                binding.toolbar.findViewById(R.id.back_arrow).setVisibility(View.VISIBLE);
+                binding.signupTitle.setText(getString(R.string.new_user));
+                binding.tvPassword.setVisibility(View.GONE);
+                binding.etPassword.setVisibility(View.GONE);
+            }
         } else {
             binding.tvPassword.setVisibility(View.GONE);
             binding.etPassword.setVisibility(View.GONE);
@@ -84,10 +93,6 @@ public class SignupActivity extends BaseActivity {
             binding.btnSignup.setVisibility(View.VISIBLE);
             binding.btnNext.setVisibility(View.GONE);
             binding.nextTitle.setVisibility(View.GONE);
-
-            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
-                binding.signupTitle.setText(getString(R.string.new_user));
-            }
         }
 
         binding.etBrand.setOnClickListener(v -> {
@@ -138,12 +143,25 @@ public class SignupActivity extends BaseActivity {
         });
         binding.btnNext.setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
-            if (AppUtil.isInternetAvailable(context)) {
-                if (screenAdminValidate()) {
-                    saveUserPasswordNetworkCall();
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                if (AppUtil.isInternetAvailable(context)) {
+                    if (screenValidate()) {
+                        AppDialogs.getInstance().showProgressBar(context, null, true);
+                        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+                            registerUserNetworkCall(instanceIdResult.getToken());
+                        });
+                    }
+                } else {
+                    AppUtil.showToast(context, getString(R.string.internet_error));
                 }
             } else {
-                AppUtil.showToast(context, getString(R.string.internet_error));
+                if (AppUtil.isInternetAvailable(context)) {
+                    if (screenAdminValidate()) {
+                        saveUserPasswordNetworkCall();
+                    }
+                } else {
+                    AppUtil.showToast(context, getString(R.string.internet_error));
+                }
             }
         });
 
@@ -152,6 +170,9 @@ public class SignupActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+            if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                super.onBackPressed();
+            }
         } else {
             super.onBackPressed();
         }
@@ -239,10 +260,10 @@ public class SignupActivity extends BaseActivity {
         parameters.put("name", binding.etName.getText().toString());
         parameters.put("email", binding.etEmail.getText().toString());
         parameters.put("phone", "00971" + binding.etPhone.getText().toString());
-        parameters.put("brand", binding.etBrand.getTag());
-        parameters.put("model", binding.etModel.getTag());
         parameters.put("uid", deviceToken);
-        Log.e("token", ":" + token);
+
+        // parameters.put("brand", binding.etBrand.getTag());
+        // parameters.put("model", binding.etModel.getTag());
 
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).registerUserNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override
@@ -254,17 +275,6 @@ public class SignupActivity extends BaseActivity {
                     intent.putExtra(AppConstant.ADMIN_SIGNUP, true);
                     intent.putExtra(AppConstant.NORMAL_SIGNUP, true);
                     startActivity(intent);
-//                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.thank_you),
-//                            getString(R.string.thank_you_desc), getString(R.string.continu),
-//                            getResources().getColor(R.color.white), status -> {
-//                                try {
-//                                    Intent intent = new Intent(context, PastEventActivity.class);
-//                                    startActivity(intent);
-//                                    finishAffinity();
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            });
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }
@@ -290,13 +300,14 @@ public class SignupActivity extends BaseActivity {
         } else if (TextUtils.isEmpty(binding.etPhone.getText())) {
             AppUtil.showToast(context, getResources().getString(R.string.phone_empty_alert));
             return false;
-        } else if (TextUtils.isEmpty(binding.etBrand.getText())) {
-            AppUtil.showToast(context, getResources().getString(R.string.brand_empty_alert));
-            return false;
-        } else if (TextUtils.isEmpty(binding.etModel.getText())) {
-            AppUtil.showToast(context, getResources().getString(R.string.model_empty_alert));
-            return false;
         }
+//        else if (TextUtils.isEmpty(binding.etBrand.getText())) {
+//            AppUtil.showToast(context, getResources().getString(R.string.brand_empty_alert));
+//            return false;
+//        } else if (TextUtils.isEmpty(binding.etModel.getText())) {
+//            AppUtil.showToast(context, getResources().getString(R.string.model_empty_alert));
+//            return false;
+//        }
         return true;
     }
 
