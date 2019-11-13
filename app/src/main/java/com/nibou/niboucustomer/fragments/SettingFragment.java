@@ -111,9 +111,9 @@ public class SettingFragment extends Fragment {
         binding.tvTitle.setText(modelList.getName());
         binding.tvCode.setText("SCM00" + modelList.getId());
         if (modelList.getExpiry() != null && !modelList.getExpiry().contains("0000-00-00")) {
-            binding.tvDate.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getCreated()), "dd MMMM yyyy") + " to " + DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getExpiry()), "dd MMMM yyyy"));
+            binding.tvDate.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getCreated()), "MMM dd, yyyy") + " to " + DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getExpiry()), "MMM dd, yyyy"));
         } else {
-            binding.tvDate.setText("Member since " + DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getCreated()), "dd MMMM yyyy"));
+            binding.tvDate.setText("Member since " + DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getCreated()), "MMM dd, yyyy"));
         }
     }
 

@@ -53,8 +53,11 @@ public class RSVPCarAdapter extends RecyclerView.Adapter<RSVPCarAdapter.MyViewHo
             myViewHolder.card.setBackground(ContextCompat.getDrawable(context, R.drawable.car_unselected_drawable));
         }
 
+        if (mList.get(position).getModelImg() != null && !mList.get(position).getModelImg().isEmpty())
+            showImage(myViewHolder.icon, mList.get(position).getModelImg());
+        else if (mList.get(position).getBrandImg() != null && !mList.get(position).getBrandImg().isEmpty())
+            showImage(myViewHolder.icon, mList.get(position).getBrandImg());
 
-        showImage(myViewHolder.icon, mList.get(position).getModelImg());
         myViewHolder.name.setText(mList.get(position).getBrandName());
         myViewHolder.model.setText(mList.get(position).getModelName());
     }
