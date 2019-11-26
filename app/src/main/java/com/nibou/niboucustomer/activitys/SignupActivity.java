@@ -54,16 +54,16 @@ public class SignupActivity extends BaseActivity {
             }
         }
 
-        if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
-            if (!getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
-                token = LocalPrefences.getInstance().getString(context, AppConstant.TOKEN);
-                if (AppUtil.isInternetAvailable(context)) {
-                    getUserDetailsNetworkCall();
-                } else {
-                    AppUtil.showToast(context, getString(R.string.internet_error));
-                }
-            }
-        }
+//        if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+//            if (!getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+//                token = LocalPrefences.getInstance().getString(context, AppConstant.TOKEN);
+//                if (AppUtil.isInternetAvailable(context)) {
+//                    getUserDetailsNetworkCall();
+//                } else {
+//                    AppUtil.showToast(context, getString(R.string.internet_error));
+//                }
+//            }
+//        }
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
             binding.toolbar.findViewById(R.id.back_arrow).setVisibility(View.INVISIBLE);
