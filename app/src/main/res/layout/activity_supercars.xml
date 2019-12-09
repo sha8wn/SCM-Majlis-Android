@@ -8,7 +8,7 @@
         android:background="@color/bg_color"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:paddingBottom="20dp">
+        android:paddingBottom="15dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/headerView"
@@ -92,7 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_view"
-            android:layout_below="@+id/headerView" />
+            android:layout_below="@+id/headerView"
+            android:layout_marginBottom="15dp" />
 
 
         <RelativeLayout
@@ -107,7 +108,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/right_arrow" />
+                android:src="@drawable/new_right_arrow" />
 
             <TextView
                 android:id="@+id/btn_save"

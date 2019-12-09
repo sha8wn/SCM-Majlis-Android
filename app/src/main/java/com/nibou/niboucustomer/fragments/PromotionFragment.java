@@ -86,9 +86,12 @@ public class PromotionFragment extends Fragment implements AppCallBack {
                         binding.rvPromotion.setLayoutManager(new LinearLayoutManager(getActivity()));
                         promotionAdapter = new PromotionAdapter(getActivity(), listResponseModel.getPromotions().getList(), PromotionFragment.this);
                         binding.rvPromotion.setAdapter(promotionAdapter);
+                        binding.errorMessage.setVisibility(View.GONE);
+                    } else {
+                        binding.errorMessage.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), context.getResources().getColor(R.color.colorPrimary), null);
+                    binding.errorMessage.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -71,7 +71,6 @@ public class EventFragment extends Fragment implements LocationListener {
             }
         });
 
-
         if (AppUtil.isInternetAvailable(context)) {
             getEventNetworkCall(1);
         } else {
@@ -195,6 +194,7 @@ public class EventFragment extends Fragment implements LocationListener {
                         binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                         eventAdapter = new EventAdapter(getActivity(), EventFragment.this, listResponseModel.getEvents().getList());
                         binding.rvEvents.setAdapter(eventAdapter);
+                        binding.errorMessage.setVisibility(View.GONE);
 
 //                        for (int i = 0; i < listResponseModel.getEvents().getList().size(); i++) {
 //                            if (listResponseModel.getEvents().getList().get(i).getReservation() != 0 && listResponseModel.getEvents().getList().get(i).getStatus() != null && listResponseModel.getEvents().getList().get(i).getStatus().equalsIgnoreCase("Live")) {
@@ -204,9 +204,12 @@ public class EventFragment extends Fragment implements LocationListener {
 //                                binding.tvCheckIn.setText(getString(R.string.past_event));
 //                            }
 //                        }
+
+                    }else{
+                        binding.errorMessage.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
+                }else{
+                    binding.errorMessage.setVisibility(View.VISIBLE);
                 }
             }
 

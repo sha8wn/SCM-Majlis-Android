@@ -147,7 +147,6 @@
         <activity android:name=".activitys.BaseActivity" />
         <activity
             android:name=".customviews.MyImageViewPagerActivity"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
     </application>
 

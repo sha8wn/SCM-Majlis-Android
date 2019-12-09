@@ -42,7 +42,7 @@ public class PagerFragment extends Fragment {
     private void initView() {
         int position = getArguments() != null ? getArguments().getInt("index") : 0;
         String[] titles1 = {getString(R.string.welcome_to_nibou), getString(R.string.step_survey), getString(R.string.step_secure)};
-        int images[] = {R.drawable.logo1, R.drawable.logo2, R.drawable.logo4};
+        int images[] = {R.drawable.new_logo, R.drawable.new_logo, R.drawable.new_logo};
         String[] titles2 = {getString(R.string.welcome_description), getString(R.string.survey_description),
                 getString(R.string.secure_description)};
         binding.sectionLabel.setText(titles1[position]);

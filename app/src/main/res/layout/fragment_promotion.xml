@@ -35,5 +35,20 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
 
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:alpha="0.5"
+            android:visibility="gone"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/promotion_empty_error"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
     </RelativeLayout>
 </layout>
