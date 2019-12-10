@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -55,6 +56,7 @@ public class AddSuperCarActivity extends BaseActivity {
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
             isSettingMenuScreen = false;
+            binding.backgroundView.setBackground(ContextCompat.getDrawable(context,R.drawable.new_bg));
             binding.btnSave.setVisibility(View.GONE);
             binding.btnNext.setVisibility(View.VISIBLE);
             binding.signupTitle.setVisibility(View.VISIBLE);
@@ -80,6 +82,7 @@ public class AddSuperCarActivity extends BaseActivity {
 
         } else {
             isSettingMenuScreen = true;
+            binding.backgroundView.setBackgroundColor(ContextCompat.getColor(context,R.color.app_theme_color));
             binding.signupTitle.setVisibility(View.GONE);
             binding.prevoiusTitle.setVisibility(View.GONE);
             binding.nextTitle.setVisibility(View.GONE);

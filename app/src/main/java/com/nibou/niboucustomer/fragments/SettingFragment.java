@@ -79,6 +79,11 @@ public class SettingFragment extends Fragment {
             startActivity(intent);
         });
 
+        binding.feedback.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+            startActivity(intent);
+        });
+
         binding.tnc.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PrivacyPolicyActivity.class);
             intent.putExtra(AppConstant.SCREEN_FLOW_FLAG, AppConstant.TEXT_TERMS);

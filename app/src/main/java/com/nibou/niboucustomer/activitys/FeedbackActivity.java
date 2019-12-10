@@ -28,7 +28,6 @@ public class FeedbackActivity extends BaseActivity {
 
 
     private void setToolbar() {
-        ((ImageView) binding.toolbar.findViewById(R.id.back_arrow)).setColorFilter(ContextCompat.getColor(this, R.color.screen_title_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
             onBackPressed();
@@ -38,7 +37,6 @@ public class FeedbackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
         context = this;
         setToolbar();
@@ -57,15 +55,15 @@ public class FeedbackActivity extends BaseActivity {
     private void saveFeedbackNetworkCall() {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("subject", binding.subject.getText().toString().trim());
-        parameters.put("message", binding.feedbackMsg.getText().toString().trim());
+        parameters.put("text", binding.feedbackMsg.getText().toString().trim());
 
         AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).changePasswordNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), parameters), new ApiHandler.CallBack() {
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).feedbackNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN), parameters), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.pwd_change_success_alert), getString(R.string.OK), getResources().getColor(R.color.green), status -> onBackPressed());
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.feedback_success_alert), getString(R.string.OK), getResources().getColor(R.color.green), status -> onBackPressed());
                 } else {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), String.valueOf(data), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), null);
                 }

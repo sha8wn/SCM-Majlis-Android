@@ -65,8 +65,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!--scm://user/complete?token=token_value-->
-
                 <data
                     android:host="user"
                     android:scheme="scm" />
@@ -144,6 +142,12 @@
             android:name=".activitys.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activitys.FeedbackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
         <activity android:name=".activitys.BaseActivity" />
         <activity
             android:name=".customviews.MyImageViewPagerActivity"

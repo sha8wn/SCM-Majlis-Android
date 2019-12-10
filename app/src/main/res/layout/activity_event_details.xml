@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
+                android:alpha="0.80"
                 app:layout_constraintBottom_toBottomOf="@+id/cardChild"
                 app:layout_constraintLeft_toLeftOf="@+id/cardChild"
                 app:layout_constraintRight_toRightOf="@+id/cardChild"
@@ -28,10 +29,8 @@
 
             <View
                 android:id="@+id/overlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.2"
-                android:background="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivEventImage"
                 app:layout_constraintLeft_toLeftOf="@+id/ivEventImage"
                 app:layout_constraintRight_toRightOf="@+id/ivEventImage"

@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -65,6 +66,7 @@ public class DocumentActivity extends BaseActivity {
         }
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
+            binding.backgroundView.setBackground(ContextCompat.getDrawable(context, R.drawable.new_bg));
             binding.btnFinish.setText(getString(R.string.finish));
             binding.signupTitle.setVisibility(View.VISIBLE);
             binding.prevoiusTitle.setVisibility(View.VISIBLE);
@@ -76,6 +78,7 @@ public class DocumentActivity extends BaseActivity {
             }
         } else {
             isSettingMenuScreen = true;
+            binding.backgroundView.setBackgroundColor(ContextCompat.getColor(context, R.color.app_theme_color));
             binding.signupTitle.setVisibility(View.GONE);
             binding.prevoiusTitle.setVisibility(View.GONE);
             binding.screenTitle.setText(getString(R.string.manage_documents));

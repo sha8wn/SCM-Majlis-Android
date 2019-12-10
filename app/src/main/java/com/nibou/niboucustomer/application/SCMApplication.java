@@ -4,12 +4,17 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.nibou.niboucustomer.R;
 
 public class SCMApplication extends MultiDexApplication {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setupLibrary();
     }
 
@@ -25,5 +30,12 @@ public class SCMApplication extends MultiDexApplication {
             //firebase setup
             FirebaseApp.initializeApp(SCMApplication.this);
         }).start();
+    }
+
+    synchronized public FirebaseAnalytics getFirebaseAnalytics() {
+        if (mFirebaseAnalytics == null) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        }
+        return mFirebaseAnalytics;
     }
 }

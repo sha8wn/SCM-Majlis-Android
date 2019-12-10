@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,20 +14,32 @@
             layout="@layout/my_toolbar" />
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
+            android:id="@+id/sub_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center|start"
+            android:includeFontPadding="false"
+            android:text="@string/suggestions_enquiries"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sub_title"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/poppins_bold"
             android:gravity="center|start"
             android:includeFontPadding="false"
-            android:text="@string/feedback"
+            android:text="@string/get_in_touch"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:textSize="24sp" />
 
         <ScrollView
             android:id="@+id/main_view"
@@ -48,22 +59,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="@string/repeat_new"
+                    android:hint="@string/subject"
                     android:imeOptions="actionDone"
                     android:inputType="textPersonName"
-                    android:paddingBottom="10dp"
-                    android:text="Subject"
+                    android:padding="20dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/disable_grey"
                     android:textDirection="locale"
                     android:textSize="14sp"
                     android:theme="@style/MyEditTextTheme"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvRepeatPassword" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <EditText
@@ -71,22 +82,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="@string/repeat_new"
+                    android:gravity="start|top"
+                    android:hint="@string/message"
                     android:imeOptions="actionDone"
                     android:minLines="8"
-                    android:paddingBottom="10dp"
-                    android:text="@string/feedback"
-                    android:textAlignment="viewStart"
+                    android:padding="20dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/disable_grey"
                     android:textDirection="locale"
                     android:textSize="14sp"
                     android:theme="@style/MyEditTextTheme"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvRepeatPassword" />
+                    app:layout_constraintTop_toBottomOf="@+id/subject" />
 
                 <TextView
                     android:id="@+id/btn_save"
@@ -99,7 +110,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="@string/save"
+                    android:text="@string/submit"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

@@ -120,4 +120,8 @@ public interface ApiEndPoint {
     @Headers("Content-Type: application/json")
     @POST("_api/promotions_code")
     Call<ErrorResponseModel> redeemNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
+
+    @Headers("Content-Type: application/json")
+    @POST("_api/feedback")
+    Call<ErrorResponseModel> feedbackNetworkCall(@Header("token") String token, @Body HashMap<String, Object> map);
 }

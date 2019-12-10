@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
-            android:alpha="0.85"
+            android:alpha="0.80"
             android:scaleType="centerCrop"
             android:src="@drawable/place_holder"
             app:layout_constraintBottom_toBottomOf="@+id/cardChild"

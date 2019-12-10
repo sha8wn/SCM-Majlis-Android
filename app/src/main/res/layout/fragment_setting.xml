@@ -179,7 +179,7 @@
                     android:fontFamily="@font/seguisb"
                     android:gravity="center|left"
                     android:paddingLeft="20dp"
-                    android:text="@string/feedback"
+                    android:text="@string/contact"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
