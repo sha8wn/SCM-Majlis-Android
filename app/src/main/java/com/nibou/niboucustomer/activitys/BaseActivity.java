@@ -46,8 +46,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, this.getLocalClassName());
-        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        bundle.putString("Screen", this.getClass().getSimpleName());
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(this.getClass().getSimpleName(), bundle);
     }
 
     @Override
