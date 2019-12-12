@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityLoginBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -30,6 +31,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.LOGIN_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {

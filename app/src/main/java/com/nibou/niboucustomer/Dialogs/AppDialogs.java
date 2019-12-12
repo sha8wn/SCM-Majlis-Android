@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.nibou.niboucustomer.adapters.ListAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -233,7 +235,7 @@ public class AppDialogs implements Serializable {
                             }));
 
                         } else {
-                            AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK),context.getResources().getColor(R.color.colorPrimary), null);
+                            AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), context.getResources().getColor(R.color.colorPrimary), null);
                         }
                     }
 
@@ -266,6 +268,7 @@ public class AppDialogs implements Serializable {
         rvBrandList.setAdapter(new GoingToAdapter(context, mList, item -> {
         }));
         dialog.show();
+        ((SCMApplication) ((AppCompatActivity) context).getApplication()).getFirebaseAnalytics().logEvent(AppConstant.GOING_TO_EVENT, new Bundle());
     }
 
 }

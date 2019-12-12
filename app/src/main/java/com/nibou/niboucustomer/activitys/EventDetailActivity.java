@@ -28,6 +28,7 @@ import com.nibou.niboucustomer.adapters.EventDetailsAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityEventDetailsBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -48,6 +49,7 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.EVENT_DETAIL_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_event_details);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {

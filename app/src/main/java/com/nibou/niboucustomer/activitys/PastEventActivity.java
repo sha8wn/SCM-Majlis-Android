@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.adapters.PastEventAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityScmPastEventsBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -31,6 +32,7 @@ public class PastEventActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.PAST_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scm_past_events);
         context = this;
 
@@ -75,7 +77,7 @@ public class PastEventActivity extends BaseActivity {
                     mListAdapter = new PastEventAdapter(context, eventResponseModel);
                     binding.rvEvents.setAdapter(mListAdapter);
                 } else {
-                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK),context.getResources().getColor(R.color.colorPrimary), null);
+                    AppDialogs.getInstance().showCustomDialog(context, context.getString(R.string.error).toUpperCase(), String.valueOf(data), context.getString(R.string.OK), context.getResources().getColor(R.color.colorPrimary), null);
                 }
             }
 

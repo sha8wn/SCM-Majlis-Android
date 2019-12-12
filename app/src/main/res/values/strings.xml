@@ -9,14 +9,14 @@
     <string name="save">Save</string>
     <string name="OK">Ok</string>
     <string name="CANCEL">Cancel</string>
-    <string name="welcome_to_nibou">Welcome to SuperCars Majlis</string>
+    <string name="welcome_to_nibou">Welcome to\nSuperCars Majlis</string>
     <string name="step_survey">Events</string>
     <string name="step_secure">Promotions</string>
     <string name="step_value">Welcome to SCM,\nlets begin!</string>
-    <string name="lets_begin">lets begin!</string>
+    <string name="lets_begin"> Let\'s begin</string>
     <string name="survey_description">Get notified about the latest events and RSVP to them using the app</string>
     <string name="secure_description">Get connected to our partners and get exclusive offers available only to SCM members.</string>
-    <string name="welcome_description">Many brands, one passion.</string>
+    <string name="welcome_description">Many brands, one passion.\nSupercars</string>
     <string name="new_user">Register</string>
     <string name="register_your_interest">Register</string>
     <string name="old_user">I am a\nreturning user</string>
@@ -78,7 +78,6 @@
     <string name="brand">Brand</string>
     <string name="model">Model</string>
     <string name="submit">Submit</string>
-    <string name="login_text">Login</string>
     <string name="login">Log in</string>
     <string name="name_empty_alert">Please enter full name.</string>
     <string name="email_empty_alert">Please enter email address.</string>

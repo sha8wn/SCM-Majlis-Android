@@ -16,6 +16,7 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.databinding.ActivitySignupBinding;
 import com.nibou.niboucustomer.models.ErrorResponseModel;
@@ -36,6 +37,8 @@ public class SignupActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication)getApplication()).getFirebaseAnalytics().logEvent(AppConstant.REGISTER_EVENT, new Bundle());
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {

@@ -24,6 +24,7 @@ import com.nibou.niboucustomer.adapters.PromotionAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.callbacks.AppCallBack;
 import com.nibou.niboucustomer.databinding.FragmentPromotionBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
@@ -51,6 +52,7 @@ public class PromotionFragment extends Fragment implements AppCallBack {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((SCMApplication) getActivity().getApplication()).getFirebaseAnalytics().logEvent(AppConstant.PROMOTION_EVENT, new Bundle());
     }
 
     @Override

@@ -29,6 +29,7 @@ import com.nibou.niboucustomer.adapters.PastEventAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.FragmentScmEventsBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -56,7 +57,7 @@ public class EventFragment extends Fragment implements LocationListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((SCMApplication) getActivity().getApplication()).getFirebaseAnalytics().logEvent(AppConstant.HOME_EVENT, new Bundle());
         binding.tvCheckIn.setOnClickListener(v -> {
             if (binding.tvCheckIn.getText().toString().equalsIgnoreCase(getString(R.string.check_in))) {
                 if (AppUtil.isInternetAvailable(context)) {
@@ -205,10 +206,10 @@ public class EventFragment extends Fragment implements LocationListener {
 //                            }
 //                        }
 
-                    }else{
+                    } else {
                         binding.errorMessage.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     binding.errorMessage.setVisibility(View.VISIBLE);
                 }
             }

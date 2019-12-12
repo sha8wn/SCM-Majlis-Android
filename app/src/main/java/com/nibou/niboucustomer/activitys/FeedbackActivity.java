@@ -13,6 +13,7 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityFeedbackBinding;
 import com.nibou.niboucustomer.models.ErrorResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -26,7 +27,6 @@ public class FeedbackActivity extends BaseActivity {
     private ActivityFeedbackBinding binding;
     private Context context;
 
-
     private void setToolbar() {
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
             AppUtil.hideKeyBoard(context);
@@ -37,6 +37,7 @@ public class FeedbackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication)getApplication()).getFirebaseAnalytics().logEvent(AppConstant.CONTACT_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
         context = this;
         setToolbar();

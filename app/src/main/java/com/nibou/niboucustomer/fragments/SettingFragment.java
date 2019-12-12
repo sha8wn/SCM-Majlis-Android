@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.activitys.*;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.FragmentSettingBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -39,6 +40,8 @@ public class SettingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((SCMApplication) getActivity().getApplication()).getFirebaseAnalytics().logEvent(AppConstant.SETTING_EVENT, new Bundle());
+
         initView();
         if (AppUtil.isInternetAvailable(getActivity())) {
             getUserDetailsNetworkCall();

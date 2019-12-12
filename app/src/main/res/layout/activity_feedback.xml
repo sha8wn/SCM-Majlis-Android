@@ -54,19 +54,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+                <TextView
+                    android:id="@+id/tvsubject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:alpha="0.5"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center|start"
+                    android:includeFontPadding="false"
+                    android:text="@string/subject"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <EditText
                     android:id="@+id/subject"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="@string/subject"
+                    android:gravity="start|top"
+                    android:hint="Enter subject here"
                     android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
-                    android:padding="20dp"
-                    android:textAlignment="viewStart"
+                    android:inputType="textCapSentences"
                     android:textColor="@color/white"
                     android:textColorHint="@color/disable_grey"
                     android:textDirection="locale"
@@ -74,7 +92,26 @@
                     android:theme="@style/MyEditTextTheme"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvsubject" />
+
+
+                <TextView
+                    android:id="@+id/tvfeedback_msg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.5"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center|start"
+                    android:includeFontPadding="false"
+                    android:text="@string/message"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subject" />
 
 
                 <EditText
@@ -82,14 +119,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="start|top"
-                    android:hint="@string/message"
+                    android:hint="Enter message here"
                     android:imeOptions="actionDone"
-                    android:minLines="8"
-                    android:padding="20dp"
+                    android:minLines="6"
                     android:textColor="@color/white"
                     android:textColorHint="@color/disable_grey"
                     android:textDirection="locale"
@@ -97,7 +133,7 @@
                     android:theme="@style/MyEditTextTheme"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/subject" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvfeedback_msg" />
 
                 <TextView
                     android:id="@+id/btn_save"

@@ -20,6 +20,7 @@ import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityPrivacyPolicyBinding;
 import com.nibou.niboucustomer.databinding.ActivityRedeemBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
@@ -38,6 +39,7 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.PROMOTION_DETAIL_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_redeem);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setVisibility(View.INVISIBLE);
@@ -170,6 +172,7 @@ public class RedeemActivity extends BaseActivity implements TextWatcher, TextVie
                         AppDialogs.getInstance().showProgressBar(context, null, false);
                         if (isSuccess) {
                             AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.redeem_success_alert), getString(R.string.continu), getResources().getColor(R.color.green), status -> {
+                                ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.PROMOTION_REDEMPTION_EVENT, new Bundle());
                                 Intent intent = new Intent();
                                 setResult(RESULT_OK, intent);
                                 finish();

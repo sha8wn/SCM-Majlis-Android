@@ -15,6 +15,7 @@ import com.nibou.niboucustomer.adapters.AddSuperCarAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivitySupercarsBinding;
 import com.nibou.niboucustomer.models.ListResponseModel;
 import com.nibou.niboucustomer.utils.AppConstant;
@@ -38,6 +39,7 @@ public class AddSuperCarActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.MANAGE_CAR_EVENT, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_supercars);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
@@ -56,7 +58,7 @@ public class AddSuperCarActivity extends BaseActivity {
 
         if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
             isSettingMenuScreen = false;
-            binding.backgroundView.setBackground(ContextCompat.getDrawable(context,R.drawable.new_bg));
+            binding.backgroundView.setBackground(ContextCompat.getDrawable(context, R.drawable.new_bg));
             binding.btnSave.setVisibility(View.GONE);
             binding.btnNext.setVisibility(View.VISIBLE);
             binding.signupTitle.setVisibility(View.VISIBLE);
@@ -82,7 +84,7 @@ public class AddSuperCarActivity extends BaseActivity {
 
         } else {
             isSettingMenuScreen = true;
-            binding.backgroundView.setBackgroundColor(ContextCompat.getColor(context,R.color.app_theme_color));
+            binding.backgroundView.setBackgroundColor(ContextCompat.getColor(context, R.color.app_theme_color));
             binding.signupTitle.setVisibility(View.GONE);
             binding.prevoiusTitle.setVisibility(View.GONE);
             binding.nextTitle.setVisibility(View.GONE);

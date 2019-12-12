@@ -19,6 +19,7 @@ import com.nibou.niboucustomer.adapters.RSVPCarAdapter;
 import com.nibou.niboucustomer.api.ApiClient;
 import com.nibou.niboucustomer.api.ApiEndPoint;
 import com.nibou.niboucustomer.api.ApiHandler;
+import com.nibou.niboucustomer.application.SCMApplication;
 import com.nibou.niboucustomer.databinding.ActivityEventDetailsBinding;
 import com.nibou.niboucustomer.databinding.ActivityReserveSpotBinding;
 import com.nibou.niboucustomer.models.ErrorResponseModel;
@@ -40,6 +41,7 @@ public class RSVPSpotActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.MAKE_EVENT_RESERVATION, new Bundle());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reserve_spot);
         context = this;
         binding.toolbar.findViewById(R.id.back_arrow).setOnClickListener(v -> {
@@ -105,6 +107,7 @@ public class RSVPSpotActivity extends BaseActivity {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
                     AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.reserve_spot_alert) + " " + modelList.getName(), getString(R.string.OK), getResources().getColor(R.color.green), status -> {
+                        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.SUCCESS_EVENT_REGISTRATION, new Bundle());
                         setResult(RESULT_OK, new Intent());
                         finish();
                     });
