@@ -160,7 +160,7 @@
 
     <string name="enter_subject">Please enter the subject.</string>
     <string name="enter_feedback">Please enter the message.</string>
-    <string name="feedback_success_alert">Feedback send successfully.</string>
+    <string name="feedback_success_alert">Feedback sent successfully.</string>
     <string name="event_empty_error">We can\'t wait to show you what we have lined up for you. Stay tuned for future events here.</string>
     <string name="promotion_empty_error">We are working on bringing exciting offers to you. Stay tuned for future promotions here.</string>
 

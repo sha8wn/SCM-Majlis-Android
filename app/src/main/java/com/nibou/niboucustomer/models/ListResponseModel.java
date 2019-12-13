@@ -361,6 +361,10 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @Expose
         private String limit_guests;
 
+        @SerializedName("limit_cars")
+        @Expose
+        private String limit_cars ;
+
         @SerializedName("fee")
         @Expose
         private String fee;
@@ -511,6 +515,14 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
 
         public void setLimit_guests(String limit_guests) {
             this.limit_guests = limit_guests;
+        }
+
+        public String getLimit_cars() {
+            return limit_cars;
+        }
+
+        public void setLimit_cars(String limit_cars) {
+            this.limit_cars = limit_cars;
         }
 
         public String getFee() {

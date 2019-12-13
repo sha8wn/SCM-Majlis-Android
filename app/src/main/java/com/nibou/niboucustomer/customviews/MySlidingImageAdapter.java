@@ -43,6 +43,12 @@ public class MySlidingImageAdapter extends PagerAdapter {
 
         final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.zoomableImageView);
 
+        imageView.setOnClickListener(v -> {
+            if (context instanceof MyImageViewPagerActivity) {
+                ((MyImageViewPagerActivity) context).handleCrossButton();
+            }
+        });
+
         final ProgressBar progressBar = (ProgressBar) imageLayout.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         if (imgArrayList.get(position).getImg() != null && !imgArrayList.get(position).getImg().isEmpty()) {

@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -118,8 +120,7 @@ public class PromotionFragment extends Fragment implements AppCallBack {
                 e.printStackTrace();
             }
         });
-
-        TextView label = dialog.findViewById(R.id.label);
+        final TextView label = dialog.findViewById(R.id.label);
         label.setText(modelList.getPartner_name());
         TextView des = dialog.findViewById(R.id.tvDesc);
         des.setText(modelList.getName());
@@ -133,6 +134,19 @@ public class PromotionFragment extends Fragment implements AppCallBack {
         text.setText(modelList.getText());
         TextView term_text = dialog.findViewById(R.id.term_text);
         term_text.setText(modelList.getTerms());
+
+
+        final TextView center_label = dialog.findViewById(R.id.center_label);
+        center_label.setAlpha(0f);
+        center_label.setText(modelList.getPartner_name());
+        dialog.findViewById(R.id.scrollView).getViewTreeObserver().addOnScrollChangedListener(() -> {
+            int scrollY = dialog.findViewById(R.id.scrollView).getScrollY();
+            if (scrollY > 100) {
+                center_label.animate().alpha(1f).setDuration(400);
+            } else {
+                center_label.animate().alpha(0f).setDuration(100);
+            }
+        });
 
         dialog.show();
     }

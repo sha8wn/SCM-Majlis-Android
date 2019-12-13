@@ -67,7 +67,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             myViewHolder.ivLive.setVisibility(View.INVISIBLE);
         }
 
-        if (modelList.get(position).getLimit_guests() != null && !modelList.get(position).getLimit_guests().equals("0")) {
+        if (modelList.get(position).getLimit_cars() != null && !modelList.get(position).getLimit_cars().equals("0")) {
             myViewHolder.tvPerson.setVisibility(View.VISIBLE);
             if (Integer.parseInt(getLeftSpot(modelList.get(position))) <= 0) {
                 myViewHolder.tvPerson.setText(context.getString(R.string.fully_booked));
@@ -107,18 +107,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     private String getLeftSpot(ListResponseModel.ModelList modelList) {
         if (modelList.getUsers() != null && modelList.getUsers().size() > 0) {
-            int guest = 0;
-            for (int i = 0; i < modelList.getUsers().size(); i++) {
-                if (modelList.getUsers().get(i).getGuests() != null && !modelList.getUsers().get(i).getGuests().isEmpty())
-                    guest = guest + Integer.parseInt(modelList.getUsers().get(i).getGuests());
-            }
-            if ((Integer.parseInt(modelList.getLimit_guests()) - guest) < 0)
+            if ((Integer.parseInt(modelList.getLimit_cars()) - modelList.getUsers().size()) < 0)
                 return "0";
             else
-                return String.valueOf(Integer.parseInt(modelList.getLimit_guests()) - guest);
+                return String.valueOf(Integer.parseInt(modelList.getLimit_cars()) - modelList.getUsers().size());
         } else {
-            return modelList.getLimit_guests();
+            return modelList.getLimit_cars();
         }
+//        if (modelList.getUsers() != null && modelList.getUsers().size() > 0) {
+//            int guest = 0;
+//            for (int i = 0; i < modelList.getUsers().size(); i++) {
+//                if (modelList.getUsers().get(i).getGuests() != null && !modelList.getUsers().get(i).getGuests().isEmpty())
+//                    guest = guest + Integer.parseInt(modelList.getUsers().get(i).getGuests());
+//            }
+//            if ((Integer.parseInt(modelList.getLimit_guests()) - guest) < 0)
+//                return "0";
+//            else
+//                return String.valueOf(Integer.parseInt(modelList.getLimit_guests()) - guest);
+//        } else {
+//            return modelList.getLimit_guests();
+//        }
     }
 
     private void loadProfileImage(ImageView imageView, String url) {
