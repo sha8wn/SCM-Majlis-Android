@@ -109,7 +109,6 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
         } else {
             binding.ivLive.setVisibility(View.INVISIBLE);
         }
-
         if (modelList.getLimit_cars() != null && !modelList.getLimit_cars().equals("0")) {
             binding.tvPerson.setVisibility(View.VISIBLE);
             if (Integer.parseInt(getLeftSpot(modelList)) <= 0) {
@@ -120,7 +119,6 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
         } else {
             binding.tvPerson.setVisibility(View.INVISIBLE);
         }
-
         if (modelList.getUsers() != null && modelList.getUsers().size() > 0) {
             binding.goingView.setVisibility(View.VISIBLE);
             binding.tvGoing.setText(modelList.getUsers().size() + " " + context.getString(R.string.going));
@@ -150,20 +148,23 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
         if (modelList.getReservation() == 0) {
             binding.btnReserveSpot.setText(getString(R.string.reserve_my_spot));
             binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_gradient));
-        } else {
-            if (modelList.getStatus() != null && modelList.getStatus().equals("Live")) {
-                binding.btnReserveSpot.setVisibility(View.GONE);
-            } else {
-                binding.btnReserveSpot.setText(getString(R.string.unreserve));
-                binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.grey_btn_gradient));
-            }
-        }
-
-        if (modelList.getLimit_cars() != null && Integer.parseInt(modelList.getLimit_cars()) != 0) {
-            if (Integer.parseInt(getLeftSpot(modelList)) <= 0) {
+            if (modelList.getLimit_cars() != null && Integer.parseInt(modelList.getLimit_cars()) != 0 && Integer.parseInt(getLeftSpot(modelList)) <= 0) {
                 binding.btnReserveSpot.setVisibility(View.VISIBLE);
                 binding.btnReserveSpot.setEnabled(false);
                 binding.btnReserveSpot.setText(getString(R.string.fully_booked));
+                binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.grey_btn_gradient));
+            }
+        } else {
+            if (modelList.getStatus() != null && modelList.getStatus().equals("Live")) {
+                binding.btnReserveSpot.setVisibility(View.GONE);
+                if (modelList.getLimit_cars() != null && Integer.parseInt(modelList.getLimit_cars()) != 0 && Integer.parseInt(getLeftSpot(modelList)) <= 0) {
+                    binding.btnReserveSpot.setVisibility(View.VISIBLE);
+                    binding.btnReserveSpot.setEnabled(false);
+                    binding.btnReserveSpot.setText(getString(R.string.fully_booked));
+                    binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.grey_btn_gradient));
+                }
+            } else {
+                binding.btnReserveSpot.setText(getString(R.string.unreserve));
                 binding.btnReserveSpot.setBackground(ContextCompat.getDrawable(context, R.drawable.grey_btn_gradient));
             }
         }
@@ -198,21 +199,6 @@ public class EventDetailActivity extends BaseActivity implements LocationListene
         } else {
             return modelList.getLimit_cars();
         }
-
-//        if (modelList.getUsers() != null && modelList.getUsers().size() > 0) {
-//            int guest = 0;
-//            for (int i = 0; i < modelList.getUsers().size(); i++) {
-//                if (modelList.getUsers().get(i).getGuests() != null && !modelList.getUsers().get(i).getGuests().isEmpty())
-//                    guest = guest + Integer.parseInt(modelList.getUsers().get(i).getGuests());
-//            }
-//            if ((Integer.parseInt(modelList.getLimit_guests()) - guest) < 0)
-//                return "0";
-//            else
-//                return String.valueOf(Integer.parseInt(modelList.getLimit_guests()) - guest);
-//        } else {
-//            return modelList.getLimit_guests();
-//        }
-
     }
 
     private void loadImage(ImageView imageView, String url) {

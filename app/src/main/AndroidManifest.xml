@@ -23,8 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:node="merge"
-        tools:replace="android:allowBackup,android:label">
+        tools:replace="android:allowBackup">
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -80,6 +79,7 @@
             android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".activitys.WelcomeActivity"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"></activity>
 
