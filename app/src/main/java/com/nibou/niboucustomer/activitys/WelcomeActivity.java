@@ -43,10 +43,10 @@ public class WelcomeActivity extends BaseActivity {
         VideoView view = (VideoView) findViewById(R.id.videoView);
         videoThumbnail = findViewById(R.id.videoThumbnail);
 
-        videoURI = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video);
+        videoURI = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.new_video);
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(this, videoURI);
-        videoThumbnail.setBackground(new BitmapDrawable(getResources(), retriever.getFrameAtTime(100, MediaMetadataRetriever.OPTION_PREVIOUS_SYNC)));
+        videoThumbnail.setBackground(new BitmapDrawable(getResources(), retriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_PREVIOUS_SYNC)));
 
         view.setVideoURI(videoURI);
         view.requestFocus();

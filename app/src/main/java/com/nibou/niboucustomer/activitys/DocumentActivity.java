@@ -182,7 +182,19 @@ public class DocumentActivity extends BaseActivity {
         binding.btnFinish.setOnClickListener(v -> {
             if (AppUtil.isInternetAvailable(context)) {
                 if (screenValidate()) {
-                    updateUserDocumentNetworkCall();
+                    if (isSettingMenuScreen) {
+                        updateUserDocumentNetworkCall();
+                    } else {
+                        if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
+                            AppDialogs.getInstance().showConfirmCustomDialog(context, getString(R.string.alert), getString(R.string.registeration_confirmation_alert), getString(R.string.CANCEL), getString(R.string.register_your_interest), getResources().getColor(R.color.green), status -> {
+                                if (status) {
+                                    updateUserDocumentNetworkCall();
+                                }
+                            });
+                        } else {
+                            updateUserDocumentNetworkCall();
+                        }
+                    }
                 }
             } else {
                 AppUtil.showToast(context, getString(R.string.internet_error));
