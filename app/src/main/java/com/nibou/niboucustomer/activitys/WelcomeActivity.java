@@ -39,38 +39,59 @@ public class WelcomeActivity extends BaseActivity {
 
     public void showVideoAndThumbnail() {
 
-        startButton = findViewById(R.id.startButton);
-        VideoView view = (VideoView) findViewById(R.id.videoView);
-        videoThumbnail = findViewById(R.id.videoThumbnail);
-
         videoURI = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.new_video);
+
+        videoThumbnail = findViewById(R.id.videoThumbnail);
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(this, videoURI);
-        videoThumbnail.setBackground(new BitmapDrawable(getResources(), retriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_PREVIOUS_SYNC)));
+        videoThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        videoThumbnail.setImageBitmap(retriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_PREVIOUS_SYNC));
 
-        view.setVideoURI(videoURI);
-        view.requestFocus();
-        view.setOnPreparedListener(mp -> {
-            if (!isStarted) {
-                view.seekTo(300);
-                view.pause();
+        TextureVideoView view = findViewById(R.id.videoView);
+        view.setScaleType(TextureVideoView.ScaleType.CENTER_CROP);
+
+        view.setDataSource(this, videoURI);
+        view.setListener(new TextureVideoView.MediaPlayerListener() {
+            @Override
+            public void onVideoPrepared() {
+                videoThumbnail.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onVideoEnd() {
+                LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
+                Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
+                startActivity(intent);
+                finishAffinity();
             }
         });
 
+        startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(v -> {
-            isStarted = true;
-            view.start();
-            view.setAlpha(1);
-            videoThumbnail.setVisibility(View.INVISIBLE);
+            view.play();
         });
 
-        view.setOnErrorListener((mp, what, extra) -> true);
-
-        view.setOnCompletionListener(mp -> {
-            LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
-            Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
-            startActivity(intent);
-            finishAffinity();
-        });
+//        view.setVideoURI(videoURI);
+//        view.requestFocus();
+//        view.setOnPreparedListener(mp -> {
+//            if (!isStarted) {
+//                view.seekTo(300);
+//                view.pause();
+//            }
+//        });
+//        startButton.setOnClickListener(v -> {
+//            isStarted = true;
+//            view.start();
+//            view.setAlpha(1);
+//            videoThumbnail.setVisibility(View.INVISIBLE);
+//        });
+//
+//        view.setOnErrorListener((mp, what, extra) -> true);
+//        view.setOnCompletionListener(mp -> {
+////            LocalPrefences.getInstance().putBoolean(WelcomeActivity.this, AppConstant.IS_FIRST_LAUNCH_SUCCESS, true);
+////            Intent intent = new Intent(WelcomeActivity.this, UserCheckActivity.class);
+////            startActivity(intent);
+////            finishAffinity();
+//        });
     }
 }
