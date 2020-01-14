@@ -44,6 +44,10 @@ public interface ApiEndPoint {
     Call<ListResponseModel> getUserDetailsNetworkCall(@Header("token") String token);
 
     @Headers("Content-Type: application/json")
+    @GET("_api/users")
+    Call<ListResponseModel> getSettingScreenNetworkCall(@Header("token") String token, @Query("id") String id);
+
+    @Headers("Content-Type: application/json")
     @PUT("_api/users/{id}")
     Call<ListResponseModel> updateUserDetailNetworkCall(@Path("id") String userId, @Header("token") String token, @Body HashMap<String, Object> map);
 

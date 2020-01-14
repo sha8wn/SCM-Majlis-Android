@@ -95,7 +95,7 @@ public class EditProfileActivity extends BaseActivity {
 
     private void getUserDetailsNetworkCall() {
         AppDialogs.getInstance().showProgressBar(context, null, true);
-        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getUserDetailsNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN)), new ApiHandler.CallBack() {
+        ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).getSettingScreenNetworkCall(LocalPrefences.getInstance().getString(context, AppConstant.TOKEN),LocalPrefences.getInstance().getString(context, AppConstant.USER_ID)), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);

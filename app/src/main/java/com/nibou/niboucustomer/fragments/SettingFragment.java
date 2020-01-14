@@ -44,7 +44,7 @@ public class SettingFragment extends Fragment {
 
         initView();
         if (AppUtil.isInternetAvailable(getActivity())) {
-            getUserDetailsNetworkCall();
+            getSettingScreenNetworkCall();
         } else {
             AppUtil.showToast(getActivity(), getString(R.string.internet_error));
         }
@@ -125,9 +125,9 @@ public class SettingFragment extends Fragment {
         }
     }
 
-    private void getUserDetailsNetworkCall() {
+    private void getSettingScreenNetworkCall() {
         AppDialogs.getInstance().showProgressBar(getActivity(), null, true);
-        ApiHandler.requestService(getActivity(), ApiClient.getClient().create(ApiEndPoint.class).getUserDetailsNetworkCall(LocalPrefences.getInstance().getString(getActivity(), AppConstant.TOKEN)), new ApiHandler.CallBack() {
+        ApiHandler.requestService(getActivity(), ApiClient.getClient().create(ApiEndPoint.class).getSettingScreenNetworkCall(LocalPrefences.getInstance().getString(getActivity(), AppConstant.TOKEN), LocalPrefences.getInstance().getString(getActivity(), AppConstant.USER_ID)), new ApiHandler.CallBack() {
             @Override
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(getActivity(), null, false);
