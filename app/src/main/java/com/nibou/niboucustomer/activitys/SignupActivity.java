@@ -37,7 +37,7 @@ public class SignupActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((SCMApplication)getApplication()).getFirebaseAnalytics().logEvent(AppConstant.REGISTER_EVENT, new Bundle());
+        ((SCMApplication) getApplication()).getFirebaseAnalytics().logEvent(AppConstant.REGISTER_EVENT, new Bundle());
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         context = this;
@@ -221,7 +221,7 @@ public class SignupActivity extends BaseActivity {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("name", binding.etName.getText().toString().trim());
         parameters.put("email", binding.etEmail.getText().toString().trim());
-        parameters.put("phone", "00971" + binding.etPhone.getText().toString().trim());
+        parameters.put("phone", binding.etPhone.getText().toString().trim());
         parameters.put("password", binding.etPassword.getText().toString());
         AppDialogs.getInstance().showProgressBar(context, null, true);
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).updateUserDetailNetworkCall(userId, token, parameters), new ApiHandler.CallBack() {
@@ -251,11 +251,8 @@ public class SignupActivity extends BaseActivity {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("name", binding.etName.getText().toString());
         parameters.put("email", binding.etEmail.getText().toString());
-        parameters.put("phone", "00971" + binding.etPhone.getText().toString());
+        parameters.put("phone", binding.etPhone.getText().toString());
         parameters.put("uid", deviceToken);
-
-        // parameters.put("brand", binding.etBrand.getTag());
-        // parameters.put("model", binding.etModel.getTag());
 
         ApiHandler.requestService(context, ApiClient.getClient().create(ApiEndPoint.class).registerUserNetworkCall(parameters), new ApiHandler.CallBack() {
             @Override
@@ -293,13 +290,6 @@ public class SignupActivity extends BaseActivity {
             AppUtil.showToast(context, getResources().getString(R.string.phone_empty_alert));
             return false;
         }
-//        else if (TextUtils.isEmpty(binding.etBrand.getText())) {
-//            AppUtil.showToast(context, getResources().getString(R.string.brand_empty_alert));
-//            return false;
-//        } else if (TextUtils.isEmpty(binding.etModel.getText())) {
-//            AppUtil.showToast(context, getResources().getString(R.string.model_empty_alert));
-//            return false;
-//        }
         return true;
     }
 

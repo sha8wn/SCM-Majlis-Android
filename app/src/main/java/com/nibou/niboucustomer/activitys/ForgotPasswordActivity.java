@@ -52,7 +52,7 @@ public class ForgotPasswordActivity extends BaseActivity {
             public void success(boolean isSuccess, Object data) {
                 AppDialogs.getInstance().showProgressBar(context, null, false);
                 if (isSuccess) {
-                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.error).toUpperCase(), getString(R.string.dialog_reset_pwd_message), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), status -> {
+                    AppDialogs.getInstance().showCustomDialog(context, getString(R.string.success).toUpperCase(), getString(R.string.dialog_reset_pwd_message), getString(R.string.OK), getResources().getColor(R.color.colorPrimary), status -> {
                         onBackPressed();
                     });
                 } else {

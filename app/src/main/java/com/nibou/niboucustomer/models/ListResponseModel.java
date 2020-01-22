@@ -294,6 +294,11 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
         @SerializedName("id")
         @Expose
         private String id;
+
+        @SerializedName("id2")
+        @Expose
+        private String id2;
+
         @SerializedName("created")
         @Expose
         private String created;
@@ -688,6 +693,14 @@ public class ListResponseModel extends ErrorResponseModel implements Serializabl
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getId2() {
+            return id2;
+        }
+
+        public void setId2(String id2) {
+            this.id2 = id2;
         }
 
         public String getUpdated() {

@@ -117,7 +117,7 @@ public class SettingFragment extends Fragment {
 
     private void showData(ListResponseModel.ModelList modelList) {
         binding.tvTitle.setText(modelList.getName());
-        binding.tvCode.setText("SCM00" + modelList.getId());
+        binding.tvCode.setText("SCM" + modelList.getId2());
         if (modelList.getExpiry() != null && !modelList.getExpiry().contains("0000-00-00")) {
             binding.tvDate.setText(DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getCreated()), "MMM dd, yyyy") + " to " + DateFormatUtil.getRequiredDateFormat(DateFormatUtil.getMilliesFromServerDate(modelList.getExpiry()), "MMM dd, yyyy"));
         } else {

@@ -127,7 +127,7 @@
             android:name=".activitys.EditProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ProfileScreenTheme"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".activitys.EventDetailActivity"

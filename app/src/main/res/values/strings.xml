@@ -121,9 +121,7 @@
     <string name="link_expired">This link has already been used.</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="reset_pwd">Reset my password</string>
-    <string name="dialog_reset_pwd_message">If you have entered a valid email, you will recieve an email with reset
-        instructions.
-    </string>
+    <string name="dialog_reset_pwd_message">Please check your registered email for further instructions.</string>
     <string name="spots_remaining">spots remaining</string>
     <string name="finish">Finish</string>
     <string name="profile">Profile</string>
