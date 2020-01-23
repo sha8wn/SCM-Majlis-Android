@@ -235,7 +235,7 @@ public class AddSuperCarActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
-
+            super.onBackPressed();
         } else {
             if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
                 Intent intent = new Intent();

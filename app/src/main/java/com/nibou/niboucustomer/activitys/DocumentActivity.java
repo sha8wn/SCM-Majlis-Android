@@ -393,7 +393,7 @@ public class DocumentActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getIntent().hasExtra(AppConstant.NORMAL_SIGNUP)) {
-
+            super.onBackPressed();
         } else {
             if (getIntent().hasExtra(AppConstant.ADMIN_SIGNUP)) {
                 super.onBackPressed();

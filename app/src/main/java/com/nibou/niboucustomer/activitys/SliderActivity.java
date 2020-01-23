@@ -1,5 +1,6 @@
 package com.nibou.niboucustomer.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,8 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nibou.niboucustomer.R;
 import com.nibou.niboucustomer.fragments.PagerFragment;
@@ -108,5 +111,4 @@ public class SliderActivity extends BaseActivity {
             return 3;
         }
     }
-
 }
